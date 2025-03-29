@@ -1,90 +1,150 @@
-quests:
-  daily_tree_chopper:
-    currency: 75
-    description: Break 30 oak logs
-    rarity: RARE
-    skill_points: 2
-    target: 30
-    target_key: OAK_LOG
-    tier: DAILY
-    type: MINE_BLOCK
-  daily_zombie_killer:
-    currency: 50
-    description: Kill 15 Zombies
-    rarity: COMMON
-    skill_points: 1
-    target: 15
-    target_key: ZOMBIE
-    tier: DAILY
-    type: KILL_MOB
-  global_boss_damage:
-    currency: 1000
-    description: Deal 10,000 damage to bosses
-    rarity: LEGENDARY
-    skill_points: 10
-    target: 10000
-    target_key: BOSS_DAMAGE
-    tier: GLOBAL
-    type: CUSTOM
-  global_mob_kills:
-    currency: 800
-    description: Kill 1000 hostile mobs
-    rarity: EPIC
-    skill_points: 8
-    target: 1000
-    target_key: HOSTILE
-    tier: GLOBAL
-    type: KILL_MOB
-  weekly_combat_skiller:
-    currency: 250
-    description: Use Combat Skill 10 times
-    rarity: RARE
-    skill_points: 4
-    target: 10
-    target_key: combat
-    tier: WEEKLY
-    type: USE_SKILL
-  weekly_miner:
-    currency: 300
-    description: Mine 200 stone
-    rarity: EPIC
-    skill_points: 5
-    target: 200
-    target_key: STONE
-    tier: WEEKLY
-    type: MINE_BLOCK
-  tame-wolf:
-    description: "Tame a wolf"
-    type: TAME_ENTITY
-    target: WOLF
-    rarity: RARE
-    amount: 1
-    currency: 100
-    skill: 2
-
-  craft-diamond-sword:
-    description: "Craft a Diamond Sword"
-    type: CRAFT_ITEM
-    target: DIAMOND_SWORD
-    rarity: EPIC
-    amount: 1
-    currency: 150
-    skill: 3
-
-  breed-cows:
-    description: "Breed two cows"
-    type: BREED_ANIMAL
-    target: COW
-    rarity: COMMON
-    amount: 2
-    currency: 75
-    skill: 1
-
-  villager-trade:
-    description: "Trade with a Villager"
-    type: TRADE
-    target: VILLAGER
-    rarity: COMMON
-    amount: 3
-    currency: 60
-    skill: 1
+  "daily": {
+        "zombie_slayer": {
+            "id": "zombie_slayer",
+            "description": "Defeat 10 zombies",
+            "type": "KILL_MOB",
+            "target": "ZOMBIE",
+            "amount": 10,
+            "currency": 100,
+            "skillpoints": 1,
+            "skillreward": "FIGHTING",
+            "skillxp": 50,
+            "rarity": "COMMON"
+        },
+        "log_collector": {
+            "id": "log_collector",
+            "description": "Gather 30 spruce logs",
+            "type": "GATHER_ITEM",
+            "target": "SPRUCE_LOG",
+            "amount": 30,
+            "currency": 80,
+            "skillpoints": 1,
+            "skillreward": "FORAGING",
+            "skillxp": 40,
+            "rarity": "COMMON"
+        },
+        "stone_smith": {
+            "id": "stone_smith",
+            "description": "Craft 10 stone swords",
+            "type": "CRAFT_ITEM",
+            "target": "STONE_SWORD",
+            "amount": 10,
+            "currency": 90,
+            "skillpoints": 2,
+            "skillreward": "CRAFTING",
+            "skillxp": 60,
+            "rarity": "RARE"
+        },
+        "walk_it_off": {
+            "id": "walk_it_off",
+            "description": "Walk 1000 blocks",
+            "type": "WALK_DISTANCE",
+            "target": "ANY",
+            "amount": 1000,
+            "currency": 70,
+            "skillpoints": 1,
+            "skillreward": "ENDURANCE",
+            "skillxp": 30,
+            "rarity": "COMMON"
+        },
+        "nom_nom": {
+            "id": "nom_nom",
+            "description": "Eat 5 cooked beef",
+            "type": "CONSUME_ITEM",
+            "target": "COOKED_BEEF",
+            "amount": 5,
+            "currency": 60,
+            "skillpoints": 1,
+            "skillreward": "HEALTH",
+            "skillxp": 20,
+            "rarity": "COMMON"
+        }
+    },
+    "weekly": {
+        "iron_miner": {
+            "id": "iron_miner",
+            "description": "Mine 25 iron ore",
+            "type": "MINE_BLOCK",
+            "target": "IRON_ORE",
+            "amount": 25,
+            "currency": 120,
+            "skillpoints": 3,
+            "skillreward": "MINING",
+            "skillxp": 100,
+            "rarity": "RARE"
+        },
+        "deep_explorer": {
+            "id": "deep_explorer",
+            "description": "Enter the Deep Dark biome",
+            "type": "EXPLORE_BIOME",
+            "target": "DEEP_DARK",
+            "amount": 1,
+            "currency": 200,
+            "skillpoints": 4,
+            "skillreward": "EXPLORATION",
+            "skillxp": 150,
+            "rarity": "EPIC"
+        },
+        "fish_master": {
+            "id": "fish_master",
+            "description": "Catch 15 cod",
+            "type": "FISH",
+            "target": "COD",
+            "amount": 15,
+            "currency": 100,
+            "skillpoints": 2,
+            "skillreward": "FISHING",
+            "skillxp": 75,
+            "rarity": "COMMON"
+        },
+        "nether_looter": {
+            "id": "nether_looter",
+            "description": "Loot 3 bastion chests",
+            "type": "LOOT",
+            "target": "CHEST",
+            "amount": 3,
+            "currency": 150,
+            "skillpoints": 3,
+            "skillreward": "LOOTING",
+            "skillxp": 90,
+            "rarity": "EPIC"
+        }
+    },
+    "global": {
+        "animal_whisperer": {
+            "id": "animal_whisperer",
+            "description": "Tame 3 wolves",
+            "type": "TAME_ENTITY",
+            "target": "WOLF",
+            "amount": 3,
+            "currency": 250,
+            "skillpoints": 5,
+            "skillreward": "TAMING",
+            "skillxp": 200,
+            "rarity": "LEGENDARY"
+        },
+        "blacksmith_apprentice": {
+            "id": "blacksmith_apprentice",
+            "description": "Smelt 50 iron ingots",
+            "type": "SMELT_ITEM",
+            "target": "IRON_INGOT",
+            "amount": 50,
+            "currency": 300,
+            "skillpoints": 5,
+            "skillreward": "SMELTING",
+            "skillxp": 150,
+            "rarity": "LEGENDARY"
+        },
+        "village_trader": {
+            "id": "village_trader",
+            "description": "Trade with villagers 10 times",
+            "type": "TRADE",
+            "target": "ANY",
+            "amount": 10,
+            "currency": 200,
+            "skillpoints": 3,
+            "skillreward": "ECONOMY",
+            "skillxp": 100,
+            "rarity": "RARE"
+        }
+    }
