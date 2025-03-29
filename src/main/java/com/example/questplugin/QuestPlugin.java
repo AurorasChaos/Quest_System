@@ -62,6 +62,8 @@ public class QuestPlugin extends JavaPlugin {
         log("[Init] Loading saved quest data...");
         questStorage.loadIntoManager(questManager);
 
+        resetTaskManager.checkResetOnStartup();
+
         for (UUID uuid : questManager.getAllPlayers()) {
             if (questManager.getPlayerQuests(uuid).isEmpty()) {
                 List<Quest> daily = questLoader.getTemplatesByTier(QuestTier.DAILY).stream().map(QuestTemplate::toQuest).toList();
