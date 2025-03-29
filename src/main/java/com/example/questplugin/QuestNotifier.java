@@ -7,6 +7,7 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 
 public class QuestNotifier {
+    @SuppressWarnings("unused")
     private final QuestPlugin plugin;
 
     public QuestNotifier(QuestPlugin plugin) {

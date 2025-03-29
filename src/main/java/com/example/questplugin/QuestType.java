@@ -12,5 +12,7 @@ public enum QuestType {
     REACH_SKILL_LEVEL,
     FISH,
     PLACE_BLOCK,
+    MINE_BLOCK,
+    LOOT,
     CUSTOM
 }

@@ -7,7 +7,7 @@ quests:
     target: 30
     target_key: OAK_LOG
     tier: DAILY
-    type: GATHER_ITEM
+    type: MINE_BLOCK
   daily_zombie_killer:
     currency: 50
     description: Kill 15 Zombies
@@ -52,4 +52,4 @@ quests:
     target: 200
     target_key: STONE
     tier: WEEKLY
-    type: GATHER_ITEM
+    type: MINE_BLOCK

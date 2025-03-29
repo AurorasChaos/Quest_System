@@ -9,6 +9,7 @@ import java.util.*;
 public class QuestStorageManager {
 
     private final QuestPlugin plugin;
+    private final Map<UUID, PlayerQuestData> playerQuestData = new HashMap<>();
     private final Map<UUID, List<Quest>> savedDaily = new HashMap<>();
     private final Map<UUID, List<Quest>> savedWeekly = new HashMap<>();
     private final File file;
@@ -17,40 +18,94 @@ public class QuestStorageManager {
     public QuestStorageManager(QuestPlugin plugin) {
         this.plugin = plugin;
         this.file = new File(plugin.getDataFolder(), "player_quests.yml");
-        if (!file.exists()) plugin.saveResource("player_quests.yml", false);
+        if (!file.exists()) {
+            plugin.saveResource("player_quests.yml", false);
+            plugin.debug("[Storage] Created new player_quests.yml");
+        }
         this.config = YamlConfiguration.loadConfiguration(file);
         load();
     }
 
+    public Set<UUID> getAllStoredPlayers() {
+        return playerQuestData.keySet();
+    }
+
+    public List<Quest> loadPlayerDailyQuests(UUID uuid) {
+        return playerQuestData.containsKey(uuid) ? playerQuestData.get(uuid).getDailyQuests() : new ArrayList<>();
+    }
+
+    public List<Quest> loadPlayerWeeklyQuests(UUID uuid) {
+        return playerQuestData.containsKey(uuid) ? playerQuestData.get(uuid).getWeeklyQuests() : new ArrayList<>();
+    }
+
+    public void loadIntoManager(QuestManager questManager) {
+        plugin.debug("[Storage] Loading saved quests into QuestManager...");
+        for (UUID uuid : getAllStoredPlayers()) {
+            List<Quest> daily = loadPlayerDailyQuests(uuid);
+            List<Quest> weekly = loadPlayerWeeklyQuests(uuid);
+            questManager.assignNewDailyQuests(uuid, daily);
+            questManager.assignNewWeeklyQuests(uuid, weekly);
+            plugin.debug("[Storage] Loaded " + daily.size() + " daily and " + weekly.size() + " weekly quests for " + uuid);
+        }
+    }
+
+    public void saveFromManager(QuestManager questManager) {
+        plugin.debug("[Storage] Saving player quest data from manager...");
+        for (UUID uuid : questManager.getAllPlayers()) {
+            List<Quest> daily = questManager.getPlayerQuests(uuid);
+            List<Quest> weekly = questManager.getPlayerWeeklyQuests(uuid);
+            savePlayerQuests(uuid, daily, weekly);
+            plugin.debug("[Storage] Saved " + daily.size() + " daily and " + weekly.size() + " weekly quests for " + uuid);
+        }
+        save();
+    }
+
     public void load() {
+        plugin.debug("[Storage] Loading quests from player_quests.yml...");
         for (String uuidStr : config.getKeys(false)) {
             UUID uuid = UUID.fromString(uuidStr);
             List<Quest> daily = new ArrayList<>();
             List<Quest> weekly = new ArrayList<>();
-            for (String key : config.getConfigurationSection(uuidStr + ".daily").getKeys(false)) {
-                QuestTemplate template = plugin.getQuestLoader().getAllTemplates().stream()
-                    .filter(q -> q.toQuest().getId().equals(key)).findFirst().orElse(null);
-                if (template == null) continue;
-                Quest quest = template.toQuest();
-                quest.setCurrentProgress(config.getInt(uuidStr + ".daily." + key + ".progress"));
-                if (config.getBoolean(uuidStr + ".daily." + key + ".claimed")) quest.claimReward();
-                daily.add(quest);
+
+            if (config.contains(uuidStr + ".daily")) {
+                for (String key : config.getConfigurationSection(uuidStr + ".daily").getKeys(false)) {
+                    QuestTemplate template = plugin.getQuestLoader().getAllTemplates().stream()
+                            .filter(q -> q.toQuest().getId().equals(key)).findFirst().orElse(null);
+                    if (template == null) {
+                        plugin.debug("[Storage] Skipped unknown daily quest ID: " + key);
+                        continue;
+                    }
+                    Quest quest = template.toQuest();
+                    quest.setCurrentProgress(config.getInt(uuidStr + ".daily." + key + ".progress"));
+                    if (config.getBoolean(uuidStr + ".daily." + key + ".claimed")) quest.claimReward();
+                    daily.add(quest);
+                }
             }
-            for (String key : config.getConfigurationSection(uuidStr + ".weekly").getKeys(false)) {
-                QuestTemplate template = plugin.getQuestLoader().getAllTemplates().stream()
-                    .filter(q -> q.toQuest().getId().equals(key)).findFirst().orElse(null);
-                if (template == null) continue;
-                Quest quest = template.toQuest();
-                quest.setCurrentProgress(config.getInt(uuidStr + ".weekly." + key + ".progress"));
-                if (config.getBoolean(uuidStr + ".weekly." + key + ".claimed")) quest.claimReward();
-                weekly.add(quest);
+
+            if (config.contains(uuidStr + ".weekly")) {
+                for (String key : config.getConfigurationSection(uuidStr + ".weekly").getKeys(false)) {
+                    QuestTemplate template = plugin.getQuestLoader().getAllTemplates().stream()
+                            .filter(q -> q.toQuest().getId().equals(key)).findFirst().orElse(null);
+                    if (template == null) {
+                        plugin.debug("[Storage] Skipped unknown weekly quest ID: " + key);
+                        continue;
+                    }
+                    Quest quest = template.toQuest();
+                    quest.setCurrentProgress(config.getInt(uuidStr + ".weekly." + key + ".progress"));
+                    if (config.getBoolean(uuidStr + ".weekly." + key + ".claimed")) quest.claimReward();
+                    weekly.add(quest);
+                }
             }
+
             savedDaily.put(uuid, daily);
             savedWeekly.put(uuid, weekly);
+            playerQuestData.put(uuid, new PlayerQuestData(daily, weekly));
+            plugin.debug("[Storage] Loaded " + daily.size() + " daily and " + weekly.size() + " weekly quests for " + uuid);
         }
     }
 
     public void save() {
+        plugin.debug("[Storage] Saving player_quests.yml...");
         for (UUID uuid : savedDaily.keySet()) {
             for (Quest q : savedDaily.get(uuid)) {
                 String path = uuid.toString() + ".daily." + q.getId();
@@ -67,7 +122,9 @@ public class QuestStorageManager {
         }
         try {
             config.save(file);
+            plugin.debug("[Storage] Quest data successfully saved to file.");
         } catch (IOException e) {
+            plugin.log("[Storage] Failed to save player_quests.yml: " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -75,6 +132,8 @@ public class QuestStorageManager {
     public void savePlayerQuests(UUID uuid, List<Quest> daily, List<Quest> weekly) {
         savedDaily.put(uuid, daily);
         savedWeekly.put(uuid, weekly);
+        playerQuestData.put(uuid, new PlayerQuestData(daily, weekly));
+        plugin.debug("[Storage] Queued quest data for " + uuid);
     }
 
     public List<Quest> getSavedDaily(UUID uuid) {
@@ -83,5 +142,23 @@ public class QuestStorageManager {
 
     public List<Quest> getSavedWeekly(UUID uuid) {
         return savedWeekly.getOrDefault(uuid, new ArrayList<>());
+    }
+
+    public class PlayerQuestData {
+        private final List<Quest> daily;
+        private final List<Quest> weekly;
+
+        public PlayerQuestData(List<Quest> daily, List<Quest> weekly) {
+            this.daily = daily;
+            this.weekly = weekly;
+        }
+
+        public List<Quest> getDailyQuests() {
+            return daily;
+        }
+
+        public List<Quest> getWeeklyQuests() {
+            return weekly;
+        }
     }
 }

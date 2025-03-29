@@ -1,45 +1,135 @@
 package com.example.questplugin;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import eu.decentsoftware.holograms.api.DHAPI;
+import eu.decentsoftware.holograms.api.holograms.Hologram;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class LeaderboardManager {
 
-    private final Map<UUID, Integer> totalCompleted = new HashMap<>();
-    private final Map<UUID, Map<QuestType, Integer>> typeCompleted = new HashMap<>();
-    private final Map<UUID, Integer> monthlyTotal = new HashMap<>();
+    private final QuestPlugin plugin;
+    private final Map<UUID, Integer> scores = new HashMap<>();
+    private final File file;
+    private FileConfiguration config;
 
-    public void recordCompletion(UUID uuid, Quest quest) {
-        totalCompleted.put(uuid, totalCompleted.getOrDefault(uuid, 0) + 1);
-        monthlyTotal.put(uuid, monthlyTotal.getOrDefault(uuid, 0) + 1);
-
-        typeCompleted.putIfAbsent(uuid, new EnumMap<>(QuestType.class));
-        Map<QuestType, Integer> typeMap = typeCompleted.get(uuid);
-        typeMap.put(quest.getType(), typeMap.getOrDefault(quest.getType(), 0) + 1);
+    public LeaderboardManager(QuestPlugin plugin) {
+        this.plugin = plugin;
+        this.file = new File(plugin.getDataFolder(), "leaderboard.yml");
+        if (!file.exists()) {
+            plugin.saveResource("leaderboard.yml", false);
+        }
+        this.config = YamlConfiguration.loadConfiguration(file);
+        load();
     }
 
-    public int getTotal(UUID uuid) {
-        return totalCompleted.getOrDefault(uuid, 0);
+    public void addScore(UUID uuid, int amount) {
+        int newScore = scores.getOrDefault(uuid, 0) + amount;
+        scores.put(uuid, newScore);
+        plugin.debug("[Leaderboard] Added " + amount + " points to " + uuid + " (new total: " + newScore + ")");
+        save();
+        updateHologram();
     }
 
-    public int getTypeCount(UUID uuid, QuestType type) {
-        return typeCompleted.getOrDefault(uuid, Map.of()).getOrDefault(type, 0);
+    public int getScore(UUID uuid) {
+        return scores.getOrDefault(uuid, 0);
     }
 
     public List<Map.Entry<UUID, Integer>> getTop(int limit) {
-        return totalCompleted.entrySet().stream()
-            .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-            .limit(limit)
-            .toList();
+        return scores.entrySet().stream()
+                .sorted(Map.Entry.<UUID, Integer>comparingByValue().reversed())
+                .limit(limit)
+                .collect(Collectors.toList());
     }
 
-    public List<Map.Entry<UUID, Integer>> getMonthlyTop(int limit) {
-        return monthlyTotal.entrySet().stream()
-            .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-            .limit(limit)
-            .toList();
+    public void load() {
+        scores.clear();
+        for (String key : config.getKeys(false)) {
+            try {
+                UUID uuid = UUID.fromString(key);
+                int score = config.getInt(key);
+                scores.put(uuid, score);
+                plugin.debug("[Leaderboard] Loaded score " + score + " for " + uuid);
+            } catch (IllegalArgumentException ignored) {
+                plugin.log("[Leaderboard] Skipped invalid UUID: " + key);
+            }
+        }
     }
 
-    public void resetMonthlyTopAndReward() {
-        monthlyTotal.clear();
+    public void save() {
+        for (Map.Entry<UUID, Integer> entry : scores.entrySet()) {
+            config.set(entry.getKey().toString(), entry.getValue());
+        }
+        try {
+            config.save(file);
+            plugin.debug("[Leaderboard] Saved leaderboard to file.");
+        } catch (IOException e) {
+            plugin.log("[Leaderboard] Failed to save leaderboard: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void updateHologram() {
+        if (!plugin.getConfig().getBoolean("Leaderboard.EnableHologram", false)) return;
+        if (!Bukkit.getPluginManager().isPluginEnabled("DecentHolograms")) return;
+
+        String world = plugin.getConfig().getString("Leaderboard.Location.World", "world");
+        double x = plugin.getConfig().getDouble("Leaderboard.Location.X", 0);
+        double y = plugin.getConfig().getDouble("Leaderboard.Location.Y", 100);
+        double z = plugin.getConfig().getDouble("Leaderboard.Location.Z", 0);
+        Location location = new Location(Bukkit.getWorld(world), x, y, z);
+
+        String holoId = "questplugin_leaderboard";
+        Hologram hologram = DHAPI.getHologram(holoId);
+        if (hologram == null) {
+            hologram = DHAPI.createHologram(holoId, location, true);
+            plugin.debug("[Leaderboard] Created new hologram.");
+        }
+
+        List<String> templateLines = plugin.getConfig().getStringList("Leaderboard.Lines");
+        List<Map.Entry<UUID, Integer>> top = getTop(templateLines.size() - 1);
+        List<String> newLines = new ArrayList<>();
+
+        for (int i = 0; i < templateLines.size(); i++) {
+            String line = templateLines.get(i);
+            if (i == 0) {
+                newLines.add(line); // header
+            } else {
+                int rank = i;
+                if (rank <= top.size()) {
+                    UUID id = top.get(rank - 1).getKey();
+                    int score = top.get(rank - 1).getValue();
+                    String name = Bukkit.getOfflinePlayer(id).getName();
+                    if (name == null) name = "Unknown";
+                    newLines.add(line.replace("%player" + rank + "%", name).replace("%value" + rank + "%", String.valueOf(score)));
+                } else {
+                    newLines.add(line.replace("%player" + rank + "%", "None").replace("%value" + rank + "%", "0"));
+                }
+            }
+        }
+
+        DHAPI.setHologramLines(hologram, newLines);
+        plugin.debug("[Leaderboard] Updated hologram lines.");
+    }
+
+    public void recordCompletion(UUID playerId, Quest quest) {
+        int points;
+        switch (quest.getRarity()) {
+            case LEGENDARY -> points = 10;
+            case EPIC -> points = 5;
+            case RARE -> points = 3;
+            case COMMON -> points = 1;
+            default -> points = 1;
+        }
+    
+        addScore(playerId, points);
+        plugin.debug("[Leaderboard] Recorded " + points + " pts for " + playerId + " for completing " + quest.getRarity().name() + " quest: " + quest.getId());
     }
 }

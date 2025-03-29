@@ -1,6 +1,5 @@
 package com.example.questplugin;
 
-import dev.aurelium.auraskills.api.AuraSkillsApi;
 import dev.aurelium.auraskills.api.event.skill.SkillLevelUpEvent;
 import dev.aurelium.auraskills.api.event.skill.XpGainEvent;
 import dev.aurelium.auraskills.api.skill.Skill;
@@ -17,7 +16,7 @@ public class AuraSkillsListener implements Listener {
     }
 
     @EventHandler
-    public void onSkillExpGain(XpGainEvent  event) {
+    public void onSkillExpGain(XpGainEvent event) {
         Player player = event.getPlayer();
         Skill skill = event.getSkill();
         double amount = event.getAmount();
@@ -27,6 +26,7 @@ public class AuraSkillsListener implements Listener {
                 quest.matchesTarget(skill.getId().getKey()) &&
                 !quest.isCompleted()) {
                 quest.incrementProgress((int) amount);
+                new QuestNotifier(plugin).notifyProgress(player, quest);
             }
         }
     }
@@ -43,7 +43,8 @@ public class AuraSkillsListener implements Listener {
                 !quest.isCompleted() &&
                 quest.getCurrentProgress() < level) {
                 quest.setCurrentProgress(level);
+                new QuestNotifier(plugin).notifyProgress(player, quest);
             }
         }
     }
-}
+} 

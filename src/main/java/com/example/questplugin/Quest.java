@@ -59,7 +59,11 @@ public class Quest {
         return isCompleted() && !isRewardClaimed();
     }
 
-    public boolean matchesTarget(String input) {
-        return targetKey == null || targetKey.equalsIgnoreCase(input);
+    public boolean matchesTarget(String inputKey) {
+        return switch (this.getType()) {
+            case KILL_MOB -> EntityCategoryMatcher.matches(this.getTargetKey(), inputKey);
+            case GATHER_ITEM, MINE_BLOCK, PLACE_BLOCK -> this.getTargetKey().equalsIgnoreCase(inputKey);
+            default -> this.getTargetKey().equalsIgnoreCase(inputKey);
+        };
     }
 }
