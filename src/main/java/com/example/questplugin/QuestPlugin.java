@@ -2,6 +2,8 @@ package com.example.questplugin;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import net.milkbowl.vault.economy.Economy;
+import dev.aurelium.auraskills.api.AuraSkillsApi;
 
 public class QuestPlugin extends JavaPlugin {
 
@@ -10,6 +12,7 @@ public class QuestPlugin extends JavaPlugin {
     private QuestStorageManager questStorage;
     private LeaderboardManager leaderboardManager;
     private RarityRoller rarityRoller;
+    private Economy economy;
 
     @Override
     public void onEnable() {
@@ -18,10 +21,9 @@ public class QuestPlugin extends JavaPlugin {
         this.questLoader = new QuestLoader(this);
         this.questStorage = new QuestStorageManager(this);
         this.questManager = new QuestManager(this);
-        this.leaderboardManager = new LeaderboardManager(this);
+        this.leaderboardManager = new LeaderboardManager();
         this.rarityRoller = new RarityRoller(this);
 
-        getServer().getPluginManager().registerEvents(new QuestEventListener(this), this);
         getServer().getPluginManager().registerEvents(new ExtraEventsListener(this), this);
         getServer().getPluginManager().registerEvents(new AuraSkillsListener(this), this);
 
@@ -41,4 +43,6 @@ public class QuestPlugin extends JavaPlugin {
     public QuestStorageManager getQuestStorage() { return questStorage; }
     public LeaderboardManager getLeaderboardManager() { return leaderboardManager; }
     public RarityRoller getRarityRoller() { return rarityRoller; }
+    public Economy getEconomy() {return economy;}
+    public AuraSkillsApi getAuraSkillsApi() {return AuraSkillsApi.get();}
 }

@@ -3,6 +3,8 @@ package com.example.questplugin;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 
 public class QuestNotifier {
     private final QuestPlugin plugin;
@@ -15,7 +17,7 @@ public class QuestNotifier {
         double percent = (double) quest.getCurrentProgress() / quest.getTargetAmount();
         int percentage = (int) (percent * 100);
         if (percentage % 10 == 0 && percentage != 0 && !quest.isCompleted()) {
-            player.sendActionBar(ChatColor.YELLOW + "Quest: " + quest.getDescription() + " [" + percentage + "%]");
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatColor.YELLOW + "Quest: " + quest.getDescription() + " [" + percentage + "%]"));
             player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1.2f);
         }
     }

@@ -13,6 +13,13 @@ public class QuestManager {
         this.plugin = plugin;
     }
 
+    public Set<UUID> getAllPlayers() {
+        Set<UUID> all = new HashSet<>();
+        all.addAll(dailyQuests.keySet());
+        all.addAll(weeklyQuests.keySet());
+        return all;
+    }
+
     public List<Quest> getPlayerQuests(UUID uuid) {
         return dailyQuests.getOrDefault(uuid, new ArrayList<>());
     }

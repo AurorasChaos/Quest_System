@@ -28,17 +28,17 @@ public class ResetTaskManager {
 
     public void performDailyReset() {
         Bukkit.getLogger().info("[QuestPlugin] Performing daily quest reset.");
-        for (UUID uuid : plugin.getQuestManager().getPlayerQuests().keySet()) {
+        for (UUID uuid : plugin.getQuestManager().getAllPlayers()) {
             var templates = plugin.getQuestLoader().getTemplatesByTier(QuestTier.DAILY);
             var assigned = templates.stream().map(QuestTemplate::toQuest).toList();
             plugin.getQuestManager().assignNewDailyQuests(uuid, assigned);
         }
         plugin.getQuestStorage().save();
     }
-
+    
     public void performWeeklyReset() {
         Bukkit.getLogger().info("[QuestPlugin] Performing weekly quest reset.");
-        for (UUID uuid : plugin.getQuestManager().getPlayerWeeklyQuests().keySet()) {
+        for (UUID uuid : plugin.getQuestManager().getAllPlayers()) {
             var templates = plugin.getQuestLoader().getTemplatesByTier(QuestTier.WEEKLY);
             var assigned = templates.stream().map(QuestTemplate::toQuest).toList();
             plugin.getQuestManager().assignNewWeeklyQuests(uuid, assigned);
