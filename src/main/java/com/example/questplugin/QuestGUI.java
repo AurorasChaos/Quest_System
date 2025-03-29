@@ -13,6 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 
+@SuppressWarnings("unused")
 public class QuestGUI {
 
     private final QuestPlugin plugin;
@@ -89,7 +90,7 @@ public class QuestGUI {
             lore.add("§a✔ Reward claimed!");
         } else if (quest.isCompleted()) {
             lore.add("§eClick to claim reward!");
-            meta.addEnchant(org.bukkit.enchantments.Enchantment.LUCK, 1, true);
+            meta.addEnchant(org.bukkit.enchantments.Enchantment.FORTUNE, 1, true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         } else {
             lore.add("§cNot completed yet.");
@@ -150,3 +151,4 @@ public class QuestGUI {
             case 32 -> open(player, 0, QuestTier.GLOBAL, QuestFilter.ALL);
         }
     }
+}

@@ -66,9 +66,7 @@ public class BedrockQuestForm {
             String progress = quest.isRewardClaimed() ? "§a✔ Claimed"
                 : quest.isCompleted() ? "§6🏆 Claimable"
                 : "§7⏳ In Progress";
-            form.button(quest.getRarity().getDisplayName() + "§r
-§e" + quest.getDescription() + "
-" + progress);
+            form.button(quest.getRarity().getDisplayName() + "§r§e" + quest.getDescription() + " " + progress);
         }
 
         session.sendForm(form, formResponse -> {
@@ -90,8 +88,7 @@ public class BedrockQuestForm {
 
         String progressBar = getProgressBar((int) ((double) quest.getCurrentProgress() / quest.getTargetAmount() * 100));
 
-        String content = String.join("
-",
+        String content = String.join(" ",
             quest.getRarity().getDisplayName() + " §l" + quest.getDescription(),
             "",
             "§7Progress: §f" + quest.getCurrentProgress() + "§7 / §f" + quest.getTargetAmount(),

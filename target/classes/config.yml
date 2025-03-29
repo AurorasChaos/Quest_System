@@ -1,0 +1,42 @@
+# QuestPlugin Configuration
+
+rarity_upgrade_chances:
+  COMMON_TO_RARE: 0.25
+  RARE_TO_EPIC: 0.10
+  EPIC_TO_LEGENDARY: 0.02
+
+bonus_rewards:
+  RARE: 1.25
+  EPIC: 1.5
+  LEGENDARY: 2.0
+
+gui:
+  items_per_page: 21
+  notify_progress_interval: 10
+  play_animation_on_open: true
+
+streaks:
+  enable: true
+  daily_bonus_currency: 25
+  daily_bonus_skill_points: 1
+  reset_on_miss: true
+
+monthly_rewards:
+  enable: true
+  top_3_currency:
+    - 500
+    - 350
+    - 200
+  skill_points:
+    - 10
+    - 7
+    - 4
+
+hologram:
+  enable: true
+  update_interval: 60
+  lines:
+    - "&6&lTop Questers This Month"
+    - "&e1. %player1% - %value1% quests"
+    - "&e2. %player2% - %value2% quests"
+    - "&e3. %player3% - %value3% quests"

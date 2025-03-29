@@ -10,5 +10,7 @@ public enum QuestType {
     USE_SKILL,
     GAIN_SKILL_EXP,
     REACH_SKILL_LEVEL,
+    FISH,
+    PLACE_BLOCK,
     CUSTOM
 }
