@@ -47,10 +47,11 @@ public class QuestPlugin extends JavaPlugin {
         log("[Init] Registering event listeners...");
         getServer().getPluginManager().registerEvents(new QuestGUI(this), this);
         getServer().getPluginManager().registerEvents(new MobKillListener(this), this);
-        getServer().getPluginManager().registerEvents(new ExtraEventsListener(this), this);
+        getServer().getPluginManager().registerEvents(new BlockEventsListener(this), this);
+        getServer().getPluginManager().registerEvents(new LifeEventsListener(this), this);
         getServer().getPluginManager().registerEvents(new AuraSkillsListener(this), this);
-        getServer().getPluginManager().registerEvents(new MobKillListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
+        
 
         log("[Init] Registering commands...");
         getCommand("questdev").setExecutor(new DevCommands(this));

@@ -15,6 +15,9 @@ public class Quest {
     private int progress = 0;
     private boolean rewardClaimed = false;
 
+    private String skillType;
+    private int skillXp;
+
     public Quest(String id, String description, QuestType type, String targetKey, int targetAmount,
                  double currencyReward, int skillPointReward, QuestTier tier, QuestRarity rarity) {
         this.id = id;
@@ -40,6 +43,11 @@ public class Quest {
     public int getSkillPointReward() { return skillPointReward; }
     public QuestTier getTier() { return tier; }
     public QuestRarity getRarity() { return rarity; }
+    public String getSkillType() { return skillType; }
+    public void setSkillType(String skillType) { this.skillType = skillType; }
+
+    public int getSkillXp() { return skillXp; }
+    public void setSkillXp(int skillXp) { this.skillXp = skillXp; }
 
     public void incrementProgress(int amount) {
         if (!isCompleted()) {

@@ -1,99 +1,108 @@
-# 🎯 QuestPlugin – Modular & Dynamic Minecraft Quest System
+# 🌟 QuestPlugin for Minecraft (1.21.4+)
 
-QuestPlugin is a fully modular questing system for Minecraft servers running Paper 1.21+. Built with extensibility, player engagement, and clean UX in mind, it provides:
+A fully-featured, highly customizable Spigot plugin for managing **Daily**, **Weekly**, and **Global** quests with a beautiful animated GUI, dynamic rewards, leaderboard support, and cross-plugin integrations.
 
-- 🗓️ Daily, Weekly, and Global quests
-- 📚 "All Quests" tab to view everything at once
-- 🎁 Skill point + Vault currency rewards
-- 🧠 Smart filtering and claim tracking
-- 🖼️ DecentHolograms leaderboard integration
-- ✨ Animated GUI with shimmer effects
-- 🛠️ Developer tools (`/questdev`) for testing
+---
+
+## 🖼️ Quest GUI Preview
+
+![Quest GUI Preview](quest_gui_preview.gif)
 
 ---
 
 ## 🔧 Features
 
-| Feature                         | Description                                                       |
-|---------------------------------|-------------------------------------------------------------------|
-| ✅ Daily/Weekly/Global Quests   | Auto-assigned and saved across sessions                          |
-| 🎨 Animated GUI                | Uses glowing buttons and shimmering glass pane borders           |
-| 🧠 Quest Filtering             | Filter quests by type (e.g., Combat, Mining)                      |
-| 💰 Vault + AuraSkills Support | Reward players with economy or skill points                       |
-| 🏆 Leaderboards                | Dynamic hologram-based top questers using DecentHolograms         |
-| ⚙️ Configurable Debug Logging | Toggle `Debug: true` in config to trace quest flow                |
+✅ Daily, Weekly, and Global quest tiers  
+✅ Dynamic GUI with animated shimmer borders  
+✅ Paginated quest interface with filters and quest rarity icons  
+✅ Global quest progress shared server-wide  
+✅ Leaderboard with DecentHolograms integration  
+✅ Reward system supporting:  
+• Vault (economy)  
+• AuraSkills XP (per skill)  
+• Skill point bonuses  
+✅ Reset system with configurable intervals  
+✅ YAML-based configuration for quests and rewards  
+✅ Debug logging mode (`Debug: true` in config.yml)  
+✅ Bedrock-compatible via Geyser (with optional Bedrock UI)
 
 ---
 
-## 🧭 Plugin Flow (Quest Lifecycle)
+## 🧩 Dependencies
 
-```mermaid
-graph TD
-    A[Server Starts] --> B[Load Config + Quest Templates]
-    B --> C[Load Saved Quest Data]
-    C --> D[Assign Daily/Weekly/Global Quests]
-    D --> E[Player Joins Server]
-    E --> F[Show GUI / Progress Quests]
-    F --> G[Track Actions via Listeners]
-    G --> H{Quest Complete?}
-    H -- Yes --> I[Claim Reward]
-    I --> J[Notify & Save Progress]
-    H -- No --> G
-```
+- [Vault](https://www.spigotmc.org/resources/vault.34315/) (for economy support)
+- [AuraSkills](https://www.spigotmc.org/resources/auraskills.92541/) (for RPG skill rewards)
+- [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) (optional placeholders)
+- [DecentHolograms](https://www.spigotmc.org/resources/decentholograms.96927/) (for leaderboard holograms)
+- [Citizens](https://www.spigotmc.org/resources/citizens.13811/) (optional NPC support)
 
 ---
 
-## 📥 Installation
+## 🎯 Supported Quest Types
 
-1. Place `QuestPlugin.jar` in your server's `plugins/` folder
-2. Start the server once to generate config files
-3. Edit `config.yml`, `quests.yml`, and `plugin.yml` to your liking
-4. Install:
-   - Vault (for economy)
-   - AuraSkills (optional skill reward API)
-   - DecentHolograms (for holographic leaderboards)
-5. Restart your server
+| Type            | Description                            |
+|-----------------|----------------------------------------|
+| `KILL_MOB`      | Kill specific mobs                     |
+| `GATHER_ITEM`   | Break or gather specific blocks/items  |
+| `CRAFT_ITEM`    | Craft specific items                   |
+| `WALK_DISTANCE` | Walk a certain distance                |
+| `EXPLORE_BIOME` | Visit specific biomes                  |
+| `CONSUME_ITEM`  | Eat or drink specific items            |
+| `GAIN_SKILL_EXP`| Gain AuraSkills XP                    |
+| `GAIN_SKILL_LEVEL` | Level up a skill in AuraSkills     |
+| `FISH`          | Catch fish                             |
+| `PLACE_BLOCK`   | Place specific blocks                  |
+| `MINE_BLOCK`    | Mine specific blocks                   |
+| `LOOT`          | Pickup items                           |
+| `TRADE`         | Trade with villagers                   |
+| `BREED_ANIMAL`  | Breed animals                          |
+| `SMELT_ITEM`    | Smelt items in furnaces                |
+| `TAME_ENTITY`   | Tame pets (wolves, cats, etc.)         |
+| `CUSTOM`        | Reserved for custom event hooks        |
 
 ---
 
-## 🔧 Configuration
+## 📊 Leaderboards
 
-### `config.yml`
+Top 5 players by total claimed quest completions (with support for holograms):  
+- Integrated with DecentHolograms  
+- Supports refresh/update cycles  
+- Future-ready for expansion (per quest, per type, seasonal, etc.)
+
+---
+
+## 📁 Example Configuration
 
 ```yaml
 Debug: true
-QuestReset:
-  Daily: true
-  Weekly: true
+
+ResetTimes:
+  Daily: "06:00"
+  Weekly: "Monday 06:00"
+
+Currency:
+  RewardAmount: 100
+
+Hologram:
+  Enabled: true
+  Location: world,100.5,65,200.5
+
+Skills:
+  Enabled: true
 ```
-
----
-
-## 🧪 Developer Tools
-
-Use `/questdev` commands to:
-- Give players quests
-- Test triggers
-- Reset quest progress
-
----
-
-## 🔗 Dependencies
-
-| Plugin            | Purpose               |
-|-------------------|------------------------|
-| [Vault]           | Economy reward support |
-| [AuraSkills]      | Skill reward API       |
-| [DecentHolograms] | Leaderboard display    |
 
 ---
 
 ## 📜 License
 
-This plugin is open-source and freely modifiable.
+MIT License — free to use, modify, and contribute.
 
 ---
 
-## 🙌 Contributing
+## 💡 Contribution
 
-Feel free to fork, submit PRs, or suggest ideas!
+Pull requests welcome. Test thoroughly. Suggestions? Create an issue.
+
+---
+
+Crafted with ❤️ for RPG lovers and survival servers.

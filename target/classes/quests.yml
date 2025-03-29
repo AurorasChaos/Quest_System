@@ -53,3 +53,38 @@ quests:
     target_key: STONE
     tier: WEEKLY
     type: MINE_BLOCK
+  tame-wolf:
+    description: "Tame a wolf"
+    type: TAME_ENTITY
+    target: WOLF
+    rarity: RARE
+    amount: 1
+    currency: 100
+    skill: 2
+
+  craft-diamond-sword:
+    description: "Craft a Diamond Sword"
+    type: CRAFT_ITEM
+    target: DIAMOND_SWORD
+    rarity: EPIC
+    amount: 1
+    currency: 150
+    skill: 3
+
+  breed-cows:
+    description: "Breed two cows"
+    type: BREED_ANIMAL
+    target: COW
+    rarity: COMMON
+    amount: 2
+    currency: 75
+    skill: 1
+
+  villager-trade:
+    description: "Trade with a Villager"
+    type: TRADE
+    target: VILLAGER
+    rarity: COMMON
+    amount: 3
+    currency: 60
+    skill: 1

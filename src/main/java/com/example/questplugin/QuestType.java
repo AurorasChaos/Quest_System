@@ -7,12 +7,15 @@ public enum QuestType {
     WALK_DISTANCE,
     EXPLORE_BIOME,
     CONSUME_ITEM,
-    USE_SKILL,
     GAIN_SKILL_EXP,
-    REACH_SKILL_LEVEL,
+    GAIN_SKILL_LEVEL,
     FISH,
     PLACE_BLOCK,
     MINE_BLOCK,
     LOOT,
+    TRADE,
+    BREED_ANIMAL,
+    SMELT_ITEM,
+    TAME_ENTITY,
     CUSTOM
 }

@@ -1,10 +1,12 @@
 package com.example.questplugin;
 
+import com.google.common.eventbus.Subscribe;
+import dev.aurelium.auraskills.api.AuraSkillsApi;
 import dev.aurelium.auraskills.api.event.skill.SkillLevelUpEvent;
 import dev.aurelium.auraskills.api.event.skill.XpGainEvent;
-import dev.aurelium.auraskills.api.skill.Skill;
+
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 public class AuraSkillsListener implements Listener {
@@ -13,38 +15,56 @@ public class AuraSkillsListener implements Listener {
 
     public AuraSkillsListener(QuestPlugin plugin) {
         this.plugin = plugin;
+        Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
-    @EventHandler
-    public void onSkillExpGain(XpGainEvent event) {
+    @Subscribe
+    public void onAuraSkillLevelUp(SkillLevelUpEvent event) {
         Player player = event.getPlayer();
-        Skill skill = event.getSkill();
-        double amount = event.getAmount();
+        String skillName = event.getSkill().name().toUpperCase();
+        plugin.debug("[AuraSkills] " + player.getName() + " leveled up " + skillName);
 
-        for (Quest quest : plugin.getQuestManager().getPlayerQuests(player.getUniqueId())) {
-            if (quest.getType() == QuestType.GAIN_SKILL_EXP &&
-                quest.matchesTarget(skill.getId().getKey()) &&
-                !quest.isCompleted()) {
-                quest.incrementProgress((int) amount);
+        for (QuestTier tier : QuestTier.values()) {
+            for (Quest quest : plugin.getQuestManager().getQuestsForTier(player.getUniqueId(), tier)) {
+                if (quest.getType() == QuestType.GAIN_SKILL_LEVEL && skillName.equalsIgnoreCase(quest.getTargetKey()) && !quest.isCompleted()) {
+                    quest.incrementProgress(1);
+                    new QuestNotifier(plugin).notifyProgress(player, quest);
+                    plugin.debug("[AuraSkills] +1 progress on quest " + quest.getId() + " (" + tier + ")");
+                }
+            }
+        }
+
+        for (Quest quest : plugin.getQuestManager().getGlobalQuests()) {
+            if (quest.getType() == QuestType.GAIN_SKILL_LEVEL && skillName.equalsIgnoreCase(quest.getTargetKey()) && !quest.isCompleted()) {
+                quest.incrementProgress(1);
                 new QuestNotifier(plugin).notifyProgress(player, quest);
+                plugin.debug("[AuraSkills] +1 GLOBAL progress on quest " + quest.getId());
             }
         }
     }
 
-    @EventHandler
-    public void onSkillLevelUp(SkillLevelUpEvent event) {
+    @Subscribe
+    public void onAuraXpGain(XpGainEvent event) {
         Player player = event.getPlayer();
-        Skill skill = event.getSkill();
-        int level = event.getLevel();
+        String skillName = event.getSkill().name();
+        plugin.debug("[AuraSkills] " + player.getName() + " gained xp in " + skillName);
 
-        for (Quest quest : plugin.getQuestManager().getPlayerQuests(player.getUniqueId())) {
-            if (quest.getType() == QuestType.REACH_SKILL_LEVEL &&
-                quest.matchesTarget(skill.getId().getKey()) &&
-                !quest.isCompleted() &&
-                quest.getCurrentProgress() < level) {
-                quest.setCurrentProgress(level);
+        for (QuestTier tier : QuestTier.values()) {
+            for (Quest quest : plugin.getQuestManager().getQuestsForTier(player.getUniqueId(), tier)) {
+                if (quest.getType() == QuestType.GAIN_SKILL_EXP && skillName.equalsIgnoreCase(quest.getTargetKey()) && !quest.isCompleted()) {
+                    quest.incrementProgress(1);
+                    new QuestNotifier(plugin).notifyProgress(player, quest);
+                    plugin.debug("[AuraSkills] +1 progress on quest " + quest.getId() + " (" + tier + ")");
+                }
+            }
+        }
+
+        for (Quest quest : plugin.getQuestManager().getGlobalQuests()) {
+            if (quest.getType() == QuestType.GAIN_SKILL_EXP && skillName.equalsIgnoreCase(quest.getTargetKey()) && !quest.isCompleted()) {
+                quest.incrementProgress(1);
                 new QuestNotifier(plugin).notifyProgress(player, quest);
+                plugin.debug("[AuraSkills] +1 GLOBAL progress on quest " + quest.getId());
             }
         }
     }
-} 
+}

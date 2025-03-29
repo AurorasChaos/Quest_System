@@ -7,7 +7,6 @@ com\example\questplugin\QuestFilter.class
 com\example\questplugin\QuestLoader.class
 com\example\questplugin\QuestRarity.class
 com\example\questplugin\EntityCategoryMatcher$1.class
-com\example\questplugin\ExtraEventsListener.class
 com\example\questplugin\Quest.class
 com\example\questplugin\QuestType.class
 com\example\questplugin\QuestNotifier.class
@@ -22,9 +21,11 @@ com\example\questplugin\QuestStorageManager.class
 com\example\questplugin\QuestTier.class
 com\example\questplugin\QuestGUI$2.class
 com\example\questplugin\AuraSkillsListener.class
+com\example\questplugin\LifeEventsListener.class
 com\example\questplugin\LeaderboardManager.class
 com\example\questplugin\ResetTaskManager.class
 com\example\questplugin\Quest$1.class
+com\example\questplugin\BlockEventsListener.class
 com\example\questplugin\QuestPlugin.class
 com\example\questplugin\RarityRoller.class
 com\example\questplugin\DevCommands.class
