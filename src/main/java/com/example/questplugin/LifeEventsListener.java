@@ -1,6 +1,10 @@
 package com.example.questplugin;
 
+import java.util.UUID;
+
 import org.bukkit.Material;
+import org.bukkit.Location;
+import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -8,6 +12,7 @@ import org.bukkit.event.entity.EntityBreedEvent;
 import org.bukkit.event.entity.EntityTameEvent;
 import org.bukkit.event.inventory.TradeSelectEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.MerchantRecipe;
 import org.bukkit.entity.Villager;
 
@@ -121,6 +126,43 @@ public class LifeEventsListener implements Listener {
                 quest.incrementProgress(1);
                 new QuestNotifier(plugin).notifyProgress(player, quest);
                 plugin.debug("[Craft] +1 GLOBAL progress on " + quest.getId());
+            }
+        }
+    }
+
+    @EventHandler
+    public void onBiomeEnter(PlayerMoveEvent event) {
+        Player player = event.getPlayer();
+        Location from = event.getFrom();
+        Location to = event.getTo();
+
+        if (to == null || from.getBlockX() == to.getBlockX()
+                && from.getBlockY() == to.getBlockY()
+                && from.getBlockZ() == to.getBlockZ()) return;
+
+        Biome previousBiome = from.getBlock().getBiome();
+        Biome newBiome = to.getBlock().getBiome();
+
+        if (previousBiome == newBiome) return;
+
+        UUID uuid = player.getUniqueId();
+        String biomeName = newBiome.name();
+
+        plugin.debug("[BiomeVisit] " + player.getName() + " entered biome: " + biomeName);
+
+        for (QuestTier tier : QuestTier.values()) {
+            for (Quest quest : plugin.getQuestManager().getQuestsForTier(uuid, tier)) {
+                if (quest.getType() == QuestType.EXPLORE_BIOME && quest.matchesTarget(biomeName) && !quest.isCompleted()) {
+                    quest.incrementProgress(1);
+                    new QuestNotifier(plugin).notifyProgress(player, quest);
+                }
+            }
+        }
+
+        for (Quest quest : plugin.getQuestManager().getGlobalQuests()) {
+            if (quest.getType() == QuestType.EXPLORE_BIOME && quest.matchesTarget(biomeName) && !quest.isCompleted()) {
+                quest.incrementProgress(1);
+                new QuestNotifier(plugin).notifyProgress(player, quest);
             }
         }
     }
