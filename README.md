@@ -1,123 +1,99 @@
-# 🎯 QuestPlugin
+# 🎯 QuestPlugin – Modular & Dynamic Minecraft Quest System
 
-A feature-rich and extensible quest system for Minecraft servers running **Spigot 1.21.4**, with full support for:
+QuestPlugin is a fully modular questing system for Minecraft servers running Paper 1.21+. Built with extensibility, player engagement, and clean UX in mind, it provides:
 
-- 🧭 Daily, weekly & global quests
-- 💰 Vault currency & 🧠 AuraSkills integration
-- 🎨 Beautiful GUI with pagination & filters
-- 📅 Streak bonuses & monthly leaderboards
-- 🛠️ Bedrock Forms UI for Geyser/Floodgate players
-- 💾 Persistent YAML & SQLite-based storage
-- 🔧 Fully configurable via `quests.yml` and `config.yml`
-
----
-
-## 📦 Features
-
-- 🔁 **Repeatable & unique quests**
-- 🎲 **Randomized quests daily** for each player
-- 🧑‍🤝‍🧑 **Global server objectives**
-- 🏆 **Rarity tiers** with bonus rewards and announcements
-- 📈 **Tracking for block break/place, mobs, fishing, skills, biomes & more**
-- 🪧 **Leaderboard holograms** with DecentHolograms
-- 🌐 **Bedrock UI support** using Floodgate Forms
-- 🧩 PlaceholderAPI support for scoreboard, NPCs, etc.
+- 🗓️ Daily, Weekly, and Global quests
+- 📚 "All Quests" tab to view everything at once
+- 🎁 Skill point + Vault currency rewards
+- 🧠 Smart filtering and claim tracking
+- 🖼️ DecentHolograms leaderboard integration
+- ✨ Animated GUI with shimmer effects
+- 🛠️ Developer tools (`/questdev`) for testing
 
 ---
 
-## 🧰 Plugin Dependencies
+## 🔧 Features
 
-| Plugin          | Purpose                           |
-|------------------|-----------------------------------|
-| [Vault](https://www.spigotmc.org/resources/vault.34315/)              | Economy support |
-| [AuraSkills](https://wiki.aurelium.dev/)            | Skill points, XP, and skill tracking |
-| [Citizens](https://www.spigotmc.org/resources/citizens.13811/)        | NPC quest claiming |
-| [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) | Placeholder expansion |
-| [Floodgate](https://github.com/GeyserMC/Floodgate)  | Bedrock Forms & player detection |
-| [DecentHolograms](https://www.spigotmc.org/resources/decent-holograms.96927/) | Holograms for top players |
-| [ItemNBTAPI](https://github.com/tr7zw/Item-NBT-API) | Custom seasonal items |
-
----
-
-## 🚀 Getting Started
-
-1. 📥 Drop `QuestPlugin.jar` into your `plugins/` folder.
-2. 🛠️ Configure quests in `quests.yml`.
-3. ⚙️ Adjust global values in `config.yml`.
-4. 🔄 Restart or use `/quest reload` to apply changes.
-5. ✅ Players can use `/quest` to open their quest panel.
+| Feature                         | Description                                                       |
+|---------------------------------|-------------------------------------------------------------------|
+| ✅ Daily/Weekly/Global Quests   | Auto-assigned and saved across sessions                          |
+| 🎨 Animated GUI                | Uses glowing buttons and shimmering glass pane borders           |
+| 🧠 Quest Filtering             | Filter quests by type (e.g., Combat, Mining)                      |
+| 💰 Vault + AuraSkills Support | Reward players with economy or skill points                       |
+| 🏆 Leaderboards                | Dynamic hologram-based top questers using DecentHolograms         |
+| ⚙️ Configurable Debug Logging | Toggle `Debug: true` in config to trace quest flow                |
 
 ---
 
-## 💻 Commands
+## 🧭 Plugin Flow (Quest Lifecycle)
 
-| Command        | Description                      | Permission            |
-|----------------|----------------------------------|------------------------|
-| `/quest`       | Opens the quest GUI              | `questplugin.use`     |
-| `/quest reload`| Reloads all configs              | `questplugin.admin`   |
-| `/questdebug`  | View debug info (optional)       | `questplugin.debug`   |
-
----
-
-## 📁 File Structure
-
-```plaintext
-plugins/
-└── QuestPlugin/
-    ├── quests.yml           # List of quest templates
-    ├── config.yml           # Settings, rewards, filters, GUI
-    └── player_quests.yml    # Persistent player progress
+```mermaid
+graph TD
+    A[Server Starts] --> B[Load Config + Quest Templates]
+    B --> C[Load Saved Quest Data]
+    C --> D[Assign Daily/Weekly/Global Quests]
+    D --> E[Player Joins Server]
+    E --> F[Show GUI / Progress Quests]
+    F --> G[Track Actions via Listeners]
+    G --> H{Quest Complete?}
+    H -- Yes --> I[Claim Reward]
+    I --> J[Notify & Save Progress]
+    H -- No --> G
 ```
 
 ---
 
-## 🌟 Quest Types Supported
+## 📥 Installation
 
-- `BREAK_BLOCK`, `PLACE_BLOCK`
-- `KILL_MOB`, `DAMAGE_BOSS`
-- `VISIT_BIOME`, `ENTER_DIMENSION`
-- `FISH`, `TRADE`, `BREED`
-- `GAIN_SKILL_EXP`, `REACH_SKILL_LEVEL`
-- `USE_SKILL` (AuraSkills abilities)
-
----
-
-## 🧠 Advanced Features
-
-- 🔥 **Legendary quest drops** broadcast server-wide
-- 🧵 **Animated GUI reveal** on daily login
-- 💫 **Seasonal items** for top players
-- 🧩 **Hooks for monthly rewards and expansions**
+1. Place `QuestPlugin.jar` in your server's `plugins/` folder
+2. Start the server once to generate config files
+3. Edit `config.yml`, `quests.yml`, and `plugin.yml` to your liking
+4. Install:
+   - Vault (for economy)
+   - AuraSkills (optional skill reward API)
+   - DecentHolograms (for holographic leaderboards)
+5. Restart your server
 
 ---
 
-## 🛠️ Developer Tools
+## 🔧 Configuration
 
-- ✅ Maven support (with example `pom.xml`)
-- 🧪 `QuestManager`, `QuestLoader`, `QuestGUI`, `QuestStorageManager` classes
-- ♻️ Auto-reset on server startup & every midnight
-- 🔐 Bedrock-aware UI via Floodgate Forms
-- ☑️ Configurable quest filters, tiers, rarity weights
+### `config.yml`
 
----
-
-## 🧩 Plugin API (Coming Soon)
-
-- `QuestPluginAPI#getPlayerQuests(UUID)`
-- `QuestPluginAPI#assignQuest(UUID, Quest)`
-- `QuestPluginAPI#getLeaderboard(type)`
+```yaml
+Debug: true
+QuestReset:
+  Daily: true
+  Weekly: true
+```
 
 ---
 
-## ❤️ Contributing
+## 🧪 Developer Tools
 
-Pull requests, ideas, and testing feedback welcome!  
-Want to add your own quest types or hook into the system? Open an issue or PR!
+Use `/questdev` commands to:
+- Give players quests
+- Test triggers
+- Reset quest progress
+
+---
+
+## 🔗 Dependencies
+
+| Plugin            | Purpose               |
+|-------------------|------------------------|
+| [Vault]           | Economy reward support |
+| [AuraSkills]      | Skill reward API       |
+| [DecentHolograms] | Leaderboard display    |
 
 ---
 
-## 📄 License
+## 📜 License
 
-MIT – free to use, fork, and customize for your server.
+This plugin is open-source and freely modifiable.
 
 ---
+
+## 🙌 Contributing
+
+Feel free to fork, submit PRs, or suggest ideas!
