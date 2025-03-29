@@ -1,3 +1,5 @@
+// QuestGUI.java with shimmer borders, pulsing items, and title flicker
+
 package com.example.questplugin;
 
 import org.bukkit.Bukkit;
@@ -7,22 +9,27 @@ import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+
 @SuppressWarnings("unused")
 public class QuestGUI implements Listener{
-    private static final int QUESTS_PER_PAGE = 21;
+    private static final int QUESTS_PER_PAGE = 14;
+    private static final int[] QUEST_SLOTS = {
+        10, 11, 12, 13, 14, 15, 16,
+        19, 20, 21, 22, 23, 24, 25
+    };
     private final QuestPlugin plugin;
     private final RewardHandler rewardHandler;
     private final QuestNotifier notifier;
@@ -30,6 +37,16 @@ public class QuestGUI implements Listener{
     private final Map<UUID, QuestFilter> filterMap = new HashMap<>();
     private final Map<UUID, QuestTier> tierMap = new HashMap<>();
     private final Map<UUID, Set<String>> claimedGlobalQuestMap = new HashMap<>();
+    private final Map<UUID, Integer> shimmerTaskIds = new HashMap<>();
+    private final Map<UUID, Integer> pulseTaskIds = new HashMap<>();
+    private final Material[] shimmerColors = {
+        Material.RED_STAINED_GLASS_PANE,
+        Material.ORANGE_STAINED_GLASS_PANE,
+        Material.YELLOW_STAINED_GLASS_PANE,
+        Material.LIME_STAINED_GLASS_PANE,
+        Material.LIGHT_BLUE_STAINED_GLASS_PANE,
+        Material.PURPLE_STAINED_GLASS_PANE
+    };
     private final File claimFile;
     private final FileConfiguration claimConfig;
 
@@ -61,13 +78,15 @@ public class QuestGUI implements Listener{
         filterMap.put(uuid, filter);
         tierMap.put(uuid, tier);
 
-        int maxPages = (int) Math.ceil(filtered.size() / 21.0);
-        if (page >= maxPages && maxPages > 0) page = maxPages - 1;
+        int maxPages = (int) Math.ceil(filtered.size() / 14.0);
+        if (maxPages <= 0) maxPages = 1;
+        if (page < 0) page = 0;
+        if (page >= maxPages) page = maxPages - 1;
 
-        Inventory gui = Bukkit.createInventory(null, 36, getTierDisplayName(tier) + " Quests (Page " + (page + 1) + "/" + (maxPages == 0 ? 1 : maxPages) + ")");
+        Inventory gui = Bukkit.createInventory(null, 36, getGuiTitle(tier, page));
 
-        int start = page * 21;
-        int end = Math.min(start + 21, filtered.size());
+        int start = page * QUESTS_PER_PAGE;
+        int end = Math.min(start + QUESTS_PER_PAGE, filtered.size());
         List<Quest> pageQuests = filtered.subList(start, end);
 
         if (pageQuests.isEmpty()) {
@@ -75,24 +94,102 @@ public class QuestGUI implements Listener{
             ItemMeta meta = noQuests.getItemMeta();
             meta.setDisplayName("§7No quests to display.");
             noQuests.setItemMeta(meta);
-            gui.setItem(10, noQuests);
+            gui.setItem(13, noQuests);
         } else {
             for (int i = 0; i < pageQuests.size(); i++) {
-                Quest quest = pageQuests.get(i);
-                gui.setItem(i, createQuestItem(quest));
+                if (i < QUEST_SLOTS.length) {
+                    gui.setItem(QUEST_SLOTS[i], createQuestItem(pageQuests.get(i)));
+                }
             }
         }
 
         gui.setItem(27, page > 0 ? createNavItem(Material.ARROW, "Previous Page") : createNavItem(Material.BARRIER, "No Previous Page"));
         gui.setItem(35, page < maxPages - 1 ? createNavItem(Material.ARROW, "Next Page") : createNavItem(Material.BARRIER, "No Next Page"));
         gui.setItem(31, createNavItem(Material.HOPPER, "Filter: " + filter.name()));
-
         gui.setItem(29, tier == QuestTier.DAILY ? glowing(createNavItem(Material.EMERALD, "Daily Quests")) : createNavItem(Material.EMERALD, "Daily Quests"));
         gui.setItem(30, tier == QuestTier.WEEKLY ? glowing(createNavItem(Material.DIAMOND, "Weekly Quests")) : createNavItem(Material.DIAMOND, "Weekly Quests"));
         gui.setItem(32, tier == QuestTier.GLOBAL ? glowing(createNavItem(Material.NETHER_STAR, "Global Quests")) : createNavItem(Material.NETHER_STAR, "Global Quests"));
         gui.setItem(33, tier == QuestTier.ALL ? glowing(createNavItem(Material.BOOK, "All Quests")) : createNavItem(Material.BOOK, "All Quests"));
 
         player.openInventory(gui);
+        startShimmeringBorder(player, gui);
+    }
+
+    private void startShimmeringBorder(Player player, Inventory gui) {
+        UUID uuid = player.getUniqueId();
+        stopShimmering(uuid);
+        int[] shimmerSlots = {
+            0, 1, 2, 3, 4, 5, 6, 7, 8,
+            9, 17,
+            18, 26,
+        };
+        int taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+            int frame = 0;
+            @Override
+            public void run() {
+                Material mat = shimmerColors[frame % shimmerColors.length];
+                ItemStack pane = new ItemStack(mat);
+                ItemMeta meta = pane.getItemMeta();
+                meta.setDisplayName("§r");
+                pane.setItemMeta(meta);
+
+                for (int slot : shimmerSlots) {
+                    if (slot < gui.getSize()) {
+                        gui.setItem(slot, pane);
+                    }
+                }
+                frame++;
+            }
+        }, 0L, 30L);
+        shimmerTaskIds.put(uuid, taskId);
+    }
+
+
+    private void stopShimmering(UUID uuid) {
+        if (shimmerTaskIds.containsKey(uuid)) {
+            Bukkit.getScheduler().cancelTask(shimmerTaskIds.remove(uuid));
+        }
+    }
+
+
+
+    private void startPulsingCompletedItems(Player player, Inventory gui) {
+        UUID uuid = player.getUniqueId();
+        stopPulsing(uuid);
+        int taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+            boolean glowing = true;
+            @Override
+            public void run() {
+                for (int i = 0; i < QUESTS_PER_PAGE; i++) {
+                    ItemStack item = gui.getItem(i);
+                    if (item == null || item.getType().isAir()) continue;
+                    ItemMeta meta = item.getItemMeta();
+                    if (meta == null || !meta.hasLore()) continue;
+                    boolean isCompleted = meta.getLore().stream().anyMatch(l -> l.contains("Click to claim"));
+                    if (!isCompleted) continue;
+                    if (glowing) {
+                        meta.addEnchant(org.bukkit.enchantments.Enchantment.FORTUNE, 1, true);
+                        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                    } else {
+                        meta.removeEnchant(org.bukkit.enchantments.Enchantment.FORTUNE);
+                    }
+                    item.setItemMeta(meta);
+                }
+                glowing = !glowing;
+            }
+        }, 0L, 20L);
+        pulseTaskIds.put(uuid, taskId);
+    }
+
+    private void stopPulsing(UUID uuid) {
+        if (pulseTaskIds.containsKey(uuid)) {
+            Bukkit.getScheduler().cancelTask(pulseTaskIds.remove(uuid));
+        }
+    }
+
+    @EventHandler
+    public void onInventoryClose(InventoryCloseEvent event) {
+        stopShimmering(event.getPlayer().getUniqueId());
     }
 
     private ItemStack glowing(ItemStack item) {
@@ -121,11 +218,12 @@ public class QuestGUI implements Listener{
     }
 
     private String getGuiTitle(QuestTier tier, int page) {
+        String pageInfo = " §7(Page " + (page + 1) + ")";
         return switch (tier) {
-            case DAILY -> "§a§lDaily Quests §7(Page " + (page + 1) + ")";
-            case WEEKLY -> "§9§lWeekly Quests §7(Page " + (page + 1) + ")";
-            case GLOBAL -> "§d§lGlobal Quests §7(Page " + (page + 1) + ")";
-            case ALL -> "§d§lAll Quests §7(Page " + (page + 1) + ")";
+            case DAILY -> "§a§lDaily Quests" + pageInfo;
+            case WEEKLY -> "§9§lWeekly Quests" + pageInfo;
+            case GLOBAL -> "§d§lGlobal Quests" + pageInfo;
+            case ALL -> "§e§lAll Quests" + pageInfo;
         };
     }
 
@@ -240,4 +338,4 @@ public class QuestGUI implements Listener{
             case 33 -> open(player, 0, QuestTier.ALL, QuestFilter.ALL);
         }
     }
-}
+};
