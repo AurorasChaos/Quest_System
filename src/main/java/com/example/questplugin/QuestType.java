@@ -12,7 +12,6 @@ public enum QuestType {
     FISH,
     PLACE_BLOCK,
     MINE_BLOCK,
-    LOOT,
     TRADE,
     BREED_ANIMAL,
     SMELT_ITEM,

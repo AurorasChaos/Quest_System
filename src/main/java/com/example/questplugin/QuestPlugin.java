@@ -13,6 +13,7 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 
 public class QuestPlugin extends JavaPlugin {
 
@@ -24,6 +25,7 @@ public class QuestPlugin extends JavaPlugin {
     private Economy economy;
     private ResetTaskManager resetTaskManager;
     private boolean debugMode;
+    private BukkitAudiences adventure;
 
     @Override
     public void onEnable() {
@@ -43,6 +45,7 @@ public class QuestPlugin extends JavaPlugin {
         this.leaderboardManager = new LeaderboardManager(this);
         this.rarityRoller = new RarityRoller(this);
         this.resetTaskManager = new ResetTaskManager(this);
+        this.adventure = BukkitAudiences.create(this);
 
         log("[Init] Registering event listeners...");
         getServer().getPluginManager().registerEvents(new QuestGUI(this), this);
@@ -51,7 +54,6 @@ public class QuestPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new LifeEventsListener(this), this);
         getServer().getPluginManager().registerEvents(new AuraSkillsListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
-        
 
         log("[Init] Registering commands...");
         getCommand("questdev").setExecutor(new DevCommands(this));
@@ -83,6 +85,9 @@ public class QuestPlugin extends JavaPlugin {
             questStorage.saveFromManager(questManager);
             questManager.saveGlobalQuests();
         }
+        if (this.adventure != null) {
+            this.adventure.close();
+        }
         log("QuestPlugin disabled.");
     }
 
@@ -102,6 +107,10 @@ public class QuestPlugin extends JavaPlugin {
         if (rsp == null) return false;
         economy = rsp.getProvider();
         return economy != null;
+    }
+
+    public BukkitAudiences adventure() {
+        return adventure;
     }
 
     public QuestManager getQuestManager() { return questManager; }

@@ -71,15 +71,6 @@ quests:
     skill_points: 2
     tier: WEEKLY
     rarity: COMMON
-  nether_looter:
-    description: Loot 3 bastion chests
-    type: LOOT
-    target_key: CHEST
-    target: 3
-    currency: 150
-    skill_points: 3
-    tier: WEEKLY
-    rarity: EPIC
   animal_whisperer:
     description: Tame 3 wolves
     type: TAME_ENTITY

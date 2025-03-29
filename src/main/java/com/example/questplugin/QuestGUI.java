@@ -162,16 +162,16 @@ public class QuestGUI implements Listener{
             public void run() {
                 for (int i = 0; i < QUESTS_PER_PAGE; i++) {
                     ItemStack item = gui.getItem(i);
-                    if (item == null || item.getType().isAir()) continue;
+                    if (item == null || item.getType() == Material.AIR) continue;
                     ItemMeta meta = item.getItemMeta();
                     if (meta == null || !meta.hasLore()) continue;
                     boolean isCompleted = meta.getLore().stream().anyMatch(l -> l.contains("Click to claim"));
                     if (!isCompleted) continue;
                     if (glowing) {
-                        meta.addEnchant(org.bukkit.enchantments.Enchantment.FORTUNE, 1, true);
+                        meta.addEnchant(org.bukkit.enchantments.Enchantment.LUCK, 1, true);
                         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                     } else {
-                        meta.removeEnchant(org.bukkit.enchantments.Enchantment.FORTUNE);
+                        meta.removeEnchant(org.bukkit.enchantments.Enchantment.LUCK);
                     }
                     item.setItemMeta(meta);
                 }
@@ -248,7 +248,7 @@ public class QuestGUI implements Listener{
             lore.add("§a✔ Reward claimed!");
         } else if (quest.isCompleted()) {
             lore.add("§eClick to claim reward!");
-            meta.addEnchant(org.bukkit.enchantments.Enchantment.FORTUNE, 1, true);
+            meta.addEnchant(org.bukkit.enchantments.Enchantment.LUCK, 1, true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         } else {
             lore.add("§cNot completed yet.");

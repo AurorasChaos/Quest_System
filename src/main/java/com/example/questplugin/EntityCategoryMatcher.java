@@ -45,7 +45,7 @@ public class EntityCategoryMatcher {
         return switch (type) {
             case ZOMBIE, ZOMBIE_VILLAGER, HUSK,
                  SKELETON, STRAY, WITHER_SKELETON,
-                 DROWNED, ZOGLIN, WITHER -> true;
+                 DROWNED, WITHER -> true;
             default -> false;
         };
     }

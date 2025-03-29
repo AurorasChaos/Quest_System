@@ -10,7 +10,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityBreedEvent;
 import org.bukkit.event.entity.EntityTameEvent;
-import org.bukkit.event.inventory.TradeSelectEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.MerchantRecipe;
@@ -22,33 +23,6 @@ public class LifeEventsListener implements Listener {
 
     public LifeEventsListener(QuestPlugin plugin) {
         this.plugin = plugin;
-    }
-
-    @EventHandler
-    public void onVillagerTrade(PlayerInteractEntityEvent event) {
-        if (!(event.getRightClicked() instanceof Villager)) return;
-        Player player = event.getPlayer();
-        String target = "VILLAGER";
-
-        plugin.debug("[Trade] " + player.getName() + " is trading with a villager");
-
-        for (QuestTier tier : QuestTier.values()) {
-            for (Quest quest : plugin.getQuestManager().getQuestsForTier(player.getUniqueId(), tier)) {
-                if (quest.getType() == QuestType.TRADE && quest.matchesTarget(target) && !quest.isCompleted()) {
-                    quest.incrementProgress(1);
-                    new QuestNotifier(plugin).notifyProgress(player, quest);
-                    plugin.debug("[Trade] +1 progress on " + quest.getId() + " (" + tier + ")");
-                }
-            }
-        }
-
-        for (Quest quest : plugin.getQuestManager().getGlobalQuests()) {
-            if (quest.getType() == QuestType.TRADE && quest.matchesTarget(target) && !quest.isCompleted()) {
-                quest.incrementProgress(1);
-                new QuestNotifier(plugin).notifyProgress(player, quest);
-                plugin.debug("[Trade] +1 GLOBAL progress on " + quest.getId());
-            }
-        }
     }
 
     @EventHandler
@@ -163,6 +137,39 @@ public class LifeEventsListener implements Listener {
             if (quest.getType() == QuestType.EXPLORE_BIOME && quest.matchesTarget(biomeName) && !quest.isCompleted()) {
                 quest.incrementProgress(1);
                 new QuestNotifier(plugin).notifyProgress(player, quest);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event) {
+        if (!(event.getWhoClicked() instanceof Player player)) return;
+
+        if (event.getInventory().getType() == InventoryType.MERCHANT) {
+            plugin.debug(player.getName() + " interacted with a Villager trade.");
+
+            String target = "VILLAGER";
+            // Optional: You can track the trade slot
+            int slot = event.getRawSlot();
+            if (slot == 2 && event.getCurrentItem() != null) { // Result slot of the trade
+                plugin.debug(player.getName() + " completed a trade!");
+                for (QuestTier tier : QuestTier.values()) {
+                    for (Quest quest : plugin.getQuestManager().getQuestsForTier(player.getUniqueId(), tier)) {
+                        if (quest.getType() == QuestType.TRADE && quest.matchesTarget(target) && !quest.isCompleted()) {
+                            quest.incrementProgress(1);
+                            new QuestNotifier(plugin).notifyProgress(player, quest);
+                            plugin.debug("[Trade] +1 progress on " + quest.getId() + " (" + tier + ")");
+                        }
+                    }
+                }
+        
+                for (Quest quest : plugin.getQuestManager().getGlobalQuests()) {
+                    if (quest.getType() == QuestType.TRADE && quest.matchesTarget(target) && !quest.isCompleted()) {
+                        quest.incrementProgress(1);
+                        new QuestNotifier(plugin).notifyProgress(player, quest);
+                        plugin.debug("[Trade] +1 GLOBAL progress on " + quest.getId());
+                    }
+                }
             }
         }
     }
