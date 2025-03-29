@@ -16,5 +16,7 @@ public enum QuestType {
     BREED_ANIMAL,
     SMELT_ITEM,
     TAME_ENTITY,
+    BREW_ITEM,
+    ENCHANT_ITEM,
     CUSTOM
 }

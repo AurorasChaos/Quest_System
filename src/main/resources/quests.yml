@@ -98,3 +98,27 @@ quests:
     skill_points: 3
     tier: GLOBAL
     rarity: RARE
+
+  brewmaster:
+    id: "brewmaster"
+    description: "Brew 3 potions"
+    type: "BREW_ITEM"
+    target: "ANY"
+    amount: 3
+    currency: 100
+    skillpoints: 1
+    skillreward: "ALCHEMY"
+    skillxp: 60
+    rarity: "RARE"
+
+  magic_touch:
+    id: "magic_touch"
+    description: "Enchant 5 items"
+    type: "ENCHANT_ITEM"
+    target: "ANY"
+    amount: 5
+    currency: 120
+    skillpoints: 2
+    skillreward: "ENCHANTING"
+    skillxp: 80
+    rarity: "RARE"
