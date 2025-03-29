@@ -17,6 +17,8 @@ public class ResetTaskManager {
 
     public void checkResetOnStartup() {
         LocalDate today = LocalDate.now();
+        performDailyReset();
+        performWeeklyReset();
         if (!lastResetDate.equals(today)) {
             performDailyReset();
             if (today.getDayOfWeek().getValue() == 1) {
@@ -24,6 +26,7 @@ public class ResetTaskManager {
             }
             lastResetDate = today;
         }
+        
     }
 
     public void performDailyReset() {

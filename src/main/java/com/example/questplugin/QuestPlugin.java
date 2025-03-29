@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import net.milkbowl.vault.economy.Economy;
 import dev.aurelium.auraskills.api.AuraSkillsApi;
 
+@SuppressWarnings("unused")
 public class QuestPlugin extends JavaPlugin {
 
     private QuestManager questManager;
@@ -13,6 +14,7 @@ public class QuestPlugin extends JavaPlugin {
     private LeaderboardManager leaderboardManager;
     private RarityRoller rarityRoller;
     private Economy economy;
+    private ResetTaskManager resetTaskManager;
 
     @Override
     public void onEnable() {
@@ -23,18 +25,25 @@ public class QuestPlugin extends JavaPlugin {
         this.questManager = new QuestManager(this);
         this.leaderboardManager = new LeaderboardManager();
         this.rarityRoller = new RarityRoller(this);
+        this.resetTaskManager = new ResetTaskManager(this);
 
         getServer().getPluginManager().registerEvents(new ExtraEventsListener(this), this);
         getServer().getPluginManager().registerEvents(new AuraSkillsListener(this), this);
 
         getCommand("questdev").setExecutor(new DevCommands(this));
+        getCommand("quest").setExecutor(new QuestCommand(this));
+
+        resetTaskManager.checkResetOnStartup();
 
         getLogger().info("QuestPlugin enabled.");
+
     }
 
     @Override
     public void onDisable() {
-        questStorage.save();
+        if (questStorage != null) {
+            questStorage.save();
+        }
         getLogger().info("QuestPlugin disabled.");
     }
 
