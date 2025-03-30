@@ -52,7 +52,7 @@ public class QuestStorageManager {
     public void saveFromManager(QuestManager questManager) {
         plugin.debug("[Storage] Saving player quest data from manager...");
         for (UUID uuid : questManager.getAllPlayers()) {
-            List<Quest> daily = questManager.getPlayerQuests(uuid);
+            List<Quest> daily = questManager.getPlayerDailyQuests(uuid);
             List<Quest> weekly = questManager.getPlayerWeeklyQuests(uuid);
             savePlayerQuests(uuid, daily, weekly);
             plugin.debug("[Storage] Saved " + daily.size() + " daily and " + weekly.size() + " weekly quests for " + uuid);

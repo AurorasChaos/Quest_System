@@ -132,4 +132,34 @@ public class LeaderboardManager {
         addScore(playerId, points);
         plugin.debug("[Leaderboard] Recorded " + points + " pts for " + playerId + " for completing " + quest.getRarity().name() + " quest: " + quest.getId());
     }
+
+    public Map<String, Integer> getTopPlayers(int amount) {
+        return getTop(amount).stream()
+            .map(entry -> {
+                String name = Optional.ofNullable(Bukkit.getOfflinePlayer(entry.getKey()).getName())
+                                      .orElse("Unknown");
+                return Map.entry(name, entry.getValue());
+            })
+            .limit(amount)
+            .collect(
+                LinkedHashMap::new,
+                (map, entry) -> map.put(entry.getKey(), entry.getValue()),
+                Map::putAll
+            );
+    }
+
+    public int getRank(UUID playerId) {
+        List<Map.Entry<UUID, Integer>> sorted = scores.entrySet().stream()
+                .sorted(Map.Entry.<UUID, Integer>comparingByValue().reversed())
+                .toList();
+    
+        for (int i = 0; i < sorted.size(); i++) {
+            if (sorted.get(i).getKey().equals(playerId)) {
+                return i + 1; // ranks are 1-based
+            }
+        }
+    
+        return -1; // not found
+    }
+    
 }

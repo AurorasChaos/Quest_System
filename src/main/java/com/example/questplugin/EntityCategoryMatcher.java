@@ -3,10 +3,6 @@ package com.example.questplugin;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Animals;
-import org.bukkit.entity.Skeleton;
-import org.bukkit.entity.Zombie;
-import org.bukkit.entity.Wither;
-import org.bukkit.entity.EnderDragon;
 
 public class EntityCategoryMatcher {
 

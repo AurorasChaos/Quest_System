@@ -9,11 +9,14 @@ public class QuestTemplate {
     private final int targetAmount;
     private final double currencyReward;
     private final int skillPointReward;
+    private final String skillType;
+    private final int skillXp;
     private final QuestTier tier;
     private final QuestRarity rarity;
 
     public QuestTemplate(String id, String description, QuestType type, String targetKey,
                          int targetAmount, double currencyReward, int skillPointReward,
+                         String skillType, int skillXp,
                          QuestTier tier, QuestRarity rarity) {
         this.id = id;
         this.description = description;
@@ -22,13 +25,15 @@ public class QuestTemplate {
         this.targetAmount = targetAmount;
         this.currencyReward = currencyReward;
         this.skillPointReward = skillPointReward;
+        this.skillType = skillType;
+        this.skillXp = skillXp;
         this.tier = tier;
         this.rarity = rarity;
     }
 
     public Quest toQuest() {
         return new Quest(id, description, type, targetKey, targetAmount,
-                         currencyReward, skillPointReward, tier, rarity);
+                         currencyReward, skillPointReward, skillType, skillXp, tier, rarity);
     }
 
     public QuestTier getTier() {

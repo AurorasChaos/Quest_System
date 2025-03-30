@@ -19,13 +19,13 @@ com\example\questplugin\RarityRoller$1.class
 com\example\questplugin\QuestAssigner$1.class
 com\example\questplugin\QuestGUI.class
 com\example\questplugin\RewardHandler.class
+com\example\questplugin\QuestLeaderboardSection.class
 com\example\questplugin\QuestStorageManager.class
 com\example\questplugin\QuestTier.class
 com\example\questplugin\QuestGUI$2.class
 com\example\questplugin\AuraSkillsListener.class
 com\example\questplugin\LifeEventsListener.class
 com\example\questplugin\LeaderboardManager.class
-com\example\questplugin\ResetTaskManager.class
 com\example\questplugin\Quest$1.class
 com\example\questplugin\BlockEventsListener.class
 com\example\questplugin\QuestPlugin.class

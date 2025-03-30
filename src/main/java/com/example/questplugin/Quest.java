@@ -19,7 +19,8 @@ public class Quest {
     private int skillXp;
 
     public Quest(String id, String description, QuestType type, String targetKey, int targetAmount,
-                 double currencyReward, int skillPointReward, QuestTier tier, QuestRarity rarity) {
+    double currencyReward, int skillPointReward, String skillType, int skillXp,
+    QuestTier tier, QuestRarity rarity) {
         this.id = id;
         this.description = description;
         this.type = type;
@@ -27,10 +28,12 @@ public class Quest {
         this.targetAmount = targetAmount;
         this.currencyReward = currencyReward;
         this.skillPointReward = skillPointReward;
+        this.skillType = skillType;
+        this.skillXp = skillXp;
         this.tier = tier;
         this.rarity = rarity;
     }
-
+    
     public String getId() { return id; }
     public String getDescription() { return description; }
     public QuestType getType() { return type; }

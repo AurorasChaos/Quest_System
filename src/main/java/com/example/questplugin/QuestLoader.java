@@ -26,13 +26,18 @@ public class QuestLoader {
             String description = config.getString(path + ".description");
             QuestType type = QuestType.valueOf(config.getString(path + ".type", "CUSTOM"));
             String targetKey = config.getString(path + ".target_key", null);
-            int target = config.getInt(path + ".target", 1);
+            int target_amount = config.getInt(path + ".target", 1);
             double currency = config.getDouble(path + ".currency", 0);
             int skill = config.getInt(path + ".skill_points", 0);
+            String skillType = config.getString(path + ".skill_type", null);
+            int skillXp = config.getInt(path + ".skill_xp", 0);
             QuestTier tier = QuestTier.valueOf(config.getString(path + ".tier", "DAILY"));
             QuestRarity rarity = QuestRarity.fromString(config.getString(path + ".rarity", "COMMON"));
 
-            QuestTemplate template = new QuestTemplate(id, description, type, targetKey, target, currency, skill, tier, rarity);
+            QuestTemplate template = new QuestTemplate(
+                id, description, type, targetKey, target_amount,
+                currency, skill, skillType, skillXp, tier, rarity
+            );
             questTemplates.put(id, template);
         }
     }
@@ -42,6 +47,8 @@ public class QuestLoader {
     }
 
     public List<QuestTemplate> getTemplatesByTier(QuestTier tier) {
-        return questTemplates.values().stream().filter(q -> q.getTier() == tier).toList();
+        return questTemplates.values().stream()
+                .filter(q -> q.getTier() == tier)
+                .toList();
     }
 }

@@ -1,7 +1,6 @@
 package com.example.questplugin;
 
 import com.google.common.eventbus.Subscribe;
-import dev.aurelium.auraskills.api.AuraSkillsApi;
 import dev.aurelium.auraskills.api.event.skill.SkillLevelUpEvent;
 import dev.aurelium.auraskills.api.event.skill.XpGainEvent;
 

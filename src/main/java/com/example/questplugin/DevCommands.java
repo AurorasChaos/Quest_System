@@ -53,7 +53,7 @@ public class DevCommands implements CommandExecutor {
                     return true;
                 }
                 Quest quest = template.toQuest();
-                plugin.getQuestManager().getPlayerQuests(player.getUniqueId()).add(quest);
+                plugin.getQuestManager().getPlayerDailyQuests(player.getUniqueId()).add(quest);
                 player.sendMessage(ChatColor.GREEN + "Given quest: " + quest.getDescription());
             }
         }

@@ -4,16 +4,16 @@
 package com.example.questplugin;
 
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import net.milkbowl.vault.economy.Economy;
 import dev.aurelium.auraskills.api.AuraSkillsApi;
 
-import java.util.List;
-import java.util.UUID;
-
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import com.auradev.universalscoreboard.UniversalScoreboard;
+import com.auradev.universalscoreboard.SidebarManager;
 
 public class QuestPlugin extends JavaPlugin {
 
@@ -23,16 +23,20 @@ public class QuestPlugin extends JavaPlugin {
     private LeaderboardManager leaderboardManager;
     private RarityRoller rarityRoller;
     private Economy economy;
-    private ResetTaskManager resetTaskManager;
     private boolean debugMode;
     private BukkitAudiences adventure;
     private QuestAssigner questAssigner;
+    private static QuestPlugin instance;
+
+
     @Override
     public void onEnable() {
         log("[Init] Loading configuration...");
         saveDefaultConfig();
         FileConfiguration config = getConfig();
         this.debugMode = config.getBoolean("Debug", false);
+
+        instance = this;
 
         if (!setupEconomy()) {
             log("[Vault] Economy provider not found. Coin rewards will be disabled.");
@@ -44,9 +48,18 @@ public class QuestPlugin extends JavaPlugin {
         this.questManager = new QuestManager(this);
         this.leaderboardManager = new LeaderboardManager(this);
         this.rarityRoller = new RarityRoller(this);
-        this.resetTaskManager = new ResetTaskManager(this);
         this.adventure = BukkitAudiences.create(this);
         this.questAssigner = new QuestAssigner(this);
+
+        SidebarManager manager = UniversalScoreboard.get().getSidebarManager();
+        manager.registerSection(new QuestLeaderboardSection());
+
+        Bukkit.getScheduler().runTaskTimer(this, () -> {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                manager.update(player);
+            }
+        }, 0L, 40L);
+
 
         log("[Init] Registering event listeners...");
         getServer().getPluginManager().registerEvents(new QuestGUI(this), this);
@@ -63,7 +76,7 @@ public class QuestPlugin extends JavaPlugin {
         log("[Init] Loading saved quest data...");
         questStorage.loadIntoManager(questManager);
 
-        resetTaskManager.checkResetOnStartup();
+        questManager.checkResetOnStartup();
 
         questManager.ensureInitialAssignments();
 
@@ -114,4 +127,8 @@ public class QuestPlugin extends JavaPlugin {
     public AuraSkillsApi getAuraSkillsApi() { return AuraSkillsApi.get(); }
     public boolean isDebugMode() { return debugMode; }
     public QuestAssigner getQuestAssigner() { return questAssigner;}
+
+    public static QuestPlugin getInstance() {
+        return instance;
+    }
 }

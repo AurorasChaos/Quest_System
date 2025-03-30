@@ -74,22 +74,34 @@ private int getWeight(QuestRarity rarity) {
 public List<Quest> assignDailyQuests(UUID uuid) {
     List<QuestTemplate> pool = new ArrayList<>(plugin.getQuestLoader().getTemplatesByTier(QuestTier.DAILY));
     int dailyLimit = plugin.getConfig().getInt("QuestLimits.DAILY", 10);
-    Collections.shuffle(pool);
-    return pool.stream().limit(dailyLimit).map(QuestTemplate::toQuest).toList();
+    List<QuestTemplate> shuffled = new ArrayList<>(pool);
+    Collections.shuffle(shuffled);
+    return shuffled.stream()
+        .limit(dailyLimit)
+        .map(QuestTemplate::toQuest)
+        .collect(Collectors.toList());
 }
 
 public List<Quest> assignWeeklyQuests(UUID uuid) {
     List<QuestTemplate> pool = new ArrayList<>(plugin.getQuestLoader().getTemplatesByTier(QuestTier.WEEKLY));
     int weeklyLimit = plugin.getConfig().getInt("QuestLimits.WEEKLY", 7);
-    Collections.shuffle(pool);
-    return pool.stream().limit(weeklyLimit).map(QuestTemplate::toQuest).toList();
+    List<QuestTemplate> shuffled = new ArrayList<>(pool);
+    Collections.shuffle(shuffled);
+    return shuffled.stream()
+        .limit(weeklyLimit)
+        .map(QuestTemplate::toQuest)
+        .collect(Collectors.toList());
 }
 
 public List<Quest> assignGlobalQuests() {
     List<QuestTemplate> pool = new ArrayList<>(plugin.getQuestLoader().getTemplatesByTier(QuestTier.GLOBAL));
     int globalLimit = plugin.getConfig().getInt("QuestLimits.GLOBAL", 5);
-    Collections.shuffle(pool);
-    return pool.stream().limit(globalLimit).map(QuestTemplate::toQuest).toList();
+    List<QuestTemplate> shuffled = new ArrayList<>(pool);
+    Collections.shuffle(shuffled);
+    return shuffled.stream()
+        .limit(globalLimit)
+        .map(QuestTemplate::toQuest)
+        .collect(Collectors.toList());
 }
 
 }
