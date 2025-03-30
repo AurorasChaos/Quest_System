@@ -9,15 +9,15 @@
   <groupId>com.example</groupId>
   <artifactId>questplugin</artifactId>
   <name>QuestPlugin</name>
-  <version>1.1</version>
+  <version>${revision}.${maven.build.timestamp}</version>
   <build>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
-          <source>21</source>
-          <target>21</target>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
         </configuration>
       </plugin>
       <plugin>
@@ -31,6 +31,23 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <id>timestamp-property</id>
+            <goals>
+              <goal>timestamp-property</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <name>maven.build.timestamp</name>
+          <pattern>${maven.build.timestamp.format}</pattern>
+        </configuration>
       </plugin>
     </plugins>
   </build>
@@ -96,6 +113,8 @@
   </dependencies>
   <properties>
     <java.version>21</java.version>
+    <maven.build.timestamp.format>yyyyMMdd.HHmm</maven.build.timestamp.format>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <revision>1.1</revision>
   </properties>
 </project>
