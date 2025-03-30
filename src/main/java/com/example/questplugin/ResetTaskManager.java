@@ -4,10 +4,15 @@ package com.example.questplugin;
 import org.bukkit.Bukkit;
 import java.time.LocalDate;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import java.io.File;
 import java.io.IOException;
 import org.bukkit.configuration.file.YamlConfiguration;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 public class ResetTaskManager {
 
@@ -67,26 +72,57 @@ public class ResetTaskManager {
 
     public void performDailyReset() {
         Bukkit.getLogger().info("[QuestPlugin] Performing daily quest reset.");
+    
         for (UUID uuid : plugin.getQuestManager().getAllPlayers()) {
-            List<Quest> assigned = plugin.getQuestLoader().getTemplatesByTier(QuestTier.DAILY).stream()
-                    .map(QuestTemplate::toQuest).toList();
-            plugin.getQuestManager().assignNewDailyQuests(uuid, assigned);
+            List<Quest> daily = plugin.getQuestAssigner().assignDailyQuests(uuid);
             List<Quest> weekly = plugin.getQuestManager().getPlayerWeeklyQuests(uuid);
-            plugin.getQuestStorage().savePlayerQuests(uuid, assigned, weekly);
+            plugin.getQuestManager().assignNewDailyQuests(uuid, daily);
+            plugin.getQuestStorage().savePlayerQuests(uuid, daily, weekly);
         }
+    
         plugin.getQuestStorage().save();
     }
 
     public void performWeeklyReset() {
         Bukkit.getLogger().info("[QuestPlugin] Performing weekly quest reset.");
-        for (UUID uuid : plugin.getQuestManager().getAllPlayers()) {
-            List<Quest> assigned = plugin.getQuestLoader().getTemplatesByTier(QuestTier.WEEKLY).stream()
-                    .map(QuestTemplate::toQuest).toList();
-            plugin.getQuestManager().assignNewWeeklyQuests(uuid, assigned);
-            List<Quest> daily = plugin.getQuestManager().getPlayerQuests(uuid);
-            plugin.getQuestStorage().savePlayerQuests(uuid, daily, assigned);
+    
+        // Reset global quests that are completed
+        List<Quest> currentGlobal = plugin.getQuestManager().getGlobalQuests();
+        int globalLimit = plugin.getConfig().getInt("QuestLimits.GLOBAL", 10);
+        List<Quest> newGlobals = new ArrayList<>(currentGlobal);
+    
+        List<QuestTemplate> allGlobalTemplates = plugin.getQuestLoader().getTemplatesByTier(QuestTier.GLOBAL);
+        Set<String> usedIds = currentGlobal.stream()
+            .filter(q -> !q.isCompleted()) // preserve incomplete ones
+            .map(Quest::getId)
+            .collect(Collectors.toSet());
+    
+        // Remove completed ones
+        newGlobals.removeIf(Quest::isCompleted);
+    
+        // Fill back up to the limit
+        List<QuestTemplate> available = allGlobalTemplates.stream()
+            .filter(template -> !usedIds.contains(template.getId()))
+            .toList();
+    
+        Collections.shuffle(available);
+        for (QuestTemplate template : available) {
+            if (newGlobals.size() >= globalLimit) break;
+            newGlobals.add(template.toQuest());
         }
+    
+        plugin.getQuestManager().setGlobalQuests(newGlobals);
+    
+        // Now reset weekly quests for players
+        for (UUID uuid : plugin.getQuestManager().getAllPlayers()) {
+            List<Quest> weekly = plugin.getQuestAssigner().assignWeeklyQuests(uuid);
+            List<Quest> daily = plugin.getQuestManager().getPlayerQuests(uuid);
+            plugin.getQuestManager().assignNewWeeklyQuests(uuid, weekly);
+            plugin.getQuestStorage().savePlayerQuests(uuid, daily, weekly);
+        }
+    
         plugin.getQuestStorage().save();
+        Bukkit.getLogger().info("[QuestPlugin] Weekly reset complete.");
     }
 
     public void giveDevQuest(UUID uuid, Quest quest) {

@@ -26,7 +26,7 @@ public class QuestPlugin extends JavaPlugin {
     private ResetTaskManager resetTaskManager;
     private boolean debugMode;
     private BukkitAudiences adventure;
-
+    private QuestAssigner questAssigner;
     @Override
     public void onEnable() {
         log("[Init] Loading configuration...");
@@ -46,6 +46,7 @@ public class QuestPlugin extends JavaPlugin {
         this.rarityRoller = new RarityRoller(this);
         this.resetTaskManager = new ResetTaskManager(this);
         this.adventure = BukkitAudiences.create(this);
+        this.questAssigner = new QuestAssigner(this);
 
         log("[Init] Registering event listeners...");
         getServer().getPluginManager().registerEvents(new QuestGUI(this), this);
@@ -64,18 +65,7 @@ public class QuestPlugin extends JavaPlugin {
 
         resetTaskManager.checkResetOnStartup();
 
-        for (UUID uuid : questManager.getAllPlayers()) {
-            if (questManager.getPlayerQuests(uuid).isEmpty()) {
-                List<Quest> daily = questLoader.getTemplatesByTier(QuestTier.DAILY).stream().map(QuestTemplate::toQuest).toList();
-                questManager.assignNewDailyQuests(uuid, daily);
-                debug("[Assign] Assigned new DAILY quests to " + uuid);
-            }
-            if (questManager.getPlayerWeeklyQuests(uuid).isEmpty()) {
-                List<Quest> weekly = questLoader.getTemplatesByTier(QuestTier.WEEKLY).stream().map(QuestTemplate::toQuest).toList();
-                questManager.assignNewWeeklyQuests(uuid, weekly);
-                debug("[Assign] Assigned new WEEKLY quests to " + uuid);
-            }
-        }
+        questManager.ensureInitialAssignments();
 
         log("QuestPlugin enabled.");
     }
@@ -123,4 +113,5 @@ public class QuestPlugin extends JavaPlugin {
     public Economy getEconomy() { return economy; }
     public AuraSkillsApi getAuraSkillsApi() { return AuraSkillsApi.get(); }
     public boolean isDebugMode() { return debugMode; }
+    public QuestAssigner getQuestAssigner() { return questAssigner;}
 }

@@ -1,42 +1,51 @@
+# ============================
 # QuestPlugin Configuration
+# ============================
 
-rarity_upgrade_chances:
-  COMMON_TO_RARE: 0.25
-  RARE_TO_EPIC: 0.10
-  EPIC_TO_LEGENDARY: 0.02
+# General Settings
+Debug: true
 
-bonus_rewards:
-  RARE: 1.25
-  EPIC: 1.5
-  LEGENDARY: 2.0
+QuestLimits:
+  DAILY : 5
+  WEEKLY : 10
+  GLOBAL : 15
 
-gui:
-  items_per_page: 21
-  notify_progress_interval: 10
-  play_animation_on_open: true
+# Reset Schedule
+# These are Cron-style expressions. You can also use interval-based if preferred.
+Reset:
+  DailyTime: "0 0 6 * * *"    # Every day at 6:00 AM
+  WeeklyTime: "0 0 6 ? * MON" # Every Monday at 6:00 AM
+  UseCron: true
 
-streaks:
-  enable: true
-  daily_bonus_currency: 25
-  daily_bonus_skill_points: 1
-  reset_on_miss: true
+# Rarity Weights for Quest Assignment
+RarityWeights:
+  COMMON: 60
+  RARE: 30
+  EPIC: 8
+  LEGENDARY: 2
 
-monthly_rewards:
-  enable: true
-  top_3_currency:
-    - 500
-    - 350
-    - 200
-  skill_points:
-    - 10
-    - 7
-    - 4
+# Leaderboard Settings
+Leaderboard:
+  Enabled: true
+  Hologram:
+    Enabled: true
+    Location:
+      World: "world"
+      X: 100.5
+      Y: 75
+      Z: -120.5
 
-hologram:
-  enable: true
-  update_interval: 60
-  lines:
-    - "&6&lTop Questers This Month"
-    - "&e1. %player1% - %value1% quests"
-    - "&e2. %player2% - %value2% quests"
-    - "&e3. %player3% - %value3% quests"
+# Quest Holograms Display Format (Optional)
+HologramFormat:
+  - "&eTop Questers"
+  - "&f1. {player1} - {points1} pts"
+  - "&f2. {player2} - {points2} pts"
+  - "&f3. {player3} - {points3} pts"
+
+# PlaceholderAPI Hooks
+Placeholders:
+  Enabled: true
+
+# Any future flags
+Experimental:
+  UseSmartStructureDetection: true

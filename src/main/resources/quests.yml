@@ -1,124 +1,4868 @@
 quests:
-  zombie_slayer:
-    description: Defeat 10 zombies
+  undead_legion:
+    id: undead_legion
+    description: "\xA77\xA7cThe undead rise\xA77 \u2014 bring down \xA7e5000\xA77\
+      \ as a server."
     type: KILL_MOB
-    target_key: ZOMBIE
-    target: 10
-    currency: 100
-    skill_points: 1
-    tier: DAILY
-    rarity: COMMON
-  log_collector:
-    description: Gather 30 spruce logs
-    type: GATHER_ITEM
-    target_key: SPRUCE_LOG
-    target: 30
-    currency: 80
-    skill_points: 1
-    tier: DAILY
-    rarity: COMMON
-  stone_smith:
-    description: Craft 10 stone swords
-    type: CRAFT_ITEM
-    target_key: STONE_SWORD
-    target: 10
-    currency: 90
-    skill_points: 2
-    tier: DAILY
-    rarity: RARE
-  walk_it_off:
-    description: Walk 1000 blocks
-    type: WALK_DISTANCE
-    target_key: ANY
-    target: 1000
-    currency: 70
-    skill_points: 1
-    tier: DAILY
-    rarity: COMMON
-  nom_nom:
-    description: Eat 5 cooked beef
-    type: CONSUME_ITEM
-    target_key: COOKED_BEEF
-    target: 5
-    currency: 60
-    skill_points: 1
-    tier: DAILY
-    rarity: COMMON
-  iron_miner:
-    description: Mine 25 iron ore
-    type: MINE_BLOCK
-    target_key: IRON_ORE
-    target: 25
-    currency: 120
-    skill_points: 3
-    tier: WEEKLY
-    rarity: RARE
-  deep_explorer:
-    description: Enter the Deep Dark biome
-    type: EXPLORE_BIOME
-    target_key: DEEP_DARK
-    target: 1
-    currency: 200
-    skill_points: 4
-    tier: WEEKLY
-    rarity: EPIC
-  fish_master:
-    description: Catch 15 cod
-    type: FISH
-    target_key: COD
-    target: 15
-    currency: 100
-    skill_points: 2
-    tier: WEEKLY
-    rarity: COMMON
-  animal_whisperer:
-    description: Tame 3 wolves
-    type: TAME_ENTITY
-    target_key: WOLF
-    target: 3
-    currency: 250
-    skill_points: 5
-    tier: GLOBAL
-    rarity: LEGENDARY
-  blacksmith_apprentice:
-    description: Smelt 50 iron ingots
-    type: SMELT_ITEM
-    target_key: IRON_INGOT
-    target: 50
-    currency: 300
-    skill_points: 5
-    tier: GLOBAL
-    rarity: LEGENDARY
-  village_trader:
-    description: Trade with villagers 10 times
-    type: TRADE
-    target_key: ANY
-    target: 10
-    currency: 200
-    skill_points: 3
-    tier: GLOBAL
-    rarity: RARE
-
-  brewmaster:
-    id: "brewmaster"
-    description: "Brew 3 potions"
-    type: "BREW_ITEM"
-    target: "ANY"
-    amount: 3
-    currency: 100
+    target: UNDEAD
+    amount: 5000
+    currency: 1000
     skillpoints: 1
-    skillreward: "ALCHEMY"
-    skillxp: 60
-    rarity: "RARE"
-
-  magic_touch:
-    id: "magic_touch"
-    description: "Enchant 5 items"
-    type: "ENCHANT_ITEM"
-    target: "ANY"
+    skillreward: COMBAT
+    skillxp: 500
+    rarity: COMMON
+    tier: GLOBAL
+  hostile_horde:
+    id: hostile_horde
+    description: "\xA77\xA7cHostiles overrun the world.\xA77 Defeat \xA7e8000\xA7\
+      7 together!"
+    type: KILL_MOB
+    target: HOSTILE
+    amount: 8000
+    currency: 1100
+    skillpoints: 1
+    skillreward: COMBAT
+    skillxp: 550
+    rarity: COMMON
+    tier: GLOBAL
+  zombie_infestation:
+    id: zombie_infestation
+    description: "\xA77\xA7aCleanse the lands\xA77 of \xA7e4000 zombies\xA77 this\
+      \ month."
+    type: KILL_MOB
+    target: ZOMBIE
+    amount: 4000
+    currency: 950
+    skillpoints: 1
+    skillreward: COMBAT
+    skillxp: 480
+    rarity: COMMON
+    tier: GLOBAL
+  bone_army:
+    id: bone_army
+    description: "\xA77\xA7cThe skeleton army marches.\xA77 Break \xA7e3000\xA77 of\
+      \ them."
+    type: KILL_MOB
+    target: SKELETON
+    amount: 3000
+    currency: 920
+    skillpoints: 1
+    skillreward: COMBAT
+    skillxp: 460
+    rarity: COMMON
+    tier: GLOBAL
+  nether_cleanup:
+    id: nether_cleanup
+    description: "\xA77\xA7cHeat patrol.\xA77 Defeat \xA7e5 piglins\xA77 deep in the\
+      \ Nether."
+    type: KILL_MOB
+    target: PIGLIN
     amount: 5
-    currency: 120
+    currency: 65
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 45
+    rarity: RARE
+    tier: DAILY
+  phantom_exorcism:
+    id: phantom_exorcism
+    description: "\xA77\xA7dThe skies are loud with wings.\xA77 Banish \xA7e2000 phantoms\xA7\
+      7."
+    type: KILL_MOB
+    target: PHANTOM
+    amount: 2000
+    currency: 980
+    skillpoints: 1
+    skillreward: COMBAT
+    skillxp: 490
+    rarity: COMMON
+    tier: GLOBAL
+  creeper_quarantine:
+    id: creeper_quarantine
+    description: "\xA77\xA7aToo much hissing...\xA77 Contain \xA7e2500 creepers\xA7\
+      7."
+    type: KILL_MOB
+    target: CREEPER
+    amount: 2500
+    currency: 970
+    skillpoints: 1
+    skillreward: COMBAT
+    skillxp: 475
+    rarity: COMMON
+    tier: GLOBAL
+  spider_web:
+    id: spider_web
+    description: "\xA77\xA7cThey're crawling everywhere.\xA77 Remove \xA7e3500 spiders\xA7\
+      7."
+    type: KILL_MOB
+    target: SPIDER
+    amount: 3500
+    currency: 940
+    skillpoints: 1
+    skillreward: COMBAT
+    skillxp: 460
+    rarity: COMMON
+    tier: GLOBAL
+  hoglin_harvest:
+    id: hoglin_harvest
+    description: "\xA77\xA7cThe hoglins are thick in the forest.\xA77 Hunt \xA7e3000\xA7\
+      7."
+    type: KILL_MOB
+    target: HOGLIN
+    amount: 3000
+    currency: 990
+    skillpoints: 1
+    skillreward: COMBAT
+    skillxp: 495
+    rarity: COMMON
+    tier: GLOBAL
+  pillager_siege:
+    id: pillager_siege
+    description: "\xA77Villages under siege! \xA7cRepel \xA7e2500 pillagers\xA77 this\
+      \ month."
+    type: KILL_MOB
+    target: PILLAGER
+    amount: 2500
+    currency: 950
+    skillpoints: 1
+    skillreward: COMBAT
+    skillxp: 470
+    rarity: COMMON
+    tier: GLOBAL
+  cave_spider_crisis:
+    id: cave_spider_crisis
+    description: "\xA77\xA7cInfestation in the mines.\xA77 Eliminate \xA7e2000 cave\
+      \ spiders\xA77."
+    type: KILL_MOB
+    target: CAVE_SPIDER
+    amount: 2000
+    currency: 920
+    skillpoints: 1
+    skillreward: COMBAT
+    skillxp: 455
+    rarity: COMMON
+    tier: GLOBAL
+  slime_suppression:
+    id: slime_suppression
+    description: "\xA77\xA7aSwamps are overwhelmed.\xA77 Bounce out \xA7e3000 slimes\xA7\
+      7."
+    type: KILL_MOB
+    target: SLIME
+    amount: 3000
+    currency: 960
+    skillpoints: 1
+    skillreward: COMBAT
+    skillxp: 470
+    rarity: COMMON
+    tier: GLOBAL
+  drowned_drain:
+    id: drowned_drain
+    description: "\xA77\xA79Beneath the waves, they lurk.\xA77 Defeat \xA7e2500 drowned\xA7\
+      7."
+    type: KILL_MOB
+    target: DROWNED
+    amount: 2500
+    currency: 940
+    skillpoints: 1
+    skillreward: COMBAT
+    skillxp: 460
+    rarity: COMMON
+    tier: GLOBAL
+  stray_standoff:
+    id: stray_standoff
+    description: "\xA77\xA7bIcy nights grow longer.\xA77 Eliminate \xA7e1500 strays\xA7\
+      7."
+    type: KILL_MOB
+    target: STRAY
+    amount: 1500
+    currency: 930
+    skillpoints: 1
+    skillreward: COMBAT
+    skillxp: 450
+    rarity: COMMON
+    tier: GLOBAL
+  wither_skull_campaign:
+    id: wither_skull_campaign
+    description: "\xA77\xA78Hunt the bones of flame.\xA77 Slay \xA7e2000 wither skeletons\xA7\
+      7."
+    type: KILL_MOB
+    target: WITHER_SKELETON
+    amount: 2000
+    currency: 970
+    skillpoints: 1
+    skillreward: COMBAT
+    skillxp: 480
+    rarity: COMMON
+    tier: GLOBAL
+  netherstorm:
+    id: netherstorm
+    description: "\xA77\xA76Bring balance to chaos.\xA77 Defeat \xA7e10000 nether\
+      \ hostiles\xA77."
+    type: KILL_MOB
+    target: HOSTILE
+    amount: 10000
+    currency: 1100
+    skillpoints: 1
+    skillreward: COMBAT
+    skillxp: 550
+    rarity: COMMON
+    tier: GLOBAL
+  brute_breakers:
+    id: brute_breakers
+    description: "\xA77\xA7cClear the bastions.\xA77 Eliminate \xA7e1500 piglin brutes\xA7\
+      7."
+    type: KILL_MOB
+    target: PIGLIN_BRUTE
+    amount: 1500
+    currency: 1300
     skillpoints: 2
-    skillreward: "ENCHANTING"
+    skillreward: COMBAT
+    skillxp: 700
+    rarity: RARE
+    tier: GLOBAL
+  enderman_reckoning:
+    id: enderman_reckoning
+    description: "\xA77\xA7dStrike fear into the void.\xA77 Slay \xA7e2500 endermen\xA7\
+      7."
+    type: KILL_MOB
+    target: ENDERMAN
+    amount: 2500
+    currency: 1250
+    skillpoints: 2
+    skillreward: COMBAT
+    skillxp: 680
+    rarity: RARE
+    tier: GLOBAL
+  vex_eviction:
+    id: vex_eviction
+    description: "\xA77\xA75Silence the skies.\xA77 Destroy \xA7e1800 vexes\xA77 across\
+      \ raids."
+    type: KILL_MOB
+    target: VEX
+    amount: 1800
+    currency: 1280
+    skillpoints: 2
+    skillreward: COMBAT
+    skillxp: 690
+    rarity: RARE
+    tier: GLOBAL
+  phantom_banisher:
+    id: phantom_banisher
+    description: "\xA77\xA7dThe long night ends.\xA77 Hunt \xA7e3000 phantoms\xA7\
+      7 together."
+    type: KILL_MOB
+    target: PHANTOM
+    amount: 3000
+    currency: 1270
+    skillpoints: 2
+    skillreward: COMBAT
+    skillxp: 685
+    rarity: RARE
+    tier: GLOBAL
+  blaze_meltdown:
+    id: blaze_meltdown
+    description: "\xA77\xA76Shut down the blaze factories.\xA77 Defeat \xA7e2500 blazes\xA7\
+      7."
+    type: KILL_MOB
+    target: BLAZE
+    amount: 2500
+    currency: 1290
+    skillpoints: 2
+    skillreward: COMBAT
+    skillxp: 695
+    rarity: RARE
+    tier: GLOBAL
+  wither_watch:
+    id: wither_watch
+    description: "\xA77\xA78Dark bones.\xA77 Take out \xA7e2 wither skeletons\xA7\
+      7 today."
+    type: KILL_MOB
+    target: WITHER_SKELETON
+    amount: 2
+    currency: 70
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 50
+    rarity: RARE
+    tier: DAILY
+  nether_domination:
+    id: nether_domination
+    description: "\xA77\xA7l\xA76Command the Nether.\xA7r\xA77 Defeat \xA7e20000 hostiles\xA7\
+      7 this month."
+    type: KILL_MOB
+    target: HOSTILE
+    amount: 20000
+    currency: 2000
+    skillpoints: 3
+    skillreward: COMBAT
+    skillxp: 1200
+    rarity: LEGENDARY
+    tier: GLOBAL
+  boss_slayer:
+    id: boss_slayer
+    description: "\xA77\xA7l\xA7cNo mercy.\xA7r\xA77 Together, defeat \xA7e10 boss\
+      \ mobs\xA77 this month."
+    type: KILL_MOB
+    target: BOSS
+    amount: 10
+    currency: 2500
+    skillpoints: 3
+    skillreward: COMBAT
+    skillxp: 1500
+    rarity: LEGENDARY
+    tier: GLOBAL
+  apple_a_day:
+    id: apple_a_day
+    description: "\xA77\xA7aKeep the doctor away!\xA77 Gather \xA7e5 apples\xA77 from\
+      \ trees."
+    type: GATHER_ITEM
+    target: APPLE
+    amount: 5
+    currency: 50
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  wood_chopper:
+    id: wood_chopper
+    description: "\xA77\xA76Chop chop!\xA77 Collect \xA7e32 oak logs\xA77 for building."
+    type: GATHER_ITEM
+    target: OAK_LOG
+    amount: 32
+    currency: 55
+    skillpoints: 1
+    skillreward: WOODCUTTING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  stone_stack:
+    id: stone_stack
+    description: "\xA77\xA78Chip away.\xA77 Mine \xA7e64 stone blocks\xA77 today."
+    type: MINE_BLOCK
+    target: STONE
+    amount: 64
+    currency: 55
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  sugar_harvest:
+    id: sugar_harvest
+    description: "\xA77\xA7aSweet find!\xA77 Collect \xA7e20 sugar cane\xA77 from\
+      \ riversides."
+    type: GATHER_ITEM
+    target: SUGAR_CANE
+    amount: 20
+    currency: 50
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  feather_finder:
+    id: feather_finder
+    description: "\xA77\xA7fLight as air.\xA77 Gather \xA7e10 feathers\xA77 from chickens."
+    type: GATHER_ITEM
+    target: FEATHER
+    amount: 10
+    currency: 55
+    skillpoints: 1
+    skillreward: HUNTING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  sand_shovel:
+    id: sand_shovel
+    description: "\xA77\xA7eFeeling gritty?\xA77 Gather \xA7e40 sand\xA77 from the\
+      \ desert."
+    type: GATHER_ITEM
+    target: SAND
+    amount: 40
+    currency: 50
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  carrot_collection:
+    id: carrot_collection
+    description: "\xA77\xA7aBugs Bunny would be proud.\xA77 Collect \xA7e20 carrots\xA7\
+      7."
+    type: GATHER_ITEM
+    target: CARROT
+    amount: 20
+    currency: 55
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  leather_haul:
+    id: leather_haul
+    description: "\xA77\xA76Rugged and ready.\xA77 Gather \xA7e8 leather\xA77 from\
+      \ cattle."
+    type: GATHER_ITEM
+    target: LEATHER
+    amount: 8
+    currency: 60
+    skillpoints: 1
+    skillreward: HUNTING
+    skillxp: 40
+    rarity: COMMON
+    tier: DAILY
+  egg_basket:
+    id: egg_basket
+    description: "\xA77\xA7fBreakfast prep!\xA77 Gather \xA7e6 eggs\xA77 from hens."
+    type: GATHER_ITEM
+    target: EGG
+    amount: 6
+    currency: 50
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  ink_run:
+    id: ink_run
+    description: "\xA77\xA70Black and slimy.\xA77 Gather \xA7e10 ink sacs\xA77 from\
+      \ squids."
+    type: GATHER_ITEM
+    target: INK_SAC
+    amount: 10
+    currency: 55
+    skillpoints: 1
+    skillreward: HUNTING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  string_thing:
+    id: string_thing
+    description: "\xA77\xA7fUseful for bows and more.\xA77 Collect \xA7e12 string\xA7\
+      7."
+    type: GATHER_ITEM
+    target: STRING
+    amount: 12
+    currency: 55
+    skillpoints: 1
+    skillreward: COMBAT
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  wheat_bundle:
+    id: wheat_bundle
+    description: "\xA77\xA7eGolden harvest.\xA77 Gather \xA7e30 wheat\xA77 from your\
+      \ farm."
+    type: GATHER_ITEM
+    target: WHEAT
+    amount: 30
+    currency: 55
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  coal_collection:
+    id: coal_collection
+    description: "\xA77\xA78Fuel up.\xA77 Mine \xA7e20 coal\xA77 for smelting duties."
+    type: GATHER_ITEM
+    target: COAL
+    amount: 20
+    currency: 55
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  melon_haul:
+    id: melon_haul
+    description: "\xA77\xA7aFresh and fruity!\xA77 Gather \xA7e10 melons\xA77 from\
+      \ the garden."
+    type: GATHER_ITEM
+    target: MELON
+    amount: 10
+    currency: 50
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  potato_pick:
+    id: potato_pick
+    description: "\xA77\xA7aCrispy potential.\xA77 Harvest \xA7e20 potatoes\xA77 from\
+      \ the field."
+    type: GATHER_ITEM
+    target: POTATO
+    amount: 20
+    currency: 50
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  ancient_minerals:
+    id: ancient_minerals
+    description: "\xA77\xA78Deep within the earth lies treasure.\xA77 Mine \xA7e300\
+      \ iron ore\xA77."
+    type: GATHER_ITEM
+    target: IRON_ORE
+    amount: 300
+    currency: 250
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 140
+    rarity: COMMON
+    tier: WEEKLY
+  swamp_harvest:
+    id: swamp_harvest
+    description: "\xA77\xA7aGather \xA7e200 lily pads\xA77 for potions and d\xE9cor."
+    type: GATHER_ITEM
+    target: LILY_PAD
+    amount: 200
+    currency: 240
+    skillpoints: 1
+    skillreward: FORAGING
+    skillxp: 130
+    rarity: COMMON
+    tier: WEEKLY
+  carrot_craze:
+    id: carrot_craze
+    description: "\xA77\xA7aThe rabbits are hungry!\xA77 Collect \xA7e300 carrots\xA7\
+      7."
+    type: GATHER_ITEM
+    target: CARROT
+    amount: 300
+    currency: 230
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 120
+    rarity: COMMON
+    tier: WEEKLY
+  nether_shard:
+    id: nether_shard
+    description: "\xA77\xA7cExplore the Nether\xA77 and gather \xA7e150 nether quartz\xA7\
+      7."
+    type: GATHER_ITEM
+    target: NETHER_QUARTZ
+    amount: 150
+    currency: 260
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 150
+    rarity: COMMON
+    tier: WEEKLY
+  feather_feud:
+    id: feather_feud
+    description: "\xA77\xA7fMake arrows fly.\xA77 Gather \xA7e100 feathers\xA77 for\
+      \ fletching."
+    type: GATHER_ITEM
+    target: FEATHER
+    amount: 100
+    currency: 220
+    skillpoints: 1
+    skillreward: ARCHERY
+    skillxp: 115
+    rarity: COMMON
+    tier: WEEKLY
+  salmon_sweep:
+    id: salmon_sweep
+    description: "\xA77\xA7bFreshwater bounty!\xA77 Catch \xA7e80 salmon\xA77 from\
+      \ rivers."
+    type: GATHER_ITEM
+    target: SALMON
+    amount: 80
+    currency: 240
+    skillpoints: 1
+    skillreward: FISHING
+    skillxp: 130
+    rarity: COMMON
+    tier: WEEKLY
+  melon_march:
+    id: melon_march
+    description: "\xA77\xA7aHealthy snacks incoming!\xA77 Gather \xA7e200 melons\xA7\
+      7."
+    type: GATHER_ITEM
+    target: MELON
+    amount: 200
+    currency: 230
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 125
+    rarity: COMMON
+    tier: WEEKLY
+  glowstone_glory:
+    id: glowstone_glory
+    description: "\xA77\xA7eBrighten your world!\xA77 Gather \xA7e100 glowstone dust\xA7\
+      7."
+    type: GATHER_ITEM
+    target: GLOWSTONE_DUST
+    amount: 100
+    currency: 245
+    skillpoints: 1
+    skillreward: EXCAVATION
+    skillxp: 135
+    rarity: COMMON
+    tier: WEEKLY
+  mushroom_mix:
+    id: mushroom_mix
+    description: "\xA77\xA7cRed or brown?\xA77 Gather \xA7e150 mushrooms\xA77 of either\
+      \ type."
+    type: GATHER_ITEM
+    target: RED_MUSHROOM
+    amount: 75
+    currency: 220
+    skillpoints: 1
+    skillreward: FORAGING
+    skillxp: 120
+    rarity: COMMON
+    tier: WEEKLY
+  obsidian_order:
+    id: obsidian_order
+    description: "\xA77\xA78A tool for portals and enchantment.\xA77 Gather \xA7e50\
+      \ obsidian\xA77."
+    type: GATHER_ITEM
+    target: OBSIDIAN
+    amount: 50
+    currency: 260
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 145
+    rarity: COMMON
+    tier: WEEKLY
+  ancient_treasures:
+    id: ancient_treasures
+    description: "\xA77\xA76Unearth the forgotten.\xA77 Gather \xA7e5000 gold ingots\xA7\
+      7 as a server."
+    type: GATHER_ITEM
+    target: GOLD_INGOT
+    amount: 5000
+    currency: 1200
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 600
+    rarity: COMMON
+    tier: GLOBAL
+  nether_crystals:
+    id: nether_crystals
+    description: "\xA77\xA7cBright, burning shards.\xA77 Collect \xA7e3000 nether\
+      \ quartz\xA77 together."
+    type: GATHER_ITEM
+    target: NETHER_QUARTZ
+    amount: 3000
+    currency: 1150
+    skillpoints: 1
+    skillreward: EXCAVATION
+    skillxp: 570
+    rarity: COMMON
+    tier: GLOBAL
+  harvest_festival:
+    id: harvest_festival
+    description: "\xA77\xA7aLet the fields thrive.\xA77 Gather \xA7e10000 wheat\xA7\
+      7 for the server stores."
+    type: GATHER_ITEM
+    target: WHEAT
+    amount: 10000
+    currency: 1250
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 620
+    rarity: COMMON
+    tier: GLOBAL
+  fishing_feast:
+    id: fishing_feast
+    description: "\xA77\xA7bKeep casting.\xA77 Gain \xA7e300 Fishing XP\xA77 this\
+      \ week."
+    type: GAIN_SKILL_EXP
+    target: FISHING
+    amount: 300
+    currency: 190
+    skillpoints: 1
+    skillreward: FISHING
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  endless_bark:
+    id: endless_bark
+    description: "\xA77\xA76Fuel for builders.\xA77 Gather \xA7e7500 oak logs\xA7\
+      7 as a server."
+    type: GATHER_ITEM
+    target: OAK_LOG
+    amount: 7500
+    currency: 1220
+    skillpoints: 1
+    skillreward: FORAGING
+    skillxp: 610
+    rarity: COMMON
+    tier: GLOBAL
+  glowstone_drive:
+    id: glowstone_drive
+    description: "\xA77\xA7eIlluminate the world.\xA77 Collect \xA7e5000 glowstone\
+      \ dust\xA77 together."
+    type: GATHER_ITEM
+    target: GLOWSTONE_DUST
+    amount: 5000
+    currency: 1190
+    skillpoints: 1
+    skillreward: EXCAVATION
+    skillxp: 590
+    rarity: COMMON
+    tier: GLOBAL
+  wool_gathering:
+    id: wool_gathering
+    description: "\xA77\xA7fBlankets for all!\xA77 Collect \xA7e3500 white wool\xA7\
+      7 from sheep."
+    type: GATHER_ITEM
+    target: WHITE_WOOL
+    amount: 3500
+    currency: 1170
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 580
+    rarity: COMMON
+    tier: GLOBAL
+  leather_stockpile:
+    id: leather_stockpile
+    description: "\xA77\xA76For armor, books, and trade.\xA77 Gather \xA7e3000 leather\xA7\
+      7."
+    type: GATHER_ITEM
+    target: LEATHER
+    amount: 3000
+    currency: 1210
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 600
+    rarity: COMMON
+    tier: GLOBAL
+  carrot_crate:
+    id: carrot_crate
+    description: "\xA77\xA7aA vitamin-rich endeavor!\xA77 Collect \xA7e8000 carrots\xA7\
+      7."
+    type: GATHER_ITEM
+    target: CARROT
+    amount: 8000
+    currency: 1160
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 570
+    rarity: COMMON
+    tier: GLOBAL
+  string_stash:
+    id: string_stash
+    description: "\xA77\xA7fThread for all needs.\xA77 Collect \xA7e4500 string\xA7\
+      7."
+    type: GATHER_ITEM
+    target: STRING
+    amount: 4500
+    currency: 1180
+    skillpoints: 1
+    skillreward: ARCHERY
+    skillxp: 585
+    rarity: COMMON
+    tier: GLOBAL
+  nether_bricks_bulk:
+    id: nether_bricks_bulk
+    description: "\xA77\xA7cBuild with infernal strength.\xA77 Gather \xA7e6000 nether\
+      \ bricks\xA77."
+    type: GATHER_ITEM
+    target: NETHER_BRICK
+    amount: 6000
+    currency: 1230
+    skillpoints: 1
+    skillreward: EXCAVATION
+    skillxp: 620
+    rarity: COMMON
+    tier: GLOBAL
+  obsidian_mountain:
+    id: obsidian_mountain
+    description: "\xA77\xA78The hardest stone.\xA77 Collect \xA7e2000 obsidian\xA7\
+      7 blocks."
+    type: GATHER_ITEM
+    target: OBSIDIAN
+    amount: 2000
+    currency: 1260
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 650
+    rarity: COMMON
+    tier: GLOBAL
+  redstone_network:
+    id: redstone_network
+    description: "\xA77\xA7cPower every contraption.\xA77 Collect \xA7e8000 redstone\xA7\
+      7 dust."
+    type: GATHER_ITEM
+    target: REDSTONE
+    amount: 8000
+    currency: 1240
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 640
+    rarity: COMMON
+    tier: GLOBAL
+  sugar_surge:
+    id: sugar_surge
+    description: "\xA77\xA7aSweet enough for everyone!\xA77 Gather \xA7e7000 sugar\
+      \ cane\xA77."
+    type: GATHER_ITEM
+    target: SUGAR_CANE
+    amount: 7000
+    currency: 1150
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 580
+    rarity: COMMON
+    tier: GLOBAL
+  bookshelf_bounty:
+    id: bookshelf_bounty
+    description: "\xA77\xA7bFuel the libraries.\xA77 Collect \xA7e2000 books\xA77\
+      \ as a server."
+    type: GATHER_ITEM
+    target: BOOK
+    amount: 2000
+    currency: 1250
+    skillpoints: 1
+    skillreward: ENCHANTING
+    skillxp: 620
+    rarity: COMMON
+    tier: GLOBAL
+  rabbit_foot_raid:
+    id: rabbit_foot_raid
+    description: "\xA77\xA7dRare and lucky.\xA77 Collect \xA7e1000 rabbit feet\xA7\
+      7 for alchemy."
+    type: GATHER_ITEM
+    target: RABBIT_FOOT
+    amount: 1000
+    currency: 1400
+    skillpoints: 2
+    skillreward: ALCHEMY
+    skillxp: 800
+    rarity: RARE
+    tier: GLOBAL
+  sea_lantern_supply:
+    id: sea_lantern_supply
+    description: "\xA77\xA7bLight the deep.\xA77 Gather \xA7e1200 sea lanterns\xA7\
+      7 from ocean monuments."
+    type: GATHER_ITEM
+    target: SEA_LANTERN
+    amount: 1200
+    currency: 1380
+    skillpoints: 2
+    skillreward: FISHING
+    skillxp: 790
+    rarity: RARE
+    tier: GLOBAL
+  scute_stash:
+    id: scute_stash
+    description: "\xA77\xA7aHelp baby turtles grow!\xA77 Collect \xA7e800 scutes\xA7\
+      7."
+    type: GATHER_ITEM
+    target: SCUTE
+    amount: 800
+    currency: 1350
+    skillpoints: 2
+    skillreward: AGILITY
+    skillxp: 760
+    rarity: RARE
+    tier: GLOBAL
+  chorus_cache:
+    id: chorus_cache
+    description: "\xA77\xA7dEnd delicacies.\xA77 Harvest \xA7e3000 chorus fruit\xA7\
+      7 from End islands."
+    type: GATHER_ITEM
+    target: CHORUS_FRUIT
+    amount: 3000
+    currency: 1370
+    skillpoints: 2
+    skillreward: FARMING
+    skillxp: 780
+    rarity: RARE
+    tier: GLOBAL
+  honey_horde:
+    id: honey_horde
+    description: "\xA77\xA76Buzz buzz.\xA77 Gather \xA7e2500 honey bottles\xA77 from\
+      \ bee farms."
+    type: GATHER_ITEM
+    target: HONEY_BOTTLE
+    amount: 2500
+    currency: 1390
+    skillpoints: 2
+    skillreward: FARMING
+    skillxp: 795
+    rarity: RARE
+    tier: GLOBAL
+  ancient_scrolls:
+    id: ancient_scrolls
+    description: "\xA77\xA7l\xA76Wisdom preserved.\xA7r\xA77 Gather \xA7e500 enchanted\
+      \ books\xA77 as a server."
+    type: GATHER_ITEM
+    target: ENCHANTED_BOOK
+    amount: 500
+    currency: 2000
+    skillpoints: 3
+    skillreward: ENCHANTING
+    skillxp: 1300
+    rarity: LEGENDARY
+    tier: GLOBAL
+  dragon_essence:
+    id: dragon_essence
+    description: "\xA77\xA7l\xA75Rare as the void.\xA7r\xA77 Collect \xA7e150 dragon\
+      \ breath\xA77 together."
+    type: GATHER_ITEM
+    target: DRAGON_BREATH
+    amount: 150
+    currency: 2200
+    skillpoints: 3
+    skillreward: ALCHEMY
+    skillxp: 1400
+    rarity: LEGENDARY
+    tier: GLOBAL
+  totem_trade:
+    id: totem_trade
+    description: "\xA77\xA7l\xA7eSurvival trinkets.\xA7r\xA77 Gather \xA7e300 totems\
+      \ of undying\xA77."
+    type: GATHER_ITEM
+    target: TOTEM_OF_UNDYING
+    amount: 300
+    currency: 2100
+    skillpoints: 3
+    skillreward: DEFENSE
+    skillxp: 1350
+    rarity: LEGENDARY
+    tier: GLOBAL
+  beacon_build:
+    id: beacon_build
+    description: "\xA77\xA7l\xA7bPower the world.\xA7r\xA77 Collect \xA7e100 beacons\xA7\
+      7 for the community."
+    type: GATHER_ITEM
+    target: BEACON
+    amount: 100
+    currency: 2300
+    skillpoints: 3
+    skillreward: MINING
+    skillxp: 1500
+    rarity: LEGENDARY
+    tier: GLOBAL
+  turtle_time:
+    id: turtle_time
+    description: "\xA77\xA7aBeachside boom.\xA77 Collect \xA7e500 turtle eggs\xA7\
+      7 safely."
+    type: GATHER_ITEM
+    target: TURTLE_EGG
+    amount: 500
+    currency: 1450
+    skillpoints: 2
+    skillreward: AGILITY
+    skillxp: 850
+    rarity: RARE
+    tier: GLOBAL
+  torch_time:
+    id: torch_time
+    description: "\xA77\xA7eLight it up!\xA77 Place \xA7e20 torches\xA77 in dark places."
+    type: PLACE_BLOCK
+    target: TORCH
+    amount: 20
+    currency: 55
+    skillpoints: 1
+    skillreward: FORAGING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  bread_baking:
+    id: bread_baking
+    description: "\xA77\xA7aFill your hunger bar!\xA77 Craft \xA7e10 loaves of bread\xA7\
+      7."
+    type: CRAFT_ITEM
+    target: BREAD
+    amount: 10
+    currency: 55
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  arrow_assembly:
+    id: arrow_assembly
+    description: "\xA77\xA7fStay sharp.\xA77 Craft \xA7e20 arrows\xA77 for your next\
+      \ hunt."
+    type: CRAFT_ITEM
+    target: ARROW
+    amount: 20
+    currency: 60
+    skillpoints: 1
+    skillreward: ARCHERY
+    skillxp: 40
+    rarity: COMMON
+    tier: DAILY
+  ladder_lines:
+    id: ladder_lines
+    description: "\xA77\xA7eReach new heights.\xA77 Craft \xA7e12 ladders\xA77 for\
+      \ quick climbs."
+    type: CRAFT_ITEM
+    target: LADDER
+    amount: 12
+    currency: 50
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  pickaxe_production:
+    id: pickaxe_production
+    description: "\xA77\xA78Tools of the trade.\xA77 Craft \xA7e3 stone pickaxes\xA7\
+      7."
+    type: CRAFT_ITEM
+    target: STONE_PICKAXE
+    amount: 3
+    currency: 55
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  fence_factory:
+    id: fence_factory
+    description: "\xA77\xA76Secure your land.\xA77 Craft \xA7e16 oak fences\xA77."
+    type: CRAFT_ITEM
+    target: OAK_FENCE
+    amount: 16
+    currency: 55
+    skillpoints: 1
+    skillreward: FORAGING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  bucket_batch:
+    id: bucket_batch
+    description: "\xA77\xA78Iron for essentials.\xA77 Craft \xA7e3 buckets\xA77 today."
+    type: CRAFT_ITEM
+    target: BUCKET
+    amount: 3
+    currency: 60
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 40
+    rarity: COMMON
+    tier: DAILY
+  book_bindery:
+    id: book_bindery
+    description: "\xA77\xA7bFor knowledge and enchantments.\xA77 Craft \xA7e5 books\xA7\
+      7."
+    type: CRAFT_ITEM
+    target: BOOK
+    amount: 5
+    currency: 60
+    skillpoints: 1
+    skillreward: ENCHANTING
+    skillxp: 40
+    rarity: COMMON
+    tier: DAILY
+  breadline_bonus:
+    id: breadline_bonus
+    description: "\xA77\xA7eKeep the people fed.\xA77 Bake another \xA7e15 loaves\xA7\
+      7 of bread."
+    type: CRAFT_ITEM
+    target: BREAD
+    amount: 15
+    currency: 60
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 40
+    rarity: COMMON
+    tier: DAILY
+  shield_forge:
+    id: shield_forge
+    description: "\xA77\xA7cArm up!\xA77 Craft \xA7e2 shields\xA77 to block incoming\
+      \ attacks."
+    type: CRAFT_ITEM
+    target: SHIELD
+    amount: 2
+    currency: 60
+    skillpoints: 1
+    skillreward: DEFENSE
+    skillxp: 40
+    rarity: COMMON
+    tier: DAILY
+  hoe_crafting:
+    id: hoe_crafting
+    description: "\xA77\xA7aFarm prep in progress.\xA77 Craft \xA7e3 stone hoes\xA7\
+      7."
+    type: CRAFT_ITEM
+    target: STONE_HOE
+    amount: 3
+    currency: 55
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  fishing_kit:
+    id: fishing_kit
+    description: "\xA77\xA7bReel \u2018em in.\xA77 Craft \xA7e2 fishing rods\xA77\
+      \ today."
+    type: CRAFT_ITEM
+    target: FISHING_ROD
+    amount: 2
+    currency: 60
+    skillpoints: 1
+    skillreward: FISHING
+    skillxp: 40
+    rarity: COMMON
+    tier: DAILY
+  helmet_day:
+    id: helmet_day
+    description: "\xA77\xA78Safety first.\xA77 Craft \xA7e2 iron helmets\xA77."
+    type: CRAFT_ITEM
+    target: IRON_HELMET
+    amount: 2
+    currency: 60
+    skillpoints: 1
+    skillreward: DEFENSE
+    skillxp: 40
+    rarity: COMMON
+    tier: DAILY
+  paper_stack:
+    id: paper_stack
+    description: "\xA77\xA7fWrite your legacy.\xA77 Craft \xA7e30 paper\xA77 sheets."
+    type: CRAFT_ITEM
+    target: PAPER
+    amount: 30
+    currency: 55
+    skillpoints: 1
+    skillreward: ENCHANTING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  rail_maker:
+    id: rail_maker
+    description: "\xA77\xA7eLay down the tracks.\xA77 Craft \xA7e24 rails\xA77."
+    type: CRAFT_ITEM
+    target: RAIL
+    amount: 24
+    currency: 60
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 40
+    rarity: COMMON
+    tier: DAILY
+  redstone_tools:
+    id: redstone_tools
+    description: "\xA77\xA7cGet technical.\xA77 Craft \xA7e4 redstone torches\xA7\
+      7."
+    type: CRAFT_ITEM
+    target: REDSTONE_TORCH
+    amount: 4
+    currency: 55
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  trapdoor_work:
+    id: trapdoor_work
+    description: "\xA77\xA76Subtle entries.\xA77 Craft \xA7e6 oak trapdoors\xA77."
+    type: CRAFT_ITEM
+    target: OAK_TRAPDOOR
+    amount: 6
+    currency: 55
+    skillpoints: 1
+    skillreward: FORAGING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  composter_day:
+    id: composter_day
+    description: "\xA77\xA7aTurn scraps into soil.\xA77 Craft \xA7e2 composters\xA7\
+      7."
+    type: CRAFT_ITEM
+    target: COMPOSTER
+    amount: 2
+    currency: 55
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  firecharge_forge:
+    id: firecharge_forge
+    description: "\xA77\xA7cLight it up.\xA77 Craft \xA7e4 fire charges\xA77."
+    type: CRAFT_ITEM
+    target: FIRE_CHARGE
+    amount: 4
+    currency: 60
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 40
+    rarity: COMMON
+    tier: DAILY
+  clockwork:
+    id: clockwork
+    description: "\xA77\xA7eTime is ticking.\xA77 Craft \xA7e1 clock\xA77."
+    type: CRAFT_ITEM
+    target: CLOCK
+    amount: 1
+    currency: 65
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 45
+    rarity: RARE
+    tier: DAILY
+  cauldron_craze:
+    id: cauldron_craze
+    description: "\xA77\xA79Brew prep time.\xA77 Craft \xA7e1 cauldron\xA77."
+    type: CRAFT_ITEM
+    target: CAULDRON
+    amount: 1
+    currency: 65
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 45
+    rarity: RARE
+    tier: DAILY
+  potion_stand_day:
+    id: potion_stand_day
+    description: "\xA77\xA7dGet mystical.\xA77 Craft \xA7e1 brewing stand\xA77."
+    type: CRAFT_ITEM
+    target: BREWING_STAND
+    amount: 1
+    currency: 65
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 45
+    rarity: RARE
+    tier: DAILY
+  enchant_table_day:
+    id: enchant_table_day
+    description: "\xA77\xA7bPower in books.\xA77 Craft \xA7e1 enchanting table\xA7\
+      7."
+    type: CRAFT_ITEM
+    target: ENCHANTING_TABLE
+    amount: 1
+    currency: 70
+    skillpoints: 1
+    skillreward: ENCHANTING
+    skillxp: 50
+    rarity: RARE
+    tier: DAILY
+  golden_apple_forge:
+    id: golden_apple_forge
+    description: "\xA77\xA76A powerful bite.\xA77 Craft \xA7e1 golden apple\xA77."
+    type: CRAFT_ITEM
+    target: GOLDEN_APPLE
+    amount: 1
+    currency: 80
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 60
+    rarity: LEGENDARY
+    tier: DAILY
+  armor_forge_week:
+    id: armor_forge_week
+    description: "\xA77\xA78Prepare your warriors.\xA77 Craft \xA7e10 iron chestplates\xA7\
+      7."
+    type: CRAFT_ITEM
+    target: IRON_CHESTPLATE
+    amount: 10
+    currency: 200
+    skillpoints: 1
+    skillreward: DEFENSE
+    skillxp: 110
+    rarity: COMMON
+    tier: WEEKLY
+  anvil_stock:
+    id: anvil_stock
+    description: "\xA77\xA76Repair is key.\xA77 Craft \xA7e5 anvils\xA77 for the base."
+    type: CRAFT_ITEM
+    target: ANVIL
+    amount: 5
+    currency: 230
+    skillpoints: 2
+    skillreward: MINING
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  powered_rails:
+    id: powered_rails
+    description: "\xA77\xA7eZoom around!\xA77 Craft \xA7e50 powered rails\xA77."
+    type: CRAFT_ITEM
+    target: POWERED_RAIL
+    amount: 50
+    currency: 220
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 120
+    rarity: COMMON
+    tier: WEEKLY
+  brew_block_build:
+    id: brew_block_build
+    description: "\xA77\xA7dMystic expansion.\xA77 Craft \xA7e10 brewing stands\xA7\
+      7 this week."
+    type: CRAFT_ITEM
+    target: BREWING_STAND
+    amount: 10
+    currency: 260
+    skillpoints: 2
+    skillreward: ALCHEMY
+    skillxp: 145
+    rarity: RARE
+    tier: WEEKLY
+  library_push:
+    id: library_push
+    description: "\xA77\xA7bExpand the archives.\xA77 Craft \xA7e30 bookshelves\xA7\
+      7."
+    type: CRAFT_ITEM
+    target: BOOKSHELF
+    amount: 30
+    currency: 250
+    skillpoints: 2
+    skillreward: ENCHANTING
+    skillxp: 140
+    rarity: RARE
+    tier: WEEKLY
+  beacon_forging:
+    id: beacon_forging
+    description: "\xA77\xA7l\xA76Signal strength.\xA7r\xA77 Craft \xA7e100 beacons\xA7\
+      7 across the realm."
+    type: CRAFT_ITEM
+    target: BEACON
+    amount: 100
+    currency: 2500
+    skillpoints: 3
+    skillreward: MINING
+    skillxp: 1500
+    rarity: LEGENDARY
+    tier: GLOBAL
+  golden_feast:
+    id: golden_feast
+    description: "\xA77\xA7l\xA76Sustain the kingdom.\xA7r\xA77 Craft \xA7e300 golden\
+      \ apples\xA77."
+    type: CRAFT_ITEM
+    target: GOLDEN_APPLE
+    amount: 300
+    currency: 2400
+    skillpoints: 3
+    skillreward: ALCHEMY
+    skillxp: 1400
+    rarity: LEGENDARY
+    tier: GLOBAL
+  railway_expansion:
+    id: railway_expansion
+    description: "\xA77\xA7eConnect the world.\xA77 Craft \xA7e2000 rails\xA77 together."
+    type: CRAFT_ITEM
+    target: RAIL
+    amount: 2000
+    currency: 1900
+    skillpoints: 2
+    skillreward: AGILITY
+    skillxp: 1100
+    rarity: RARE
+    tier: GLOBAL
+  scroll_scribes:
+    id: scroll_scribes
+    description: "\xA77\xA7bPreserve knowledge.\xA77 Craft \xA7e1500 books\xA77 across\
+      \ the realm."
+    type: CRAFT_ITEM
+    target: BOOK
+    amount: 1500
+    currency: 2000
+    skillpoints: 2
+    skillreward: ENCHANTING
+    skillxp: 1200
+    rarity: RARE
+    tier: GLOBAL
+  tool_forge:
+    id: tool_forge
+    description: "\xA77\xA78Equip everyone.\xA77 Craft \xA7e500 diamond pickaxes\xA7\
+      7."
+    type: CRAFT_ITEM
+    target: DIAMOND_PICKAXE
+    amount: 500
+    currency: 2100
+    skillpoints: 3
+    skillreward: MINING
+    skillxp: 1350
+    rarity: LEGENDARY
+    tier: GLOBAL
+  step_sprinter:
+    id: step_sprinter
+    description: "\xA77\xA7aGet those steps in!\xA77 Walk \xA7e500 blocks\xA77 today."
+    type: WALK_DISTANCE
+    target: ANY
+    amount: 500
+    currency: 50
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  path_pacer:
+    id: path_pacer
+    description: "\xA77\xA7eStretch your legs.\xA77 Walk \xA7e750 blocks\xA77 before\
+      \ sundown."
+    type: WALK_DISTANCE
+    target: ANY
+    amount: 750
+    currency: 55
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  mountain_march:
+    id: mountain_march
+    description: "\xA77\xA7fClimb high!\xA77 Walk \xA7e300 blocks\xA77 uphill."
+    type: WALK_DISTANCE
+    target: ANY
+    amount: 300
+    currency: 60
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 40
+    rarity: RARE
+    tier: DAILY
+  speedy_stepper:
+    id: speedy_stepper
+    description: "\xA77\xA7aNo time to waste.\xA77 Walk \xA7e1000 blocks\xA77 in one\
+      \ go."
+    type: WALK_DISTANCE
+    target: ANY
+    amount: 1000
+    currency: 70
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 45
+    rarity: RARE
+    tier: DAILY
+  adventurers_path:
+    id: adventurers_path
+    description: "\xA77\xA76The journey begins.\xA77 Walk \xA7e2000 blocks\xA77 today."
+    type: WALK_DISTANCE
+    target: ANY
+    amount: 2000
+    currency: 90
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 60
+    rarity: LEGENDARY
+    tier: DAILY
+  trailblazer:
+    id: trailblazer
+    description: "\xA77\xA7aForge new paths.\xA77 Walk \xA7e5000 blocks\xA77 this\
+      \ week."
+    type: WALK_DISTANCE
+    target: ANY
+    amount: 5000
+    currency: 150
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  pilgrimage:
+    id: pilgrimage
+    description: "\xA77\xA7eEvery journey matters.\xA77 Walk \xA7e10000 blocks\xA7\
+      7."
+    type: WALK_DISTANCE
+    target: ANY
+    amount: 10000
+    currency: 170
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  step_master:
+    id: step_master
+    description: "\xA77\xA76You're going places.\xA77 Walk \xA7e20000 blocks\xA77\
+      \ this week."
+    type: WALK_DISTANCE
+    target: ANY
+    amount: 20000
+    currency: 220
+    skillpoints: 2
+    skillreward: AGILITY
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  marathoner:
+    id: marathoner
+    description: "\xA77\xA7bOn and on you go.\xA77 Walk \xA7e30000 blocks\xA77."
+    type: WALK_DISTANCE
+    target: ANY
+    amount: 30000
+    currency: 250
+    skillpoints: 2
+    skillreward: AGILITY
+    skillxp: 150
+    rarity: RARE
+    tier: WEEKLY
+  heroic_stride:
+    id: heroic_stride
+    description: "\xA77\xA7l\xA7aWalk like a legend.\xA7r\xA77 Traverse \xA7e50000\
+      \ blocks\xA77 in a week."
+    type: WALK_DISTANCE
+    target: ANY
+    amount: 50000
+    currency: 300
+    skillpoints: 3
+    skillreward: AGILITY
+    skillxp: 200
+    rarity: LEGENDARY
+    tier: WEEKLY
+  worldwalker:
+    id: worldwalker
+    description: "\xA77\xA7aEveryone moves.\xA77 Together, walk \xA7e500000 blocks\xA7\
+      7."
+    type: WALK_DISTANCE
+    target: ANY
+    amount: 500000
+    currency: 1200
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 600
+    rarity: COMMON
+    tier: GLOBAL
+  server_march:
+    id: server_march
+    description: "\xA77\xA76The march continues.\xA77 Walk \xA7e1000000 blocks\xA7\
+      7 as a team."
+    type: WALK_DISTANCE
+    target: ANY
+    amount: 1000000
+    currency: 1500
+    skillpoints: 2
+    skillreward: AGILITY
+    skillxp: 800
+    rarity: RARE
+    tier: GLOBAL
+  endless_journey:
+    id: endless_journey
+    description: "\xA77\xA7l\xA7bNo rest.\xA7r\xA77 Walk \xA7e2500000 blocks\xA77\
+      \ across the realm."
+    type: WALK_DISTANCE
+    target: ANY
+    amount: 2500000
+    currency: 2000
+    skillpoints: 3
+    skillreward: AGILITY
+    skillxp: 1200
+    rarity: LEGENDARY
+    tier: GLOBAL
+  desert_stroll:
+    id: desert_stroll
+    description: "\xA77\xA7eFeel the heat.\xA77 Explore a \xA7eDesert biome\xA77 today."
+    type: EXPLORE_BIOME
+    target: DESERT
+    amount: 1
+    currency: 60
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  taiga_trip:
+    id: taiga_trip
+    description: "\xA77\xA7bBundle up.\xA77 Visit a \xA7eTaiga biome\xA77 before nightfall."
+    type: EXPLORE_BIOME
+    target: TAIGA
+    amount: 1
+    currency: 60
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  swamp_walk:
+    id: swamp_walk
+    description: "\xA77\xA7aWatch your step!\xA77 Walk through a \xA7eSwamp biome\xA7\
+      7 today."
+    type: EXPLORE_BIOME
+    target: SWAMP
+    amount: 1
+    currency: 60
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  forest_trek:
+    id: forest_trek
+    description: "\xA77\xA72Among the trees.\xA77 Enter a \xA7eForest biome\xA77."
+    type: EXPLORE_BIOME
+    target: FOREST
+    amount: 1
+    currency: 60
+    skillpoints: 1
+    skillreward: FORAGING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  badlands_bound:
+    id: badlands_bound
+    description: "\xA77\xA76Adventure awaits.\xA77 Reach a \xA7eBadlands biome\xA7\
+      7."
+    type: EXPLORE_BIOME
+    target: BADLANDS
+    amount: 1
+    currency: 70
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 45
+    rarity: RARE
+    tier: DAILY
+  five_biome_tour:
+    id: five_biome_tour
+    description: "\xA77\xA7aTour the world.\xA77 Explore \xA7e5 different biomes\xA7\
+      7 this week."
+    type: EXPLORE_BIOME
+    target: ANY
+    amount: 5
+    currency: 150
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  cold_front:
+    id: cold_front
+    description: "\xA77\xA7bInto the chill.\xA77 Visit a \xA7eSnowy biome\xA77 this\
+      \ week."
+    type: EXPLORE_BIOME
+    target: SNOWY_TUNDRA
+    amount: 1
+    currency: 160
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  nether_scout:
+    id: nether_scout
+    description: "\xA77\xA7cVenture into heat.\xA77 Explore \xA7e2 Nether biomes\xA7\
+      7."
+    type: EXPLORE_BIOME
+    target: NETHER
+    amount: 2
+    currency: 180
+    skillpoints: 2
+    skillreward: AGILITY
+    skillxp: 120
+    rarity: RARE
+    tier: WEEKLY
+  mushroom_madness:
+    id: mushroom_madness
+    description: "\xA77\xA7dFind the rare shrooms.\xA77 Visit a \xA7eMushroom Fields\
+      \ biome\xA77."
+    type: EXPLORE_BIOME
+    target: MUSHROOM_FIELDS
+    amount: 1
+    currency: 190
+    skillpoints: 2
+    skillreward: FORAGING
+    skillxp: 125
+    rarity: RARE
+    tier: WEEKLY
+  deep_discovery:
+    id: deep_discovery
+    description: "\xA77\xA79Into the unknown.\xA77 Visit a \xA7eDeep Dark biome\xA7\
+      7."
+    type: EXPLORE_BIOME
+    target: DEEP_DARK
+    amount: 1
+    currency: 220
+    skillpoints: 3
+    skillreward: AGILITY
+    skillxp: 160
+    rarity: LEGENDARY
+    tier: WEEKLY
+  biome_bonanza:
+    id: biome_bonanza
+    description: "\xA77\xA7aCover the world.\xA77 Together, visit \xA7e10000 biomes\xA7\
+      7."
+    type: EXPLORE_BIOME
+    target: ANY
+    amount: 10000
+    currency: 1300
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 600
+    rarity: COMMON
+    tier: GLOBAL
+  icy_expedition:
+    id: icy_expedition
+    description: "\xA77\xA7bFrozen footsteps.\xA77 Explore \xA7e3000 snowy biomes\xA7\
+      7 together."
+    type: EXPLORE_BIOME
+    target: SNOWY_TUNDRA
+    amount: 3000
+    currency: 1450
+    skillpoints: 2
+    skillreward: AGILITY
+    skillxp: 800
+    rarity: RARE
+    tier: GLOBAL
+  void_walker:
+    id: void_walker
+    description: "\xA77\xA7l\xA75Tread the end.\xA7r\xA77 Explore \xA7e2000 End biomes\xA7\
+      7 across the server."
+    type: EXPLORE_BIOME
+    target: END_HIGHLANDS
+    amount: 2000
+    currency: 2000
+    skillpoints: 3
+    skillreward: AGILITY
+    skillxp: 1200
+    rarity: LEGENDARY
+    tier: GLOBAL
+  apple_snack:
+    id: apple_snack
+    description: "\xA77\xA7aStay healthy!\xA77 Eat \xA7e3 apples\xA77 today."
+    type: CONSUME_ITEM
+    target: APPLE
+    amount: 3
+    currency: 50
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  meat_meal:
+    id: meat_meal
+    description: "\xA77\xA7cCarnivore's delight.\xA77 Eat \xA7e5 cooked beef\xA77."
+    type: CONSUME_ITEM
+    target: COOKED_BEEF
+    amount: 5
+    currency: 55
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  suspicious_sip:
+    id: suspicious_sip
+    description: "\xA77\xA75Take a risk.\xA77 Drink \xA7e1 suspicious stew\xA77."
+    type: CONSUME_ITEM
+    target: SUSPICIOUS_STEW
+    amount: 1
+    currency: 60
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 40
+    rarity: RARE
+    tier: DAILY
+  potion_pop:
+    id: potion_pop
+    description: "\xA77\xA7dGet magical.\xA77 Drink \xA7e1 potion\xA77 of any kind."
+    type: CONSUME_ITEM
+    target: POTION
+    amount: 1
+    currency: 60
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 40
+    rarity: RARE
+    tier: DAILY
+  golden_indulgence:
+    id: golden_indulgence
+    description: "\xA77\xA76Taste the power.\xA77 Eat \xA7e1 golden apple\xA77 today."
+    type: CONSUME_ITEM
+    target: GOLDEN_APPLE
+    amount: 1
+    currency: 80
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 60
+    rarity: LEGENDARY
+    tier: DAILY
+  food_fanatic:
+    id: food_fanatic
+    description: "\xA77\xA7aKeep your hunger full.\xA77 Eat \xA7e40 items\xA77 of\
+      \ food this week."
+    type: CONSUME_ITEM
+    target: ANY
+    amount: 40
+    currency: 150
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  soup_season:
+    id: soup_season
+    description: "\xA77\xA7dSoothing and warm.\xA77 Drink \xA7e10 mushroom stew\xA7\
+      7."
+    type: CONSUME_ITEM
+    target: MUSHROOM_STEW
+    amount: 10
+    currency: 160
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  sweet_treats:
+    id: sweet_treats
+    description: "\xA77\xA7eDessert time!\xA77 Eat \xA7e15 cookies\xA77 this week."
+    type: CONSUME_ITEM
+    target: COOKIE
+    amount: 15
+    currency: 170
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  brewmaster_test:
+    id: brewmaster_test
+    description: "\xA77\xA7dTry your concoctions.\xA77 Drink \xA7e10 different potions\xA7\
+      7."
+    type: CONSUME_ITEM
+    target: POTION
+    amount: 10
+    currency: 220
+    skillpoints: 2
+    skillreward: ALCHEMY
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  nectar_of_gods:
+    id: nectar_of_gods
+    description: "\xA77\xA76Divine refreshment.\xA77 Consume \xA7e3 enchanted golden\
+      \ apples\xA77."
+    type: CONSUME_ITEM
+    target: ENCHANTED_GOLDEN_APPLE
+    amount: 3
+    currency: 300
+    skillpoints: 3
+    skillreward: ALCHEMY
+    skillxp: 200
+    rarity: LEGENDARY
+    tier: WEEKLY
+  feast_frenzy:
+    id: feast_frenzy
+    description: "\xA77\xA7aA global appetite.\xA77 Eat \xA7e10000 food items\xA7\
+      7 as a server."
+    type: CONSUME_ITEM
+    target: ANY
+    amount: 10000
+    currency: 1200
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 600
+    rarity: COMMON
+    tier: GLOBAL
+  brewer_bash:
+    id: brewer_bash
+    description: "\xA77\xA7dMagic for all.\xA77 Drink \xA7e3000 potions\xA77 together."
+    type: CONSUME_ITEM
+    target: POTION
+    amount: 3000
+    currency: 1400
+    skillpoints: 2
+    skillreward: ALCHEMY
+    skillxp: 800
+    rarity: RARE
+    tier: GLOBAL
+  golden_gathering:
+    id: golden_gathering
+    description: "\xA77\xA76Shining celebration.\xA77 Eat \xA7e1000 golden apples\xA7\
+      7 server-wide."
+    type: CONSUME_ITEM
+    target: GOLDEN_APPLE
+    amount: 1000
+    currency: 1800
+    skillpoints: 3
+    skillreward: ALCHEMY
+    skillxp: 1300
+    rarity: LEGENDARY
+    tier: GLOBAL
+  farming_practice:
+    id: farming_practice
+    description: "\xA77\xA7aPlant and grow.\xA77 Gain \xA7e50 Farming XP\xA77 today."
+    type: GAIN_SKILL_EXP
+    target: FARMING
+    amount: 50
+    currency: 60
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  mining_session:
+    id: mining_session
+    description: "\xA77\xA78Dig deep.\xA77 Gain \xA7e75 Mining XP\xA77 today."
+    type: GAIN_SKILL_EXP
+    target: MINING
+    amount: 75
+    currency: 65
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 40
+    rarity: COMMON
+    tier: DAILY
+  archer_training:
+    id: archer_training
+    description: "\xA77\xA7fSharpen your aim.\xA77 Earn \xA7e50 Archery XP\xA77 today."
+    type: GAIN_SKILL_EXP
+    target: ARCHERY
+    amount: 50
+    currency: 65
+    skillpoints: 1
+    skillreward: ARCHERY
+    skillxp: 40
+    rarity: COMMON
+    tier: DAILY
+  alchemist_test:
+    id: alchemist_test
+    description: "\xA77\xA7dExperiment and brew.\xA77 Gain \xA7e30 Alchemy XP\xA7\
+      7."
+    type: GAIN_SKILL_EXP
+    target: ALCHEMY
+    amount: 30
+    currency: 60
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  foraging_focus:
+    id: foraging_focus
+    description: "\xA77\xA72Forage the forests.\xA77 Gain \xA7e40 Foraging XP\xA7\
+      7."
+    type: GAIN_SKILL_EXP
+    target: FORAGING
+    amount: 40
+    currency: 60
+    skillpoints: 1
+    skillreward: FORAGING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  mining_madness:
+    id: mining_madness
+    description: "\xA77\xA78Break blocks nonstop.\xA77 Gain \xA7e600 Mining XP\xA7\
+      7 this week."
+    type: GAIN_SKILL_EXP
+    target: MINING
+    amount: 600
+    currency: 200
+    skillpoints: 2
+    skillreward: MINING
+    skillxp: 110
+    rarity: COMMON
+    tier: WEEKLY
+  defense_drill:
+    id: defense_drill
+    description: "\xA77\xA7cGet tougher.\xA77 Earn \xA7e400 Defense XP\xA77."
+    type: GAIN_SKILL_EXP
+    target: DEFENSE
+    amount: 400
+    currency: 220
+    skillpoints: 2
+    skillreward: DEFENSE
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  skillstorm:
+    id: skillstorm
+    description: "\xA77\xA76Be a jack of all trades.\xA77 Earn \xA7e150 XP\xA77 in\
+      \ 5 skills."
+    type: GAIN_SKILL_EXP
+    target: ANY
+    amount: 750
+    currency: 250
+    skillpoints: 2
+    skillreward: AGILITY
+    skillxp: 140
+    rarity: RARE
+    tier: WEEKLY
+  wizardry_awakens:
+    id: wizardry_awakens
+    description: "\xA77\xA7dPower in potions.\xA77 Gain \xA7e500 Alchemy XP\xA77 this\
+      \ week."
+    type: GAIN_SKILL_EXP
+    target: ALCHEMY
+    amount: 500
+    currency: 300
+    skillpoints: 3
+    skillreward: ALCHEMY
+    skillxp: 200
+    rarity: LEGENDARY
+    tier: WEEKLY
+  global_grind:
+    id: global_grind
+    description: "\xA77\xA7aWork together.\xA77 Earn \xA7e10000 total XP\xA77 across\
+      \ all skills."
+    type: GAIN_SKILL_EXP
+    target: ANY
+    amount: 10000
+    currency: 1300
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 600
+    rarity: COMMON
+    tier: GLOBAL
+  farming_frenzy:
+    id: farming_frenzy
+    description: "\xA77\xA7aFields in bloom.\xA77 Earn \xA7e7000 Farming XP\xA77 server-wide."
+    type: GAIN_SKILL_EXP
+    target: FARMING
+    amount: 7000
+    currency: 1500
+    skillpoints: 2
+    skillreward: FARMING
+    skillxp: 850
+    rarity: RARE
+    tier: GLOBAL
+  skillfest:
+    id: skillfest
+    description: "\xA77\xA7l\xA7eXP explosion!\xA7r\xA77 Gain \xA7e20000 XP\xA77 in\
+      \ any combination."
+    type: GAIN_SKILL_EXP
+    target: ANY
+    amount: 20000
+    currency: 2000
+    skillpoints: 3
+    skillreward: AGILITY
+    skillxp: 1300
+    rarity: LEGENDARY
+    tier: GLOBAL
+  level_up_farming:
+    id: level_up_farming
+    description: "\xA77\xA7aGrow your roots.\xA77 Gain \xA7e1 level\xA77 in Farming."
+    type: GAIN_SKILL_LEVEL
+    target: FARMING
+    amount: 1
+    currency: 60
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  level_up_mining:
+    id: level_up_mining
+    description: "\xA77\xA78Break through!\xA77 Gain \xA7e1 level\xA77 in Mining."
+    type: GAIN_SKILL_LEVEL
+    target: MINING
+    amount: 1
+    currency: 65
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  level_up_fishing:
+    id: level_up_fishing
+    description: "\xA77\xA7bReel it in.\xA77 Gain \xA7e1 level\xA77 in Fishing."
+    type: GAIN_SKILL_LEVEL
+    target: FISHING
+    amount: 1
+    currency: 65
+    skillpoints: 1
+    skillreward: FISHING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  level_up_alchemy:
+    id: level_up_alchemy
+    description: "\xA77\xA7dPotion practice.\xA77 Gain \xA7e1 level\xA77 in Alchemy."
+    type: GAIN_SKILL_LEVEL
+    target: ALCHEMY
+    amount: 1
+    currency: 70
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 40
+    rarity: RARE
+    tier: DAILY
+  level_up_enchanting:
+    id: level_up_enchanting
+    description: "\xA77\xA7bChannel the arcane.\xA77 Gain \xA7e1 level\xA77 in Enchanting."
+    type: GAIN_SKILL_LEVEL
+    target: ENCHANTING
+    amount: 1
+    currency: 80
+    skillpoints: 1
+    skillreward: ENCHANTING
+    skillxp: 50
+    rarity: LEGENDARY
+    tier: DAILY
+  advancing_archery:
+    id: advancing_archery
+    description: "\xA77\xA7fFocus and fire.\xA77 Gain \xA7e3 levels\xA77 in Archery."
+    type: GAIN_SKILL_LEVEL
+    target: ARCHERY
+    amount: 3
+    currency: 150
+    skillpoints: 1
+    skillreward: ARCHERY
     skillxp: 80
-    rarity: "RARE"
+    rarity: COMMON
+    tier: WEEKLY
+  level_mastery:
+    id: level_mastery
+    description: "\xA77\xA76Master your craft.\xA77 Gain \xA7e5 levels\xA77 in any\
+      \ one skill."
+    type: GAIN_SKILL_LEVEL
+    target: ANY
+    amount: 5
+    currency: 200
+    skillpoints: 2
+    skillreward: AGILITY
+    skillxp: 120
+    rarity: RARE
+    tier: WEEKLY
+  fighting_focus:
+    id: fighting_focus
+    description: "\xA77\xA7cTrain to win.\xA77 Gain \xA7e4 levels\xA77 in Fighting."
+    type: GAIN_SKILL_LEVEL
+    target: FIGHTING
+    amount: 4
+    currency: 180
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  agility_growth:
+    id: agility_growth
+    description: "\xA77\xA7aMove faster, grow stronger.\xA77 Gain \xA7e3 levels\xA7\
+      7 in Agility."
+    type: GAIN_SKILL_LEVEL
+    target: AGILITY
+    amount: 3
+    currency: 170
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  alchemy_ascent:
+    id: alchemy_ascent
+    description: "\xA77\xA7dThe path of potions.\xA77 Gain \xA7e4 levels\xA77 in Alchemy."
+    type: GAIN_SKILL_LEVEL
+    target: ALCHEMY
+    amount: 4
+    currency: 250
+    skillpoints: 3
+    skillreward: ALCHEMY
+    skillxp: 180
+    rarity: LEGENDARY
+    tier: WEEKLY
+  collective_growth:
+    id: collective_growth
+    description: "\xA77\xA7aLeveling together.\xA77 Gain \xA7e500 levels\xA77 across\
+      \ all skills server-wide."
+    type: GAIN_SKILL_LEVEL
+    target: ANY
+    amount: 500
+    currency: 1300
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 600
+    rarity: COMMON
+    tier: GLOBAL
+  enchanting_ascension:
+    id: enchanting_ascension
+    description: "\xA77\xA7bThe age of magic.\xA77 Gain \xA7e250 Enchanting levels\xA7\
+      7 globally."
+    type: GAIN_SKILL_LEVEL
+    target: ENCHANTING
+    amount: 250
+    currency: 1700
+    skillpoints: 2
+    skillreward: ENCHANTING
+    skillxp: 900
+    rarity: RARE
+    tier: GLOBAL
+  ultimate_levelup:
+    id: ultimate_levelup
+    description: "\xA77\xA7l\xA76Level lords arise.\xA7r\xA77 Gain \xA7e1000 levels\xA7\
+      7 across all skills."
+    type: GAIN_SKILL_LEVEL
+    target: ANY
+    amount: 1000
+    currency: 2200
+    skillpoints: 3
+    skillreward: AGILITY
+    skillxp: 1400
+    rarity: LEGENDARY
+    tier: GLOBAL
+  freshwater_feast:
+    id: freshwater_feast
+    description: "\xA77\xA7bCast and catch.\xA77 Fish up \xA7e5 cod\xA77 from rivers\
+      \ or oceans."
+    type: FISH
+    target: COD
+    amount: 5
+    currency: 50
+    skillpoints: 1
+    skillreward: FISHING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  salmon_snag:
+    id: salmon_snag
+    description: "\xA77\xA7cHook it quick!\xA77 Catch \xA7e3 salmon\xA77 today."
+    type: FISH
+    target: SALMON
+    amount: 3
+    currency: 50
+    skillpoints: 1
+    skillreward: FISHING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  tropical_touch:
+    id: tropical_touch
+    description: "\xA77\xA7eBright and exotic.\xA77 Catch \xA7e1 tropical fish\xA7\
+      7."
+    type: FISH
+    target: TROPICAL_FISH
+    amount: 1
+    currency: 60
+    skillpoints: 1
+    skillreward: FISHING
+    skillxp: 40
+    rarity: RARE
+    tier: DAILY
+  puffer_pop:
+    id: puffer_pop
+    description: "\xA77\xA7dCareful with those spikes.\xA77 Catch \xA7e1 pufferfish\xA7\
+      7."
+    type: FISH
+    target: PUFFERFISH
+    amount: 1
+    currency: 60
+    skillpoints: 1
+    skillreward: FISHING
+    skillxp: 40
+    rarity: RARE
+    tier: DAILY
+  angler_artifact:
+    id: angler_artifact
+    description: "\xA77\xA76What lurks below?\xA77 Fish up \xA7e1 treasure item\xA7\
+      7."
+    type: FISH
+    target: TREASURE
+    amount: 1
+    currency: 80
+    skillpoints: 1
+    skillreward: FISHING
+    skillxp: 60
+    rarity: LEGENDARY
+    tier: DAILY
+  oceanic_haul:
+    id: oceanic_haul
+    description: "\xA77\xA7bThe ocean provides.\xA77 Catch \xA7e50 cod\xA77 this week."
+    type: FISH
+    target: COD
+    amount: 50
+    currency: 160
+    skillpoints: 1
+    skillreward: FISHING
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  salmon_stream:
+    id: salmon_stream
+    description: "\xA77\xA7cHook a stream of success.\xA77 Catch \xA7e35 salmon\xA7\
+      7."
+    type: FISH
+    target: SALMON
+    amount: 35
+    currency: 160
+    skillpoints: 1
+    skillreward: FISHING
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  reef_gatherer:
+    id: reef_gatherer
+    description: "\xA77\xA7eA colorful collection.\xA77 Catch \xA7e20 tropical fish\xA7\
+      7."
+    type: FISH
+    target: TROPICAL_FISH
+    amount: 20
+    currency: 190
+    skillpoints: 2
+    skillreward: FISHING
+    skillxp: 120
+    rarity: RARE
+    tier: WEEKLY
+  venomous_catch:
+    id: venomous_catch
+    description: "\xA77\xA7dThose spikes sting!\xA77 Catch \xA7e20 pufferfish\xA7\
+      7."
+    type: FISH
+    target: PUFFERFISH
+    amount: 20
+    currency: 200
+    skillpoints: 2
+    skillreward: FISHING
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  sunken_fortune:
+    id: sunken_fortune
+    description: "\xA77\xA76Treasure hunter.\xA77 Catch \xA7e5 treasure items\xA7\
+      7 this week."
+    type: FISH
+    target: TREASURE
+    amount: 5
+    currency: 260
+    skillpoints: 3
+    skillreward: FISHING
+    skillxp: 200
+    rarity: LEGENDARY
+    tier: WEEKLY
+  great_fish_frenzy:
+    id: great_fish_frenzy
+    description: "\xA77\xA7aEveryone, cast your line!\xA77 Catch \xA7e10000 fish\xA7\
+      7 together."
+    type: FISH
+    target: ANY
+    amount: 10000
+    currency: 1300
+    skillpoints: 1
+    skillreward: FISHING
+    skillxp: 600
+    rarity: COMMON
+    tier: GLOBAL
+  reef_reclamation:
+    id: reef_reclamation
+    description: "\xA77\xA7bProtect the reef.\xA77 Catch \xA7e4000 tropical fish\xA7\
+      7 together."
+    type: FISH
+    target: TROPICAL_FISH
+    amount: 4000
+    currency: 1500
+    skillpoints: 2
+    skillreward: FISHING
+    skillxp: 800
+    rarity: RARE
+    tier: GLOBAL
+  depths_of_wealth:
+    id: depths_of_wealth
+    description: "\xA77\xA7l\xA76Treasure from the sea.\xA7r\xA77 Catch \xA7e500 treasure\
+      \ items\xA77 server-wide."
+    type: FISH
+    target: TREASURE
+    amount: 500
+    currency: 2200
+    skillpoints: 3
+    skillreward: FISHING
+    skillxp: 1300
+    rarity: LEGENDARY
+    tier: GLOBAL
+  wall_builder:
+    id: wall_builder
+    description: "\xA77\xA78Reinforce your base.\xA77 Place \xA7e50 cobblestone blocks\xA7\
+      7 today."
+    type: PLACE_BLOCK
+    target: COBBLESTONE
+    amount: 50
+    currency: 55
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  wooden_flooring:
+    id: wooden_flooring
+    description: "\xA77\xA76Lay the groundwork.\xA77 Place \xA7e40 oak planks\xA7\
+      7."
+    type: PLACE_BLOCK
+    target: OAK_PLANKS
+    amount: 40
+    currency: 50
+    skillpoints: 1
+    skillreward: FORAGING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  garden_patch:
+    id: garden_patch
+    description: "\xA77\xA7aStart a garden.\xA77 Place \xA7e16 farmland blocks\xA7\
+      7."
+    type: PLACE_BLOCK
+    target: FARMLAND
+    amount: 16
+    currency: 60
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  fence_line:
+    id: fence_line
+    description: "\xA77\xA76Keep things in or out.\xA77 Place \xA7e20 oak fences\xA7\
+      7."
+    type: PLACE_BLOCK
+    target: OAK_FENCE
+    amount: 20
+    currency: 60
+    skillpoints: 1
+    skillreward: FORAGING
+    skillxp: 40
+    rarity: RARE
+    tier: DAILY
+  foundation_friday:
+    id: foundation_friday
+    description: "\xA77\xA78Strong and steady.\xA77 Place \xA7e500 stone bricks\xA7\
+      7."
+    type: PLACE_BLOCK
+    target: STONE_BRICKS
+    amount: 500
+    currency: 160
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  treehouse_supports:
+    id: treehouse_supports
+    description: "\xA77\xA76Nature's shelter.\xA77 Place \xA7e300 jungle logs\xA7\
+      7."
+    type: PLACE_BLOCK
+    target: JUNGLE_LOG
+    amount: 300
+    currency: 170
+    skillpoints: 1
+    skillreward: FORAGING
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  torch_network:
+    id: torch_network
+    description: "\xA77\xA7eLight the land.\xA77 Place \xA7e250 torches\xA77 throughout\
+      \ the world."
+    type: PLACE_BLOCK
+    target: TORCH
+    amount: 250
+    currency: 180
+    skillpoints: 2
+    skillreward: FORAGING
+    skillxp: 120
+    rarity: RARE
+    tier: WEEKLY
+  farming_grid:
+    id: farming_grid
+    description: "\xA77\xA7aSet the fields.\xA77 Place \xA7e200 farmland blocks\xA7\
+      7 this week."
+    type: PLACE_BLOCK
+    target: FARMLAND
+    amount: 200
+    currency: 190
+    skillpoints: 2
+    skillreward: FARMING
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  castle_walls:
+    id: castle_walls
+    description: "\xA77\xA7l\xA78Raise a fortress.\xA7r\xA77 Place \xA7e1000 cobblestone\
+      \ blocks\xA77 this week."
+    type: PLACE_BLOCK
+    target: COBBLESTONE
+    amount: 1000
+    currency: 250
+    skillpoints: 3
+    skillreward: MINING
+    skillxp: 180
+    rarity: LEGENDARY
+    tier: WEEKLY
+  server_roads:
+    id: server_roads
+    description: "\xA77\xA7aPave the way.\xA77 Place \xA7e10000 path blocks\xA77 together."
+    type: PLACE_BLOCK
+    target: GRASS_PATH
+    amount: 10000
+    currency: 1200
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 600
+    rarity: COMMON
+    tier: GLOBAL
+  light_up_everywhere:
+    id: light_up_everywhere
+    description: "\xA77\xA7eNo more darkness.\xA77 Place \xA7e5000 torches\xA77 server-wide."
+    type: PLACE_BLOCK
+    target: TORCH
+    amount: 5000
+    currency: 1500
+    skillpoints: 2
+    skillreward: FORAGING
+    skillxp: 800
+    rarity: RARE
+    tier: GLOBAL
+  city_foundation:
+    id: city_foundation
+    description: "\xA77\xA7l\xA76Build a legacy.\xA7r\xA77 Place \xA7e50000 stone\
+      \ bricks\xA77 together."
+    type: PLACE_BLOCK
+    target: STONE_BRICKS
+    amount: 50000
+    currency: 2200
+    skillpoints: 3
+    skillreward: MINING
+    skillxp: 1300
+    rarity: LEGENDARY
+    tier: GLOBAL
+  coal_run:
+    id: coal_run
+    description: "\xA77\xA70Fuel the furnace.\xA77 Mine \xA7e20 coal ore\xA77."
+    type: MINE_BLOCK
+    target: COAL_ORE
+    amount: 20
+    currency: 55
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  iron_inquiry:
+    id: iron_inquiry
+    description: "\xA77\xA7fTime to gear up.\xA77 Mine \xA7e10 iron ore\xA77."
+    type: MINE_BLOCK
+    target: IRON_ORE
+    amount: 10
+    currency: 60
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  redstone_raid:
+    id: redstone_raid
+    description: "\xA77\xA7cPower awaits.\xA77 Mine \xA7e15 redstone ore\xA77."
+    type: MINE_BLOCK
+    target: REDSTONE_ORE
+    amount: 15
+    currency: 60
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  diamond_delve:
+    id: diamond_delve
+    description: "\xA77\xA7bRare and precious.\xA77 Mine \xA7e1 diamond ore\xA77."
+    type: MINE_BLOCK
+    target: DIAMOND_ORE
+    amount: 1
+    currency: 80
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 50
+    rarity: LEGENDARY
+    tier: DAILY
+  stone_mountain:
+    id: stone_mountain
+    description: "\xA77\xA78All the cobble.\xA77 Mine \xA7e500 stone blocks\xA77 this\
+      \ week."
+    type: MINE_BLOCK
+    target: STONE
+    amount: 500
+    currency: 150
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  coal_collector:
+    id: coal_collector
+    description: "\xA77\xA70A solid supply.\xA77 Mine \xA7e100 coal ore\xA77."
+    type: MINE_BLOCK
+    target: COAL_ORE
+    amount: 100
+    currency: 160
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  precious_progress:
+    id: precious_progress
+    description: "\xA77\xA7bHunt for sparkle.\xA77 Mine \xA7e10 diamond ore\xA77 this\
+      \ week."
+    type: MINE_BLOCK
+    target: DIAMOND_ORE
+    amount: 10
+    currency: 220
+    skillpoints: 2
+    skillreward: MINING
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  lapis_lust:
+    id: lapis_lust
+    description: "\xA77\xA79A little magic power.\xA77 Mine \xA7e40 lapis ore\xA7\
+      7."
+    type: MINE_BLOCK
+    target: LAPIS_ORE
+    amount: 40
+    currency: 200
+    skillpoints: 2
+    skillreward: ENCHANTING
+    skillxp: 120
+    rarity: RARE
+    tier: WEEKLY
+  netherite_dream:
+    id: netherite_dream
+    description: "\xA77\xA7l\xA78Deep and dangerous.\xA7r\xA77 Mine \xA7e5 ancient\
+      \ debris\xA77 this week."
+    type: MINE_BLOCK
+    target: ANCIENT_DEBRIS
+    amount: 5
+    currency: 300
+    skillpoints: 3
+    skillreward: MINING
+    skillxp: 200
+    rarity: LEGENDARY
+    tier: WEEKLY
+  server_quarry:
+    id: server_quarry
+    description: "\xA77\xA7aDigging as one.\xA77 Mine \xA7e50000 stone blocks\xA7\
+      7 as a server."
+    type: MINE_BLOCK
+    target: STONE
+    amount: 50000
+    currency: 1300
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 600
+    rarity: COMMON
+    tier: GLOBAL
+  precious_excavation:
+    id: precious_excavation
+    description: "\xA77\xA7bShiny teamwork.\xA77 Mine \xA7e1000 diamond ore\xA77 server-wide."
+    type: MINE_BLOCK
+    target: DIAMOND_ORE
+    amount: 1000
+    currency: 1600
+    skillpoints: 2
+    skillreward: MINING
+    skillxp: 800
+    rarity: RARE
+    tier: GLOBAL
+  ancient_relics:
+    id: ancient_relics
+    description: "\xA77\xA7l\xA78Unearth the past.\xA7r\xA77 Mine \xA7e500 ancient\
+      \ debris\xA77 together."
+    type: MINE_BLOCK
+    target: ANCIENT_DEBRIS
+    amount: 500
+    currency: 2200
+    skillpoints: 3
+    skillreward: MINING
+    skillxp: 1300
+    rarity: LEGENDARY
+    tier: GLOBAL
+  emerald_exchange:
+    id: emerald_exchange
+    description: "\xA77\xA7aCommerce begins.\xA77 Trade \xA7e5 emeralds\xA77 with\
+      \ villagers."
+    type: TRADE
+    target: VILLAGER
+    amount: 5
+    currency: 55
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  wool_for_emerald:
+    id: wool_for_emerald
+    description: "\xA77\xA7fSoft profits.\xA77 Trade wool for \xA7e3 emeralds\xA7\
+      7."
+    type: TRADE
+    target: SHEPHERD
+    amount: 3
+    currency: 55
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  cartographer_deal:
+    id: cartographer_deal
+    description: "\xA77\xA7eMap it out.\xA77 Trade paper with a \xA7eCartographer\xA7\
+      7."
+    type: TRADE
+    target: CARTOGRAPHER
+    amount: 2
+    currency: 60
+    skillpoints: 1
+    skillreward: FORAGING
+    skillxp: 35
+    rarity: RARE
+    tier: DAILY
+  tool_swap:
+    id: tool_swap
+    description: "\xA77\xA78Get equipped.\xA77 Trade with a \xA7eToolsmith\xA77."
+    type: TRADE
+    target: TOOLSMITH
+    amount: 1
+    currency: 60
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 40
+    rarity: RARE
+    tier: DAILY
+  mason_crafter:
+    id: mason_crafter
+    description: "\xA77\xA76Stone for coin.\xA77 Trade with a \xA7eMason\xA77 villager."
+    type: TRADE
+    target: MASON
+    amount: 2
+    currency: 70
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 50
+    rarity: LEGENDARY
+    tier: DAILY
+  emerald_merchant:
+    id: emerald_merchant
+    description: "\xA77\xA7aRake it in.\xA77 Trade \xA7e50 emeralds\xA77 with villagers\
+      \ this week."
+    type: TRADE
+    target: VILLAGER
+    amount: 50
+    currency: 160
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  weaponsmith_work:
+    id: weaponsmith_work
+    description: "\xA77\xA7cUpgrade your arsenal.\xA77 Trade \xA7e10 times\xA77 with\
+      \ a \xA7eWeaponsmith\xA77."
+    type: TRADE
+    target: WEAPONSMITH
+    amount: 10
+    currency: 180
+    skillpoints: 2
+    skillreward: FIGHTING
+    skillxp: 120
+    rarity: RARE
+    tier: WEEKLY
+  master_farmer:
+    id: master_farmer
+    description: "\xA77\xA7aReap rewards.\xA77 Trade \xA7e20 crops\xA77 with a \xA7\
+      eFarmer\xA77."
+    type: TRADE
+    target: FARMER
+    amount: 20
+    currency: 170
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  library_links:
+    id: library_links
+    description: "\xA77\xA7bUpgrade your gear.\xA77 Trade \xA7e5 books\xA77 with a\
+      \ \xA7eLibrarian\xA77."
+    type: TRADE
+    target: LIBRARIAN
+    amount: 5
+    currency: 190
+    skillpoints: 2
+    skillreward: ENCHANTING
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  nether_trader:
+    id: nether_trader
+    description: "\xA77\xA7l\xA7cBarter with the brave.\xA7r\xA77 Trade \xA7e10 times\xA7\
+      7 with \xA7ePiglins\xA77."
+    type: TRADE
+    target: PIGLIN
+    amount: 10
+    currency: 250
+    skillpoints: 3
+    skillreward: ALCHEMY
+    skillxp: 200
+    rarity: LEGENDARY
+    tier: WEEKLY
+  trade_empire:
+    id: trade_empire
+    description: "\xA77\xA7aPower through commerce.\xA77 Make \xA7e5000 trades\xA7\
+      7 together."
+    type: TRADE
+    target: VILLAGER
+    amount: 5000
+    currency: 1300
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 600
+    rarity: COMMON
+    tier: GLOBAL
+  piglin_trade_pact:
+    id: piglin_trade_pact
+    description: "\xA77\xA7cGold for gain.\xA77 Make \xA7e1000 trades\xA77 with \xA7\
+      ePiglins\xA77."
+    type: TRADE
+    target: PIGLIN
+    amount: 1000
+    currency: 1600
+    skillpoints: 2
+    skillreward: ALCHEMY
+    skillxp: 800
+    rarity: RARE
+    tier: GLOBAL
+  merchant_monopoly:
+    id: merchant_monopoly
+    description: "\xA77\xA7l\xA76Rule the market.\xA7r\xA77 Complete \xA7e10000 trades\xA7\
+      7 server-wide."
+    type: TRADE
+    target: VILLAGER
+    amount: 10000
+    currency: 2200
+    skillpoints: 3
+    skillreward: FARMING
+    skillxp: 1300
+    rarity: LEGENDARY
+    tier: GLOBAL
+  cow_care:
+    id: cow_care
+    description: "\xA77\xA7aExpand the herd.\xA77 Breed \xA7e3 cows\xA77 today."
+    type: BREED_ANIMAL
+    target: COW
+    amount: 3
+    currency: 55
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  sheep_shepherd:
+    id: sheep_shepherd
+    description: "\xA77\xA7fFuzzy friends.\xA77 Breed \xA7e3 sheep\xA77."
+    type: BREED_ANIMAL
+    target: SHEEP
+    amount: 3
+    currency: 55
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  porky_parents:
+    id: porky_parents
+    description: "\xA77\xA7dGrow the pen.\xA77 Breed \xA7e2 pigs\xA77."
+    type: BREED_ANIMAL
+    target: PIG
+    amount: 2
+    currency: 55
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  bunny_bloom:
+    id: bunny_bloom
+    description: "\xA77\xA7fSo fluffy!\xA77 Breed \xA7e2 rabbits\xA77 today."
+    type: BREED_ANIMAL
+    target: RABBIT
+    amount: 2
+    currency: 60
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 35
+    rarity: RARE
+    tier: DAILY
+  bee_babies:
+    id: bee_babies
+    description: "\xA77\xA7eBuzz buzz.\xA77 Breed \xA7e2 bees\xA77 to keep the flowers\
+      \ blooming."
+    type: BREED_ANIMAL
+    target: BEE
+    amount: 2
+    currency: 70
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 50
+    rarity: LEGENDARY
+    tier: DAILY
+  barn_boom:
+    id: barn_boom
+    description: "\xA77\xA7aFarms are thriving.\xA77 Breed \xA7e25 cows\xA77 this\
+      \ week."
+    type: BREED_ANIMAL
+    target: COW
+    amount: 25
+    currency: 160
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  flock_growth:
+    id: flock_growth
+    description: "\xA77\xA7fWool for days.\xA77 Breed \xA7e20 sheep\xA77."
+    type: BREED_ANIMAL
+    target: SHEEP
+    amount: 20
+    currency: 160
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  stable_stock:
+    id: stable_stock
+    description: "\xA77\xA7eRaise the herd.\xA77 Breed \xA7e15 horses\xA77 this week."
+    type: BREED_ANIMAL
+    target: HORSE
+    amount: 15
+    currency: 180
+    skillpoints: 2
+    skillreward: AGILITY
+    skillxp: 120
+    rarity: RARE
+    tier: WEEKLY
+  fox_family:
+    id: fox_family
+    description: "\xA77\xA76Cunning companions.\xA77 Breed \xA7e10 foxes\xA77."
+    type: BREED_ANIMAL
+    target: FOX
+    amount: 10
+    currency: 200
+    skillpoints: 2
+    skillreward: AGILITY
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  zoo_zest:
+    id: zoo_zest
+    description: "\xA77\xA7l\xA7aCreate your kingdom.\xA7r\xA77 Breed \xA7e8 different\
+      \ animal types\xA77 this week."
+    type: BREED_ANIMAL
+    target: ANY
+    amount: 8
+    currency: 260
+    skillpoints: 3
+    skillreward: FARMING
+    skillxp: 200
+    rarity: LEGENDARY
+    tier: WEEKLY
+  animal_kingdom:
+    id: animal_kingdom
+    description: "\xA77\xA7aA bustling world.\xA77 Breed \xA7e5000 animals\xA77 together."
+    type: BREED_ANIMAL
+    target: ANY
+    amount: 5000
+    currency: 1300
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 600
+    rarity: COMMON
+    tier: GLOBAL
+  cow_craze:
+    id: cow_craze
+    description: "\xA77\xA7aMoo-massive.\xA77 Breed \xA7e2000 cows\xA77 server-wide."
+    type: BREED_ANIMAL
+    target: COW
+    amount: 2000
+    currency: 1500
+    skillpoints: 2
+    skillreward: FARMING
+    skillxp: 800
+    rarity: RARE
+    tier: GLOBAL
+  bee_colony:
+    id: bee_colony
+    description: "\xA77\xA7l\xA7eThe hive expands.\xA7r\xA77 Breed \xA7e1000 bees\xA7\
+      7 across the server."
+    type: BREED_ANIMAL
+    target: BEE
+    amount: 1000
+    currency: 2200
+    skillpoints: 3
+    skillreward: FARMING
+    skillxp: 1300
+    rarity: LEGENDARY
+    tier: GLOBAL
+  iron_ingots:
+    id: iron_ingots
+    description: "\xA77\xA7fFrom ore to utility.\xA77 Smelt \xA7e10 iron ingots\xA7\
+      7 today."
+    type: SMELT_ITEM
+    target: IRON_INGOT
+    amount: 10
+    currency: 55
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  golden_glow:
+    id: golden_glow
+    description: "\xA77\xA76Shiny and bright.\xA77 Smelt \xA7e5 gold ingots\xA77 today."
+    type: SMELT_ITEM
+    target: GOLD_INGOT
+    amount: 5
+    currency: 55
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  sand_to_glass:
+    id: sand_to_glass
+    description: "\xA77\xA7eClear view ahead.\xA77 Smelt \xA7e16 glass\xA77 from sand."
+    type: SMELT_ITEM
+    target: GLASS
+    amount: 16
+    currency: 55
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  cooked_cod:
+    id: cooked_cod
+    description: "\xA77\xA7bDinner\u2019s served.\xA77 Smelt \xA7e5 cod\xA77 in a\
+      \ furnace."
+    type: SMELT_ITEM
+    target: COOKED_COD
+    amount: 5
+    currency: 60
+    skillpoints: 1
+    skillreward: FISHING
+    skillxp: 35
+    rarity: RARE
+    tier: DAILY
+  steak_out:
+    id: steak_out
+    description: "\xA77\xA7cGet that protein.\xA77 Smelt \xA7e5 beef into steak\xA7\
+      7."
+    type: SMELT_ITEM
+    target: COOKED_BEEF
+    amount: 5
+    currency: 70
+    skillpoints: 1
+    skillreward: FARMING
+    skillxp: 50
+    rarity: LEGENDARY
+    tier: DAILY
+  iron_forge:
+    id: iron_forge
+    description: "\xA77\xA7fKeep the iron flowing.\xA77 Smelt \xA7e100 iron ingots\xA7\
+      7."
+    type: SMELT_ITEM
+    target: IRON_INGOT
+    amount: 100
+    currency: 160
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  golden_week:
+    id: golden_week
+    description: "\xA77\xA76Refine the riches.\xA77 Smelt \xA7e50 gold ingots\xA7\
+      7."
+    type: SMELT_ITEM
+    target: GOLD_INGOT
+    amount: 50
+    currency: 170
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  glassworks:
+    id: glassworks
+    description: "\xA77\xA7eWindow to the world.\xA77 Smelt \xA7e150 glass\xA77 from\
+      \ sand."
+    type: SMELT_ITEM
+    target: GLASS
+    amount: 150
+    currency: 180
+    skillpoints: 2
+    skillreward: MINING
+    skillxp: 120
+    rarity: RARE
+    tier: WEEKLY
+  culinary_flame:
+    id: culinary_flame
+    description: "\xA77\xA7dChef's touch.\xA77 Smelt \xA7e75 food items\xA77 this\
+      \ week."
+    type: SMELT_ITEM
+    target: ANY_COOKED
+    amount: 75
+    currency: 190
+    skillpoints: 2
+    skillreward: FARMING
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  nether_refinery:
+    id: nether_refinery
+    description: "\xA77\xA7l\xA7cPure power.\xA7r\xA77 Smelt \xA7e10 netherite scraps\xA7\
+      7 this week."
+    type: SMELT_ITEM
+    target: NETHERITE_SCRAP
+    amount: 10
+    currency: 250
+    skillpoints: 3
+    skillreward: MINING
+    skillxp: 200
+    rarity: LEGENDARY
+    tier: WEEKLY
+  forge_alliance:
+    id: forge_alliance
+    description: "\xA77\xA7aSmelt together.\xA77 Smelt \xA7e10000 items\xA77 as a\
+      \ server."
+    type: SMELT_ITEM
+    target: ANY
+    amount: 10000
+    currency: 1300
+    skillpoints: 1
+    skillreward: MINING
+    skillxp: 600
+    rarity: COMMON
+    tier: GLOBAL
+  refined_future:
+    id: refined_future
+    description: "\xA77\xA7fIndustry thrives.\xA77 Smelt \xA7e2500 iron ingots\xA7\
+      7 globally."
+    type: SMELT_ITEM
+    target: IRON_INGOT
+    amount: 2500
+    currency: 1500
+    skillpoints: 2
+    skillreward: MINING
+    skillxp: 800
+    rarity: RARE
+    tier: GLOBAL
+  ancient_heat:
+    id: ancient_heat
+    description: "\xA77\xA7l\xA78Molten legacy.\xA7r\xA77 Smelt \xA7e500 netherite\
+      \ scraps\xA77 together."
+    type: SMELT_ITEM
+    target: NETHERITE_SCRAP
+    amount: 500
+    currency: 2200
+    skillpoints: 3
+    skillreward: MINING
+    skillxp: 1300
+    rarity: LEGENDARY
+    tier: GLOBAL
+  wolf_whisperer:
+    id: wolf_whisperer
+    description: "\xA77\xA7fA loyal companion.\xA77 Tame \xA7e1 wolf\xA77 today."
+    type: TAME_ENTITY
+    target: WOLF
+    amount: 1
+    currency: 60
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  cat_connection:
+    id: cat_connection
+    description: "\xA77\xA7dEarn trust.\xA77 Tame \xA7e1 cat\xA77 in a village."
+    type: TAME_ENTITY
+    target: CAT
+    amount: 1
+    currency: 60
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  horse_friend:
+    id: horse_friend
+    description: "\xA77\xA76Hold on tight!\xA77 Tame \xA7e1 horse\xA77."
+    type: TAME_ENTITY
+    target: HORSE
+    amount: 1
+    currency: 60
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  parrot_pact:
+    id: parrot_pact
+    description: "\xA77\xA7bFeathery fun.\xA77 Tame \xA7e1 parrot\xA77 with seeds."
+    type: TAME_ENTITY
+    target: PARROT
+    amount: 1
+    currency: 70
+    skillpoints: 1
+    skillreward: FORAGING
+    skillxp: 45
+    rarity: RARE
+    tier: DAILY
+  fox_friendship:
+    id: fox_friendship
+    description: "\xA77\xA7cSneaky bonds.\xA77 Tame \xA7e1 fox\xA77 by breeding wild\
+      \ ones."
+    type: TAME_ENTITY
+    target: FOX
+    amount: 1
+    currency: 80
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 50
+    rarity: LEGENDARY
+    tier: DAILY
+  wolf_pack:
+    id: wolf_pack
+    description: "\xA77\xA7fGather a pack.\xA77 Tame \xA7e5 wolves\xA77 this week."
+    type: TAME_ENTITY
+    target: WOLF
+    amount: 5
+    currency: 150
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  stable_setup:
+    id: stable_setup
+    description: "\xA77\xA76Mount up.\xA77 Tame \xA7e3 horses\xA77 this week."
+    type: TAME_ENTITY
+    target: HORSE
+    amount: 3
+    currency: 160
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  feline_force:
+    id: feline_force
+    description: "\xA77\xA7dQuiet hunters.\xA77 Tame \xA7e4 cats\xA77 this week."
+    type: TAME_ENTITY
+    target: CAT
+    amount: 4
+    currency: 170
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  avian_allies:
+    id: avian_allies
+    description: "\xA77\xA7bTalk to the birds.\xA77 Tame \xA7e3 parrots\xA77 this\
+      \ week."
+    type: TAME_ENTITY
+    target: PARROT
+    amount: 3
+    currency: 190
+    skillpoints: 2
+    skillreward: FORAGING
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  sly_family:
+    id: sly_family
+    description: "\xA77\xA7l\xA7cSly friends.\xA7r\xA77 Tame \xA7e2 foxes\xA77 this\
+      \ week."
+    type: TAME_ENTITY
+    target: FOX
+    amount: 2
+    currency: 250
+    skillpoints: 3
+    skillreward: AGILITY
+    skillxp: 200
+    rarity: LEGENDARY
+    tier: WEEKLY
+  taming_frenzy:
+    id: taming_frenzy
+    description: "\xA77\xA7aEveryone loves pets!\xA77 Tame \xA7e1000 animals\xA77\
+      \ together."
+    type: TAME_ENTITY
+    target: ANY
+    amount: 1000
+    currency: 1300
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 600
+    rarity: COMMON
+    tier: GLOBAL
+  canine_conquest:
+    id: canine_conquest
+    description: "\xA77\xA7fBark brigade.\xA77 Tame \xA7e400 wolves\xA77 server-wide."
+    type: TAME_ENTITY
+    target: WOLF
+    amount: 400
+    currency: 1500
+    skillpoints: 2
+    skillreward: FIGHTING
+    skillxp: 800
+    rarity: RARE
+    tier: GLOBAL
+  tame_the_wild:
+    id: tame_the_wild
+    description: "\xA77\xA7l\xA76Masters of nature.\xA7r\xA77 Tame \xA7e100 foxes\xA7\
+      7 together."
+    type: TAME_ENTITY
+    target: FOX
+    amount: 100
+    currency: 2200
+    skillpoints: 3
+    skillreward: AGILITY
+    skillxp: 1300
+    rarity: LEGENDARY
+    tier: GLOBAL
+  brew_basics:
+    id: brew_basics
+    description: "\xA77\xA7dStart small.\xA77 Brew \xA7e3 awkward potions\xA77 today."
+    type: BREW_ITEM
+    target: AWKWARD_POTION
+    amount: 3
+    currency: 60
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  healing_draught:
+    id: healing_draught
+    description: "\xA77\xA7cMend the wounds.\xA77 Brew \xA7e2 healing potions\xA7\
+      7."
+    type: BREW_ITEM
+    target: POTION_OF_HEALING
+    amount: 2
+    currency: 60
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  swiftness_sample:
+    id: swiftness_sample
+    description: "\xA77\xA7bMove like the wind.\xA77 Brew \xA7e1 swiftness potion\xA7\
+      7."
+    type: BREW_ITEM
+    target: POTION_OF_SWIFTNESS
+    amount: 1
+    currency: 60
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 40
+    rarity: RARE
+    tier: DAILY
+  fire_resistance_dose:
+    id: fire_resistance_dose
+    description: "\xA77\xA76Handle the heat.\xA77 Brew \xA7e1 fire resistance potion\xA7\
+      7."
+    type: BREW_ITEM
+    target: POTION_OF_FIRE_RESISTANCE
+    amount: 1
+    currency: 70
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 50
+    rarity: RARE
+    tier: DAILY
+  strength_stimulant:
+    id: strength_stimulant
+    description: "\xA77\xA74Power in a bottle.\xA77 Brew \xA7e1 strength potion\xA7\
+      7 today."
+    type: BREW_ITEM
+    target: POTION_OF_STRENGTH
+    amount: 1
+    currency: 80
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 60
+    rarity: LEGENDARY
+    tier: DAILY
+  brew_laboratory:
+    id: brew_laboratory
+    description: "\xA77\xA7dPotions in progress.\xA77 Brew \xA7e25 potions\xA77 this\
+      \ week."
+    type: BREW_ITEM
+    target: ANY
+    amount: 25
+    currency: 160
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  bubbles_of_battle:
+    id: bubbles_of_battle
+    description: "\xA77\xA7cPrepare for war.\xA77 Brew \xA7e10 strength potions\xA7\
+      7."
+    type: BREW_ITEM
+    target: POTION_OF_STRENGTH
+    amount: 10
+    currency: 180
+    skillpoints: 2
+    skillreward: ALCHEMY
+    skillxp: 120
+    rarity: RARE
+    tier: WEEKLY
+  fiery_mixture:
+    id: fiery_mixture
+    description: "\xA77\xA76Blaze defense.\xA77 Brew \xA7e8 fire resistance potions\xA7\
+      7."
+    type: BREW_ITEM
+    target: POTION_OF_FIRE_RESISTANCE
+    amount: 8
+    currency: 170
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  vitality_vials:
+    id: vitality_vials
+    description: "\xA77\xA7cRecover and repeat.\xA77 Brew \xA7e12 healing potions\xA7\
+      7."
+    type: BREW_ITEM
+    target: POTION_OF_HEALING
+    amount: 12
+    currency: 190
+    skillpoints: 2
+    skillreward: ALCHEMY
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  arcane_experiment:
+    id: arcane_experiment
+    description: "\xA77\xA7l\xA7dMystic mastery.\xA7r\xA77 Brew \xA7e15 unique potions\xA7\
+      7 this week."
+    type: BREW_ITEM
+    target: ANY
+    amount: 15
+    currency: 250
+    skillpoints: 3
+    skillreward: ALCHEMY
+    skillxp: 200
+    rarity: LEGENDARY
+    tier: WEEKLY
+  potion_power:
+    id: potion_power
+    description: "\xA77\xA7aBrew together.\xA77 Brew \xA7e10000 potions\xA77 as a\
+      \ server."
+    type: BREW_ITEM
+    target: ANY
+    amount: 10000
+    currency: 1300
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 600
+    rarity: COMMON
+    tier: GLOBAL
+  burnproof_brewing:
+    id: burnproof_brewing
+    description: "\xA77\xA76Fireproofing the world.\xA77 Brew \xA7e3000 fire resistance\
+      \ potions\xA77 together."
+    type: BREW_ITEM
+    target: POTION_OF_FIRE_RESISTANCE
+    amount: 3000
+    currency: 1500
+    skillpoints: 2
+    skillreward: ALCHEMY
+    skillxp: 800
+    rarity: RARE
+    tier: GLOBAL
+  elixir_emporium:
+    id: elixir_emporium
+    description: "\xA77\xA7l\xA7dAlchemy supreme.\xA7r\xA77 Brew \xA7e5000 specialty\
+      \ potions\xA77 as a server."
+    type: BREW_ITEM
+    target: ANY
+    amount: 5000
+    currency: 2200
+    skillpoints: 3
+    skillreward: ALCHEMY
+    skillxp: 1300
+    rarity: LEGENDARY
+    tier: GLOBAL
+  magic_touch:
+    id: magic_touch
+    description: "\xA77\xA7bInfuse your gear.\xA77 Enchant \xA7e5 items\xA77 today."
+    type: ENCHANT_ITEM
+    target: ANY
+    amount: 5
+    currency: 60
+    skillpoints: 1
+    skillreward: ENCHANTING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  sharp_upgrade:
+    id: sharp_upgrade
+    description: "\xA77\xA7cCutting edge.\xA77 Enchant \xA7e1 sword\xA77 today."
+    type: ENCHANT_ITEM
+    target: IRON_SWORD
+    amount: 1
+    currency: 60
+    skillpoints: 1
+    skillreward: ENCHANTING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  tool_boost:
+    id: tool_boost
+    description: "\xA77\xA78Make it better.\xA77 Enchant \xA7e1 pickaxe\xA77."
+    type: ENCHANT_ITEM
+    target: IRON_PICKAXE
+    amount: 1
+    currency: 60
+    skillpoints: 1
+    skillreward: ENCHANTING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  armor_up:
+    id: armor_up
+    description: "\xA77\xA7fShield yourself.\xA77 Enchant \xA7e1 piece of armor\xA7\
+      7."
+    type: ENCHANT_ITEM
+    target: IRON_CHESTPLATE
+    amount: 1
+    currency: 70
+    skillpoints: 1
+    skillreward: ENCHANTING
+    skillxp: 45
+    rarity: RARE
+    tier: DAILY
+  bow_buff:
+    id: bow_buff
+    description: "\xA77\xA7dSilent hunter.\xA77 Enchant \xA7e1 bow\xA77 today."
+    type: ENCHANT_ITEM
+    target: BOW
+    amount: 1
+    currency: 80
+    skillpoints: 1
+    skillreward: ENCHANTING
+    skillxp: 60
+    rarity: LEGENDARY
+    tier: DAILY
+  workshop_wizardry:
+    id: workshop_wizardry
+    description: "\xA77\xA7bUpgrade galore.\xA77 Enchant \xA7e20 items\xA77 this week."
+    type: ENCHANT_ITEM
+    target: ANY
+    amount: 20
+    currency: 160
+    skillpoints: 1
+    skillreward: ENCHANTING
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  defensive_enchants:
+    id: defensive_enchants
+    description: "\xA77\xA7fIronclad.\xA77 Enchant \xA7e5 chestplates\xA77."
+    type: ENCHANT_ITEM
+    target: IRON_CHESTPLATE
+    amount: 5
+    currency: 180
+    skillpoints: 2
+    skillreward: ENCHANTING
+    skillxp: 120
+    rarity: RARE
+    tier: WEEKLY
+  sharpness_showdown:
+    id: sharpness_showdown
+    description: "\xA77\xA7cRazor\u2019s edge.\xA77 Enchant \xA7e3 swords\xA77 with\
+      \ sharpness."
+    type: ENCHANT_ITEM
+    target: IRON_SWORD
+    amount: 3
+    currency: 170
+    skillpoints: 1
+    skillreward: ENCHANTING
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  efficiency_expert:
+    id: efficiency_expert
+    description: "\xA77\xA78Work faster.\xA77 Enchant \xA7e3 pickaxes\xA77 with efficiency."
+    type: ENCHANT_ITEM
+    target: IRON_PICKAXE
+    amount: 3
+    currency: 190
+    skillpoints: 2
+    skillreward: ENCHANTING
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  mystic_armory:
+    id: mystic_armory
+    description: "\xA77\xA7l\xA7dPower up.\xA7r\xA77 Enchant \xA7e15 unique item types\xA7\
+      7 this week."
+    type: ENCHANT_ITEM
+    target: ANY
+    amount: 15
+    currency: 250
+    skillpoints: 3
+    skillreward: ENCHANTING
+    skillxp: 200
+    rarity: LEGENDARY
+    tier: WEEKLY
+  arcane_research:
+    id: arcane_research
+    description: "\xA77\xA7aKnowledge grows.\xA77 Enchant \xA7e10000 items\xA77 as\
+      \ a server."
+    type: ENCHANT_ITEM
+    target: ANY
+    amount: 10000
+    currency: 1300
+    skillpoints: 1
+    skillreward: ENCHANTING
+    skillxp: 600
+    rarity: COMMON
+    tier: GLOBAL
+  global_powerup:
+    id: global_powerup
+    description: "\xA77\xA76Gear up together.\xA77 Enchant \xA7e3000 armor pieces\xA7\
+      7 server-wide."
+    type: ENCHANT_ITEM
+    target: IRON_CHESTPLATE
+    amount: 3000
+    currency: 1500
+    skillpoints: 2
+    skillreward: ENCHANTING
+    skillxp: 800
+    rarity: RARE
+    tier: GLOBAL
+  grand_enchanters:
+    id: grand_enchanters
+    description: "\xA77\xA7l\xA7bChannel the magic.\xA7r\xA77 Enchant \xA7e5000 unique\
+      \ items\xA77 as a team."
+    type: ENCHANT_ITEM
+    target: ANY
+    amount: 5000
+    currency: 2200
+    skillpoints: 3
+    skillreward: ENCHANTING
+    skillxp: 1300
+    rarity: LEGENDARY
+    tier: GLOBAL
+  killmob_daily_1:
+    id: killmob_daily_1
+    description: "\xA77Eliminate \xA7e3 hostiles\xA77."
+    type: KILL_MOB
+    target: HOSTILE
+    amount: 3
+    currency: 50
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 27
+    rarity: COMMON
+    tier: DAILY
+  killmob_daily_2:
+    id: killmob_daily_2
+    description: "\xA77Eliminate \xA7e3 bosss\xA77."
+    type: KILL_MOB
+    target: BOSS
+    amount: 3
+    currency: 50
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 32
+    rarity: COMMON
+    tier: DAILY
+  killmob_daily_3:
+    id: killmob_daily_3
+    description: "\xA77Eliminate \xA7e8 guardians\xA77."
+    type: KILL_MOB
+    target: GUARDIAN
+    amount: 8
+    currency: 53
+    skillpoints: 1
+    skillreward: FISHING
+    skillxp: 26
+    rarity: COMMON
+    tier: DAILY
+  killmob_daily_4:
+    id: killmob_daily_4
+    description: "\xA77Eliminate \xA7e3 skeletons\xA77."
+    type: KILL_MOB
+    target: SKELETON
+    amount: 3
+    currency: 54
+    skillpoints: 1
+    skillreward: ARCHERY
+    skillxp: 29
+    rarity: COMMON
+    tier: DAILY
+  killmob_daily_5:
+    id: killmob_daily_5
+    description: "\xA77Eliminate \xA7e6 strays\xA77."
+    type: KILL_MOB
+    target: STRAY
+    amount: 6
+    currency: 53
+    skillpoints: 1
+    skillreward: ARCHERY
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  killmob_daily_6:
+    id: killmob_daily_6
+    description: "\xA77\xA7bEliminate \xA7e10 cave spiders\xA77."
+    type: KILL_MOB
+    target: CAVE_SPIDER
+    amount: 10
+    currency: 68
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 48
+    rarity: RARE
+    tier: DAILY
+  killmob_daily_7:
+    id: killmob_daily_7
+    description: "\xA77Eliminate \xA7e7 phantoms\xA77."
+    type: KILL_MOB
+    target: PHANTOM
+    amount: 7
+    currency: 47
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 27
+    rarity: COMMON
+    tier: DAILY
+  killmob_daily_8:
+    id: killmob_daily_8
+    description: "\xA77\xA7bEliminate \xA7e10 wither skeletons\xA77."
+    type: KILL_MOB
+    target: WITHER_SKELETON
+    amount: 10
+    currency: 65
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 47
+    rarity: RARE
+    tier: DAILY
+  killmob_daily_9:
+    id: killmob_daily_9
+    description: "\xA77Eliminate \xA7e8 undeads\xA77."
+    type: KILL_MOB
+    target: UNDEAD
+    amount: 8
+    currency: 50
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 28
+    rarity: COMMON
+    tier: DAILY
+  killmob_daily_10:
+    id: killmob_daily_10
+    description: "\xA77Eliminate \xA7e5 skeletons\xA77."
+    type: KILL_MOB
+    target: SKELETON
+    amount: 5
+    currency: 48
+    skillpoints: 1
+    skillreward: ARCHERY
+    skillxp: 25
+    rarity: COMMON
+    tier: DAILY
+  killmob_daily_11:
+    id: killmob_daily_11
+    description: "\xA77Eliminate \xA7e4 endermans\xA77."
+    type: KILL_MOB
+    target: ENDERMAN
+    amount: 4
+    currency: 46
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 28
+    rarity: COMMON
+    tier: DAILY
+  killmob_daily_12:
+    id: killmob_daily_12
+    description: "\xA77\xA7bEliminate \xA7e3 endermans\xA77."
+    type: KILL_MOB
+    target: ENDERMAN
+    amount: 3
+    currency: 60
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 49
+    rarity: RARE
+    tier: DAILY
+  killmob_daily_13:
+    id: killmob_daily_13
+    description: "\xA77Eliminate \xA7e6 hoglins\xA77."
+    type: KILL_MOB
+    target: HOGLIN
+    amount: 6
+    currency: 53
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 29
+    rarity: COMMON
+    tier: DAILY
+  killmob_daily_14:
+    id: killmob_daily_14
+    description: "\xA77Eliminate \xA7e5 wither skeletons\xA77."
+    type: KILL_MOB
+    target: WITHER_SKELETON
+    amount: 5
+    currency: 45
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 31
+    rarity: COMMON
+    tier: DAILY
+  killmob_daily_15:
+    id: killmob_daily_15
+    description: "\xA77Eliminate \xA7e4 guardians\xA77."
+    type: KILL_MOB
+    target: GUARDIAN
+    amount: 4
+    currency: 47
+    skillpoints: 1
+    skillreward: FISHING
+    skillxp: 31
+    rarity: COMMON
+    tier: DAILY
+  killmob_daily_16:
+    id: killmob_daily_16
+    description: "\xA77\xA7bEliminate \xA7e3 hostiles\xA77."
+    type: KILL_MOB
+    target: HOSTILE
+    amount: 3
+    currency: 67
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 45
+    rarity: RARE
+    tier: DAILY
+  killmob_daily_17:
+    id: killmob_daily_17
+    description: "\xA77Eliminate \xA7e5 bosss\xA77."
+    type: KILL_MOB
+    target: BOSS
+    amount: 5
+    currency: 47
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 31
+    rarity: COMMON
+    tier: DAILY
+  killmob_daily_18:
+    id: killmob_daily_18
+    description: "\xA77\xA7bEliminate \xA7e6 zombies\xA77."
+    type: KILL_MOB
+    target: ZOMBIE
+    amount: 6
+    currency: 62
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 43
+    rarity: RARE
+    tier: DAILY
+  killmob_daily_19:
+    id: killmob_daily_19
+    description: "\xA77\xA7bEliminate \xA7e5 slimes\xA77."
+    type: KILL_MOB
+    target: SLIME
+    amount: 5
+    currency: 67
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 46
+    rarity: RARE
+    tier: DAILY
+  killmob_daily_20:
+    id: killmob_daily_20
+    description: "\xA77\xA7bEliminate \xA7e7 strays\xA77."
+    type: KILL_MOB
+    target: STRAY
+    amount: 7
+    currency: 70
+    skillpoints: 1
+    skillreward: ARCHERY
+    skillxp: 48
+    rarity: RARE
+    tier: DAILY
+  killmob_daily_21:
+    id: killmob_daily_21
+    description: "\xA77Eliminate \xA7e8 magma cubes\xA77."
+    type: KILL_MOB
+    target: MAGMA_CUBE
+    amount: 8
+    currency: 53
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 29
+    rarity: COMMON
+    tier: DAILY
+  killmob_daily_22:
+    id: killmob_daily_22
+    description: "\xA77\xA7bEliminate \xA7e10 undeads\xA77."
+    type: KILL_MOB
+    target: UNDEAD
+    amount: 10
+    currency: 62
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 48
+    rarity: RARE
+    tier: DAILY
+  killmob_daily_23:
+    id: killmob_daily_23
+    description: "\xA77\xA7bEliminate \xA7e6 husks\xA77."
+    type: KILL_MOB
+    target: HUSK
+    amount: 6
+    currency: 63
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 41
+    rarity: RARE
+    tier: DAILY
+  killmob_daily_24:
+    id: killmob_daily_24
+    description: "\xA77Eliminate \xA7e7 bosss\xA77."
+    type: KILL_MOB
+    target: BOSS
+    amount: 7
+    currency: 47
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 28
+    rarity: COMMON
+    tier: DAILY
+  killmob_daily_25:
+    id: killmob_daily_25
+    description: "\xA77Eliminate \xA7e4 spiders\xA77."
+    type: KILL_MOB
+    target: SPIDER
+    amount: 4
+    currency: 53
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  killmob_weekly_1:
+    id: killmob_weekly_1
+    description: "\xA77\xA7l\xA76Eliminate \xA7e102 endermans\xA77."
+    type: KILL_MOB
+    target: ENDERMAN
+    amount: 102
+    currency: 258
+    skillpoints: 3
+    skillreward: FIGHTING
+    skillxp: 195
+    rarity: LEGENDARY
+    tier: WEEKLY
+  killmob_weekly_2:
+    id: killmob_weekly_2
+    description: "\xA77\xA7bEliminate \xA7e94 endermans\xA77."
+    type: KILL_MOB
+    target: ENDERMAN
+    amount: 94
+    currency: 186
+    skillpoints: 2
+    skillreward: FIGHTING
+    skillxp: 121
+    rarity: RARE
+    tier: WEEKLY
+  killmob_weekly_3:
+    id: killmob_weekly_3
+    description: "\xA77Eliminate \xA7e34 witchs\xA77."
+    type: KILL_MOB
+    target: WITCH
+    amount: 34
+    currency: 146
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 99
+    rarity: COMMON
+    tier: WEEKLY
+  killmob_weekly_4:
+    id: killmob_weekly_4
+    description: "\xA77Eliminate \xA7e72 phantoms\xA77."
+    type: KILL_MOB
+    target: PHANTOM
+    amount: 72
+    currency: 132
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 94
+    rarity: COMMON
+    tier: WEEKLY
+  killmob_weekly_5:
+    id: killmob_weekly_5
+    description: "\xA77\xA7bEliminate \xA7e137 hostiles\xA77."
+    type: KILL_MOB
+    target: HOSTILE
+    amount: 137
+    currency: 197
+    skillpoints: 2
+    skillreward: FIGHTING
+    skillxp: 121
+    rarity: RARE
+    tier: WEEKLY
+  killmob_weekly_6:
+    id: killmob_weekly_6
+    description: "\xA77\xA7l\xA76Eliminate \xA7e178 zombies\xA77."
+    type: KILL_MOB
+    target: ZOMBIE
+    amount: 178
+    currency: 267
+    skillpoints: 3
+    skillreward: FIGHTING
+    skillxp: 208
+    rarity: LEGENDARY
+    tier: WEEKLY
+  killmob_weekly_7:
+    id: killmob_weekly_7
+    description: "\xA77\xA7l\xA76Eliminate \xA7e86 pillagers\xA77."
+    type: KILL_MOB
+    target: PILLAGER
+    amount: 86
+    currency: 234
+    skillpoints: 3
+    skillreward: ARCHERY
+    skillxp: 194
+    rarity: LEGENDARY
+    tier: WEEKLY
+  killmob_weekly_8:
+    id: killmob_weekly_8
+    description: "\xA77Eliminate \xA7e43 witchs\xA77."
+    type: KILL_MOB
+    target: WITCH
+    amount: 43
+    currency: 138
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 93
+    rarity: COMMON
+    tier: WEEKLY
+  killmob_weekly_9:
+    id: killmob_weekly_9
+    description: "\xA77\xA7bEliminate \xA7e115 skeletons\xA77."
+    type: KILL_MOB
+    target: SKELETON
+    amount: 115
+    currency: 184
+    skillpoints: 2
+    skillreward: ARCHERY
+    skillxp: 127
+    rarity: RARE
+    tier: WEEKLY
+  killmob_weekly_10:
+    id: killmob_weekly_10
+    description: "\xA77Eliminate \xA7e88 phantoms\xA77."
+    type: KILL_MOB
+    target: PHANTOM
+    amount: 88
+    currency: 131
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 110
+    rarity: COMMON
+    tier: WEEKLY
+  killmob_weekly_11:
+    id: killmob_weekly_11
+    description: "\xA77\xA7bEliminate \xA7e58 skeletons\xA77."
+    type: KILL_MOB
+    target: SKELETON
+    amount: 58
+    currency: 166
+    skillpoints: 2
+    skillreward: ARCHERY
+    skillxp: 138
+    rarity: RARE
+    tier: WEEKLY
+  killmob_weekly_12:
+    id: killmob_weekly_12
+    description: "\xA77Eliminate \xA7e70 magma cubes\xA77."
+    type: KILL_MOB
+    target: MAGMA_CUBE
+    amount: 70
+    currency: 139
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 105
+    rarity: COMMON
+    tier: WEEKLY
+  killmob_weekly_13:
+    id: killmob_weekly_13
+    description: "\xA77Eliminate \xA7e76 witchs\xA77."
+    type: KILL_MOB
+    target: WITCH
+    amount: 76
+    currency: 140
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 98
+    rarity: COMMON
+    tier: WEEKLY
+  killmob_weekly_14:
+    id: killmob_weekly_14
+    description: "\xA77Eliminate \xA7e90 witchs\xA77."
+    type: KILL_MOB
+    target: WITCH
+    amount: 90
+    currency: 140
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 102
+    rarity: COMMON
+    tier: WEEKLY
+  killmob_weekly_15:
+    id: killmob_weekly_15
+    description: "\xA77Eliminate \xA7e65 bosss\xA77."
+    type: KILL_MOB
+    target: BOSS
+    amount: 65
+    currency: 142
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 91
+    rarity: COMMON
+    tier: WEEKLY
+  killmob_weekly_16:
+    id: killmob_weekly_16
+    description: "\xA77Eliminate \xA7e104 pillagers\xA77."
+    type: KILL_MOB
+    target: PILLAGER
+    amount: 104
+    currency: 150
+    skillpoints: 1
+    skillreward: ARCHERY
+    skillxp: 93
+    rarity: COMMON
+    tier: WEEKLY
+  killmob_weekly_17:
+    id: killmob_weekly_17
+    description: "\xA77Eliminate \xA7e37 pillagers\xA77."
+    type: KILL_MOB
+    target: PILLAGER
+    amount: 37
+    currency: 136
+    skillpoints: 1
+    skillreward: ARCHERY
+    skillxp: 105
+    rarity: COMMON
+    tier: WEEKLY
+  killmob_weekly_18:
+    id: killmob_weekly_18
+    description: "\xA77Eliminate \xA7e62 zombies\xA77."
+    type: KILL_MOB
+    target: ZOMBIE
+    amount: 62
+    currency: 146
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 103
+    rarity: COMMON
+    tier: WEEKLY
+  killmob_weekly_19:
+    id: killmob_weekly_19
+    description: "\xA77Eliminate \xA7e49 spiders\xA77."
+    type: KILL_MOB
+    target: SPIDER
+    amount: 49
+    currency: 138
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 92
+    rarity: COMMON
+    tier: WEEKLY
+  killmob_weekly_20:
+    id: killmob_weekly_20
+    description: "\xA77\xA7bEliminate \xA7e50 hoglins\xA77."
+    type: KILL_MOB
+    target: HOGLIN
+    amount: 50
+    currency: 184
+    skillpoints: 2
+    skillreward: FIGHTING
+    skillxp: 119
+    rarity: RARE
+    tier: WEEKLY
+  killmob_weekly_21:
+    id: killmob_weekly_21
+    description: "\xA77Eliminate \xA7e107 bosss\xA77."
+    type: KILL_MOB
+    target: BOSS
+    amount: 107
+    currency: 156
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 95
+    rarity: COMMON
+    tier: WEEKLY
+  killmob_weekly_22:
+    id: killmob_weekly_22
+    description: "\xA77Eliminate \xA7e60 husks\xA77."
+    type: KILL_MOB
+    target: HUSK
+    amount: 60
+    currency: 139
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 94
+    rarity: COMMON
+    tier: WEEKLY
+  killmob_weekly_23:
+    id: killmob_weekly_23
+    description: "\xA77Eliminate \xA7e38 pillagers\xA77."
+    type: KILL_MOB
+    target: PILLAGER
+    amount: 38
+    currency: 140
+    skillpoints: 1
+    skillreward: ARCHERY
+    skillxp: 108
+    rarity: COMMON
+    tier: WEEKLY
+  killmob_weekly_24:
+    id: killmob_weekly_24
+    description: "\xA77Eliminate \xA7e59 zombies\xA77."
+    type: KILL_MOB
+    target: ZOMBIE
+    amount: 59
+    currency: 142
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  killmob_weekly_25:
+    id: killmob_weekly_25
+    description: "\xA77Eliminate \xA7e32 bosss\xA77."
+    type: KILL_MOB
+    target: BOSS
+    amount: 32
+    currency: 158
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 99
+    rarity: COMMON
+    tier: WEEKLY
+  undead_uprising:
+    id: undead_uprising
+    description: "\xA77\xA7aStop the horde!\xA77 Slay \xA7e10 zombies\xA77 before\
+      \ nightfall."
+    type: KILL_MOB
+    target: ZOMBIE
+    amount: 10
+    currency: 50
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  bones_and_arrows:
+    id: bones_and_arrows
+    description: "\xA77\xA7fOutshoot the shooters.\xA77 Defeat \xA7e8 skeletons\xA7\
+      7."
+    type: KILL_MOB
+    target: SKELETON
+    amount: 8
+    currency: 50
+    skillpoints: 1
+    skillreward: ARCHERY
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  sticky_situation:
+    id: sticky_situation
+    description: "\xA77\xA72Squash the swarm.\xA77 Eliminate \xA7e12 slimes\xA77 in\
+      \ the swamp."
+    type: KILL_MOB
+    target: SLIME
+    amount: 12
+    currency: 55
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  creeper_alert:
+    id: creeper_alert
+    description: "\xA77\xA7eCareful now...\xA77 Take out \xA7e5 creepers\xA77 without\
+      \ blowing up!"
+    type: KILL_MOB
+    target: CREEPER
+    amount: 5
+    currency: 55
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  cave_cleaner:
+    id: cave_cleaner
+    description: "\xA77\xA78Down below.\xA77 Kill \xA7e6 cave spiders\xA77 in the\
+      \ mineshaft."
+    type: KILL_MOB
+    target: CAVE_SPIDER
+    amount: 6
+    currency: 55
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  phantom_shift:
+    id: phantom_shift
+    description: "\xA77\xA79End the nightmares.\xA77 Defeat \xA7e3 phantoms\xA77 during\
+      \ the night."
+    type: KILL_MOB
+    target: PHANTOM
+    amount: 3
+    currency: 60
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 40
+    rarity: RARE
+    tier: DAILY
+  scorched_blaze:
+    id: scorched_blaze
+    description: "\xA77\xA76Tame the flame.\xA77 Eliminate \xA7e4 blazes\xA77 in the\
+      \ Nether fortress."
+    type: KILL_MOB
+    target: BLAZE
+    amount: 4
+    currency: 60
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 40
+    rarity: RARE
+    tier: DAILY
+  witch_hunt:
+    id: witch_hunt
+    description: "\xA77\xA7dNo magic allowed.\xA77 Take down \xA7e2 witches\xA77 in\
+      \ the swamp."
+    type: KILL_MOB
+    target: WITCH
+    amount: 2
+    currency: 65
+    skillpoints: 1
+    skillreward: ALCHEMY
+    skillxp: 45
+    rarity: RARE
+    tier: DAILY
+  nether_stalker:
+    id: nether_stalker
+    description: "\xA77\xA7cDeep danger.\xA77 Eliminate \xA7e6 piglins\xA77 in the\
+      \ crimson forest."
+    type: KILL_MOB
+    target: PIGLIN
+    amount: 6
+    currency: 65
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 45
+    rarity: RARE
+    tier: DAILY
+  ender_conflict:
+    id: ender_conflict
+    description: "\xA77\xA75Don't look away.\xA77 Defeat \xA7e2 endermen\xA77 without\
+      \ teleporting panic!"
+    type: KILL_MOB
+    target: ENDERMAN
+    amount: 2
+    currency: 80
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 60
+    rarity: LEGENDARY
+    tier: DAILY
+  spider_snare:
+    id: spider_snare
+    description: "\xA77\xA7cTangle no more.\xA77 Kill \xA7e8 spiders\xA77 lurking\
+      \ in forests."
+    type: KILL_MOB
+    target: SPIDER
+    amount: 8
+    currency: 50
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  bone_breaker:
+    id: bone_breaker
+    description: "\xA77\xA7fCrack the shots.\xA77 Slay \xA7e6 skeletons\xA77 with\
+      \ melee weapons."
+    type: KILL_MOB
+    target: SKELETON
+    amount: 6
+    currency: 50
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  husk_dust:
+    id: husk_dust
+    description: "\xA77\xA7eSandstorm showdown.\xA77 Defeat \xA7e4 husks\xA77 in the\
+      \ desert."
+    type: KILL_MOB
+    target: HUSK
+    amount: 4
+    currency: 50
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 30
+    rarity: COMMON
+    tier: DAILY
+  stray_arrows:
+    id: stray_arrows
+    description: "\xA77\xA79Chill them out.\xA77 Kill \xA7e4 strays\xA77 in snowy\
+      \ biomes."
+    type: KILL_MOB
+    target: STRAY
+    amount: 4
+    currency: 55
+    skillpoints: 1
+    skillreward: ARCHERY
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  magma_mash:
+    id: magma_mash
+    description: "\xA77\xA76Hot blobs incoming!\xA77 Defeat \xA7e10 magma cubes\xA7\
+      7."
+    type: KILL_MOB
+    target: MAGMA_CUBE
+    amount: 10
+    currency: 55
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  drowned_defender:
+    id: drowned_defender
+    description: "\xA77\xA73They rise from below.\xA77 Slay \xA7e4 drowned\xA77 near\
+      \ riverbanks."
+    type: KILL_MOB
+    target: DROWNED
+    amount: 4
+    currency: 55
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 35
+    rarity: COMMON
+    tier: DAILY
+  pillager_patrol:
+    id: pillager_patrol
+    description: "\xA77\xA7cClear the outpost.\xA77 Defeat \xA7e3 pillagers\xA77 before\
+      \ they regroup."
+    type: KILL_MOB
+    target: PILLAGER
+    amount: 3
+    currency: 60
+    skillpoints: 1
+    skillreward: ARCHERY
+    skillxp: 40
+    rarity: RARE
+    tier: DAILY
+  guardian_guard:
+    id: guardian_guard
+    description: "\xA77\xA7bEye of the sea.\xA77 Eliminate \xA7e2 guardians\xA77 from\
+      \ the monument."
+    type: KILL_MOB
+    target: GUARDIAN
+    amount: 2
+    currency: 60
+    skillpoints: 1
+    skillreward: FISHING
+    skillxp: 40
+    rarity: RARE
+    tier: DAILY
+  stray_cleanse:
+    id: stray_cleanse
+    description: "\xA77\xA79The cold sting.\xA77 Slay \xA7e3 strays\xA77 haunting\
+      \ the tundra."
+    type: KILL_MOB
+    target: STRAY
+    amount: 3
+    currency: 60
+    skillpoints: 1
+    skillreward: ARCHERY
+    skillxp: 40
+    rarity: RARE
+    tier: DAILY
+  hoglin_hazard:
+    id: hoglin_hazard
+    description: "\xA77\xA74Snout showdown.\xA77 Defeat \xA7e2 hoglins\xA77 in the\
+      \ crimson forest."
+    type: KILL_MOB
+    target: HOGLIN
+    amount: 2
+    currency: 65
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 45
+    rarity: RARE
+    tier: DAILY
+  enderman_encounter:
+    id: enderman_encounter
+    description: "\xA77\xA75Face your fear.\xA77 Kill \xA7e1 enderman\xA77 without\
+      \ looking away!"
+    type: KILL_MOB
+    target: ENDERMAN
+    amount: 1
+    currency: 75
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 55
+    rarity: LEGENDARY
+    tier: DAILY
+  cave_purge:
+    id: cave_purge
+    description: "\xA77\xA78Silence below.\xA77 Eliminate \xA7e7 cave spiders\xA7\
+      7 today."
+    type: KILL_MOB
+    target: CAVE_SPIDER
+    amount: 7
+    currency: 60
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 40
+    rarity: RARE
+    tier: DAILY
+  boss_breaker:
+    id: boss_breaker
+    description: "\xA77\xA7l\xA74The brave rise.\xA7r\xA77 Defeat \xA7e1 boss\xA7\
+      7 \u2014 prove your strength!"
+    type: KILL_MOB
+    target: BOSS
+    amount: 1
+    currency: 90
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 60
+    rarity: LEGENDARY
+    tier: DAILY
+  bone_battlefield:
+    id: bone_battlefield
+    description: "\xA77\xA7fBones litter the ground.\xA77 Eliminate \xA7e60 skeletons\xA7\
+      7 this week."
+    type: KILL_MOB
+    target: SKELETON
+    amount: 60
+    currency: 150
+    skillpoints: 1
+    skillreward: ARCHERY
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  rotten_reckoning:
+    id: rotten_reckoning
+    description: "\xA77\xA7aNo more moans.\xA77 Slay \xA7e75 zombies\xA77 haunting\
+      \ the land."
+    type: KILL_MOB
+    target: ZOMBIE
+    amount: 75
+    currency: 150
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  webbed_wipeout:
+    id: webbed_wipeout
+    description: "\xA77\xA7cSweep the dark corners.\xA77 Kill \xA7e50 spiders\xA7\
+      7 across caves and forests."
+    type: KILL_MOB
+    target: SPIDER
+    amount: 50
+    currency: 150
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  blazing_vengeance:
+    id: blazing_vengeance
+    description: "\xA77\xA76Strike from the shadows.\xA77 Defeat \xA7e35 blazes\xA7\
+      7 in the Nether."
+    type: KILL_MOB
+    target: BLAZE
+    amount: 35
+    currency: 180
+    skillpoints: 2
+    skillreward: FIGHTING
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  phantom_duskfall:
+    id: phantom_duskfall
+    description: "\xA77\xA79Cleanse the sky.\xA77 Slay \xA7e20 phantoms\xA77 under\
+      \ moonlight."
+    type: KILL_MOB
+    target: PHANTOM
+    amount: 20
+    currency: 180
+    skillpoints: 2
+    skillreward: AGILITY
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  soul_slayer:
+    id: soul_slayer
+    description: "\xA77\xA78Bone and brimstone.\xA77 Kill \xA7e25 wither skeletons\xA7\
+      7 in the fortress."
+    type: KILL_MOB
+    target: WITHER_SKELETON
+    amount: 25
+    currency: 180
+    skillpoints: 2
+    skillreward: FIGHTING
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  bastion_clearout:
+    id: bastion_clearout
+    description: "\xA77\xA74Raiding the red.\xA77 Eliminate \xA7e40 piglins\xA77 in\
+      \ bastions."
+    type: KILL_MOB
+    target: PIGLIN
+    amount: 40
+    currency: 160
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  cursed_caves:
+    id: cursed_caves
+    description: "\xA77\xA78Snuff the swarm.\xA77 Kill \xA7e60 cave spiders\xA77 in\
+      \ the depths."
+    type: KILL_MOB
+    target: CAVE_SPIDER
+    amount: 60
+    currency: 160
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  magma_meltdown:
+    id: magma_meltdown
+    description: "\xA77\xA76Crush the cubes.\xA77 Defeat \xA7e70 magma cubes\xA77\
+      \ in basalt deltas."
+    type: KILL_MOB
+    target: MAGMA_CUBE
+    amount: 70
+    currency: 160
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  elder_execution:
+    id: elder_execution
+    description: "\xA77\xA7l\xA7bFace the guardian.\xA7r\xA77 Slay \xA7e1 elder guardian\xA7\
+      7 this week."
+    type: KILL_MOB
+    target: BOSS
+    amount: 1
+    currency: 250
+    skillpoints: 3
+    skillreward: FISHING
+    skillxp: 200
+    rarity: LEGENDARY
+    tier: WEEKLY
+  ocean_exile:
+    id: ocean_exile
+    description: "\xA77\xA73Clear the coasts.\xA77 Defeat \xA7e30 drowned\xA77 lurking\
+      \ in rivers and oceans."
+    type: KILL_MOB
+    target: DROWNED
+    amount: 30
+    currency: 150
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  husk_heatwave:
+    id: husk_heatwave
+    description: "\xA77\xA7eSurvive the sands.\xA77 Slay \xA7e35 husks\xA77 under\
+      \ the sun."
+    type: KILL_MOB
+    target: HUSK
+    amount: 35
+    currency: 150
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  stray_frostbite:
+    id: stray_frostbite
+    description: "\xA77\xA79Chill the night.\xA77 Eliminate \xA7e25 strays\xA77 in\
+      \ icy regions."
+    type: KILL_MOB
+    target: STRAY
+    amount: 25
+    currency: 160
+    skillpoints: 1
+    skillreward: ARCHERY
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  pillager_pushback:
+    id: pillager_pushback
+    description: "\xA77\xA7cDefend the frontier.\xA77 Defeat \xA7e30 pillagers\xA7\
+      7 near outposts."
+    type: KILL_MOB
+    target: PILLAGER
+    amount: 30
+    currency: 180
+    skillpoints: 2
+    skillreward: ARCHERY
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  witch_wipeout:
+    id: witch_wipeout
+    description: "\xA77\xA7dBrew no more.\xA77 Take down \xA7e20 witches\xA77 this\
+      \ week."
+    type: KILL_MOB
+    target: WITCH
+    amount: 20
+    currency: 180
+    skillpoints: 2
+    skillreward: ALCHEMY
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  enderman_encounter_weekly:
+    id: enderman_encounter_weekly
+    description: "\xA77\xA75Face the void.\xA77 Defeat \xA7e15 endermen\xA77 across\
+      \ dimensions."
+    type: KILL_MOB
+    target: ENDERMAN
+    amount: 15
+    currency: 180
+    skillpoints: 2
+    skillreward: FIGHTING
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  hoglin_havoc:
+    id: hoglin_havoc
+    description: "\xA77\xA74Tame the tusks.\xA77 Eliminate \xA7e20 hoglins\xA77 in\
+      \ the crimson wilds."
+    type: KILL_MOB
+    target: HOGLIN
+    amount: 20
+    currency: 180
+    skillpoints: 2
+    skillreward: FIGHTING
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  nether_warrior:
+    id: nether_warrior
+    description: "\xA77\xA7cConquer the flame.\xA77 Defeat \xA7e100 hostile mobs\xA7\
+      7 in the Nether."
+    type: KILL_MOB
+    target: HOSTILE
+    amount: 100
+    currency: 180
+    skillpoints: 2
+    skillreward: FIGHTING
+    skillxp: 130
+    rarity: RARE
+    tier: WEEKLY
+  undead_exterminator:
+    id: undead_exterminator
+    description: "\xA77\xA7l\xA7aCleanse the corruption.\xA7r\xA77 Slay \xA7e150 undead\xA7\
+      7 across the world."
+    type: KILL_MOB
+    target: UNDEAD
+    amount: 150
+    currency: 250
+    skillpoints: 3
+    skillreward: FIGHTING
+    skillxp: 200
+    rarity: LEGENDARY
+    tier: WEEKLY
+  end_reckoning:
+    id: end_reckoning
+    description: "\xA77\xA7l\xA75Eyes of the End.\xA7r\xA77 Defeat \xA7e3 endermen\xA7\
+      7 in the End dimension."
+    type: KILL_MOB
+    target: ENDERMAN
+    amount: 3
+    currency: 250
+    skillpoints: 3
+    skillreward: FIGHTING
+    skillxp: 200
+    rarity: LEGENDARY
+    tier: WEEKLY
+  swarm_breaker:
+    id: swarm_breaker
+    description: "\xA77\xA78Clear the darkness.\xA77 Slay \xA7e120 hostile mobs\xA7\
+      7 this week."
+    type: KILL_MOB
+    target: HOSTILE
+    amount: 120
+    currency: 160
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 100
+    rarity: COMMON
+    tier: WEEKLY
+  skeletal_ambush:
+    id: skeletal_ambush
+    description: "\xA77\xA7fAmbushed at dusk.\xA77 Defeat \xA7e45 skeletons\xA77."
+    type: KILL_MOB
+    target: SKELETON
+    amount: 45
+    currency: 150
+    skillpoints: 1
+    skillreward: ARCHERY
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  creeper_crusade:
+    id: creeper_crusade
+    description: "\xA77\xA72Don't let them explode!\xA77 Slay \xA7e30 creepers\xA7\
+      7 across the Overworld."
+    type: KILL_MOB
+    target: CREEPER
+    amount: 30
+    currency: 150
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  slime_squash:
+    id: slime_squash
+    description: "\xA77\xA7aGreen goop cleanup.\xA77 Defeat \xA7e50 slimes\xA77 in\
+      \ swamps and caves."
+    type: KILL_MOB
+    target: SLIME
+    amount: 50
+    currency: 150
+    skillpoints: 1
+    skillreward: FIGHTING
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY
+  caveguard_crusade:
+    id: caveguard_crusade
+    description: "\xA77\xA78Mines must be safe.\xA77 Kill \xA7e30 cave spiders\xA7\
+      7 in shafts."
+    type: KILL_MOB
+    target: CAVE_SPIDER
+    amount: 30
+    currency: 150
+    skillpoints: 1
+    skillreward: AGILITY
+    skillxp: 90
+    rarity: COMMON
+    tier: WEEKLY

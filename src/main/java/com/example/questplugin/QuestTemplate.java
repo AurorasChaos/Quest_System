@@ -38,4 +38,8 @@ public class QuestTemplate {
     public QuestRarity getRarity() {
         return rarity;
     }
+
+    public String getId() {
+        return id;
+    }
 }

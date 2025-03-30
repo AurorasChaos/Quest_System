@@ -22,7 +22,10 @@ public class RewardHandler {
 
         double multiplier = quest.getRarity().getMultiplier();
 
+        plugin.debug("[Reward] Claiming reward for quest: " + quest.getId());
+
         if (plugin.getEconomy() != null) {
+            plugin.debug("[AuraSkills] Gave " +quest.getCurrencyReward() + " to " + player.getName());
             plugin.getEconomy().depositPlayer(player, quest.getCurrencyReward() * multiplier);
         }
 

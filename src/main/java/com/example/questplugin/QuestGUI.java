@@ -69,9 +69,14 @@ public class QuestGUI implements Listener{
 
     public void open(Player player, int page, QuestTier tier, QuestFilter filter) {
         UUID uuid = player.getUniqueId();
-        List<Quest> quests = (tier == QuestTier.ALL)
-            ? plugin.getQuestManager().getAllPlayerQuests(uuid)
-            : plugin.getQuestManager().getQuestsForTier(uuid, tier);
+        List<Quest> quests;
+        if (tier == QuestTier.GLOBAL) {
+            quests = plugin.getQuestManager().getQuestsForTier(uuid, QuestTier.GLOBAL);
+        } else if (tier == QuestTier.ALL) {
+            quests = plugin.getQuestManager().getQuestsForTier(uuid, QuestTier.ALL);
+        } else {
+            quests = plugin.getQuestManager().getQuestsForTier(uuid, tier);
+        }
         List<Quest> filtered = filter.apply(quests);
 
         pageMap.put(uuid, page);
@@ -318,6 +323,7 @@ public class QuestGUI implements Listener{
 
         if (slot >= 0 && slot < QUESTS_PER_PAGE && index < filtered.size()) {
             Quest quest = filtered.get(index);
+            plugin.debug("[GUI] Player clicked quest: " + quest.getId() + " | canClaim=" + quest.canClaim());
             if (quest.canClaim()) {
                 rewardHandler.giveReward(player, quest);
                 notifier.notifyCompletion(player, quest);

@@ -12,9 +12,11 @@ com\example\questplugin\QuestType.class
 com\example\questplugin\QuestNotifier.class
 com\example\questplugin\QuestStorageManager$PlayerQuestData.class
 com\example\questplugin\QuestTemplate.class
+com\example\questplugin\QuestAssigner.class
 com\example\questplugin\QuestGUI$3.class
 com\example\questplugin\PlayerJoinListener.class
 com\example\questplugin\RarityRoller$1.class
+com\example\questplugin\QuestAssigner$1.class
 com\example\questplugin\QuestGUI.class
 com\example\questplugin\RewardHandler.class
 com\example\questplugin\QuestStorageManager.class
