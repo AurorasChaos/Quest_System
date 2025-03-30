@@ -26,7 +26,7 @@ public class QuestLoader {
             String description = config.getString(path + ".description");
             QuestType type = QuestType.valueOf(config.getString(path + ".type", "CUSTOM"));
             String targetKey = config.getString(path + ".target_key", null);
-            int target_amount = config.getInt(path + ".target", 1);
+            int target_amount = config.getInt(path + ".target_amount", 1);
             double currency = config.getDouble(path + ".currency", 0);
             int skill = config.getInt(path + ".skill_points", 0);
             String skillType = config.getString(path + ".skill_type", null);

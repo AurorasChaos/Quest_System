@@ -41,7 +41,7 @@ public class QuestNotifier {
      * Shows a title to the player when a quest is completed.
      */
     public void notifyCompletion(Player player, Quest quest) {
-        player.sendTitle("✔ Quest Complete!", null, 500, 3000, 500);
+        player.sendTitle("✔ Quest Complete!", null, 5, 30, 5);
         player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1f, 1f);
     }
 }

@@ -1,5 +1,4 @@
-// QuestGUI.java with shimmer borders, pulsing items, and title flicker
-
+// QuestGUI.java with safe Map<Slot, Quest> click handling, pagination, and ALL tab support
 package com.example.questplugin;
 
 import org.bukkit.Bukkit;
@@ -22,23 +21,28 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+public class QuestGUI implements Listener {
 
-@SuppressWarnings("unused")
-public class QuestGUI implements Listener{
     private static final int QUESTS_PER_PAGE = 14;
     private static final int[] QUEST_SLOTS = {
         10, 11, 12, 13, 14, 15, 16,
         19, 20, 21, 22, 23, 24, 25
     };
+
     private final QuestPlugin plugin;
     private final RewardHandler rewardHandler;
     private final QuestNotifier notifier;
+
     private final Map<UUID, Integer> pageMap = new HashMap<>();
     private final Map<UUID, QuestFilter> filterMap = new HashMap<>();
     private final Map<UUID, QuestTier> tierMap = new HashMap<>();
+    private final Map<UUID, Map<Integer, Quest>> slotQuestMap = new HashMap<>();
+
     private final Map<UUID, Set<String>> claimedGlobalQuestMap = new HashMap<>();
     private final Map<UUID, Integer> shimmerTaskIds = new HashMap<>();
-    private final Map<UUID, Integer> pulseTaskIds = new HashMap<>();
+    private final File claimFile;
+    private final FileConfiguration claimConfig;
+
     private final Material[] shimmerColors = {
         Material.RED_STAINED_GLASS_PANE,
         Material.ORANGE_STAINED_GLASS_PANE,
@@ -47,8 +51,6 @@ public class QuestGUI implements Listener{
         Material.LIGHT_BLUE_STAINED_GLASS_PANE,
         Material.PURPLE_STAINED_GLASS_PANE
     };
-    private final File claimFile;
-    private final FileConfiguration claimConfig;
 
     public QuestGUI(QuestPlugin plugin) {
         this.plugin = plugin;
@@ -69,26 +71,21 @@ public class QuestGUI implements Listener{
 
     public void open(Player player, int page, QuestTier tier, QuestFilter filter) {
         UUID uuid = player.getUniqueId();
-        List<Quest> quests;
-        if (tier == QuestTier.GLOBAL) {
-            quests = plugin.getQuestManager().getQuestsForTier(uuid, QuestTier.GLOBAL);
-        } else if (tier == QuestTier.ALL) {
-            quests = plugin.getQuestManager().getQuestsForTier(uuid, QuestTier.ALL);
-        } else {
-            quests = plugin.getQuestManager().getQuestsForTier(uuid, tier);
-        }
+        List<Quest> quests = plugin.getQuestManager().getQuestsForTier(uuid, tier);
         List<Quest> filtered = filter.apply(quests);
+
+        slotQuestMap.remove(uuid);
 
         pageMap.put(uuid, page);
         filterMap.put(uuid, filter);
         tierMap.put(uuid, tier);
 
-        int maxPages = (int) Math.ceil(filtered.size() / 14.0);
+        int maxPages = (int) Math.ceil(filtered.size() / (double) QUESTS_PER_PAGE);
         if (maxPages <= 0) maxPages = 1;
-        if (page < 0) page = 0;
-        if (page >= maxPages) page = maxPages - 1;
+        page = Math.max(0, Math.min(page, maxPages - 1));
 
         Inventory gui = Bukkit.createInventory(null, 36, getGuiTitle(tier, page));
+        Map<Integer, Quest> slotMap = new HashMap<>();
 
         int start = page * QUESTS_PER_PAGE;
         int end = Math.min(start + QUESTS_PER_PAGE, filtered.size());
@@ -103,13 +100,18 @@ public class QuestGUI implements Listener{
         } else {
             for (int i = 0; i < pageQuests.size(); i++) {
                 if (i < QUEST_SLOTS.length) {
-                    gui.setItem(QUEST_SLOTS[i], createQuestItem(pageQuests.get(i)));
+                    int slot = QUEST_SLOTS[i];
+                    gui.setItem(slot, createQuestItem(pageQuests.get(i)));
+                    slotMap.put(slot, pageQuests.get(i));
                 }
             }
         }
 
-        gui.setItem(27, page > 0 ? createNavItem(Material.ARROW, "Previous Page") : createNavItem(Material.BARRIER, "No Previous Page"));
-        gui.setItem(35, page < maxPages - 1 ? createNavItem(Material.ARROW, "Next Page") : createNavItem(Material.BARRIER, "No Next Page"));
+        slotQuestMap.put(uuid, slotMap);
+
+        gui.setItem(27, page > 0 ? createNavItem(Material.ARROW, "Previous Page") : createNavItem(Material.RED_STAINED_GLASS_PANE, "No Previous Page"));
+        gui.setItem(28, createNavItem(Material.BARRIER, "§cClose Menu"));
+        gui.setItem(35, page < maxPages - 1 ? createNavItem(Material.ARROW, "Next Page") : createNavItem(Material.RED_STAINED_GLASS_PANE, "No Next Page"));
         gui.setItem(31, createNavItem(Material.HOPPER, "Filter: " + filter.name()));
         gui.setItem(29, tier == QuestTier.DAILY ? glowing(createNavItem(Material.EMERALD, "Daily Quests")) : createNavItem(Material.EMERALD, "Daily Quests"));
         gui.setItem(30, tier == QuestTier.WEEKLY ? glowing(createNavItem(Material.DIAMOND, "Weekly Quests")) : createNavItem(Material.DIAMOND, "Weekly Quests"));
@@ -117,119 +119,84 @@ public class QuestGUI implements Listener{
         gui.setItem(33, tier == QuestTier.ALL ? glowing(createNavItem(Material.BOOK, "All Quests")) : createNavItem(Material.BOOK, "All Quests"));
 
         player.openInventory(gui);
+        slotQuestMap.put(uuid, slotMap);
         startShimmeringBorder(player, gui);
-    }
 
-    private void startShimmeringBorder(Player player, Inventory gui) {
-        UUID uuid = player.getUniqueId();
-        stopShimmering(uuid);
-        int[] shimmerSlots = {
-            0, 1, 2, 3, 4, 5, 6, 7, 8,
-            9, 17,
-            18, 26,
-        };
-        int taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
-            int frame = 0;
-            @Override
-            public void run() {
-                Material mat = shimmerColors[frame % shimmerColors.length];
-                ItemStack pane = new ItemStack(mat);
-                ItemMeta meta = pane.getItemMeta();
-                meta.setDisplayName("§r");
-                pane.setItemMeta(meta);
-
-                for (int slot : shimmerSlots) {
-                    if (slot < gui.getSize()) {
-                        gui.setItem(slot, pane);
-                    }
-                }
-                frame++;
-            }
-        }, 0L, 30L);
-        shimmerTaskIds.put(uuid, taskId);
-    }
-
-
-    private void stopShimmering(UUID uuid) {
-        if (shimmerTaskIds.containsKey(uuid)) {
-            Bukkit.getScheduler().cancelTask(shimmerTaskIds.remove(uuid));
-        }
-    }
-
-
-
-    private void startPulsingCompletedItems(Player player, Inventory gui) {
-        UUID uuid = player.getUniqueId();
-        stopPulsing(uuid);
-        int taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
-            boolean glowing = true;
-            @Override
-            public void run() {
-                for (int i = 0; i < QUESTS_PER_PAGE; i++) {
-                    ItemStack item = gui.getItem(i);
-                    if (item == null || item.getType() == Material.AIR) continue;
-                    ItemMeta meta = item.getItemMeta();
-                    if (meta == null || !meta.hasLore()) continue;
-                    boolean isCompleted = meta.getLore().stream().anyMatch(l -> l.contains("Click to claim"));
-                    if (!isCompleted) continue;
-                    if (glowing) {
-                        meta.addEnchant(org.bukkit.enchantments.Enchantment.LUCK, 1, true);
-                        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-                    } else {
-                        meta.removeEnchant(org.bukkit.enchantments.Enchantment.LUCK);
-                    }
-                    item.setItemMeta(meta);
-                }
-                glowing = !glowing;
-            }
-        }, 0L, 20L);
-        pulseTaskIds.put(uuid, taskId);
-    }
-
-    private void stopPulsing(UUID uuid) {
-        if (pulseTaskIds.containsKey(uuid)) {
-            Bukkit.getScheduler().cancelTask(pulseTaskIds.remove(uuid));
-        }
+        //optional to prevent client-side weirdness
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            open(player, 0, tier, filter);
+        }, 1L);
     }
 
     @EventHandler
-    public void onInventoryClose(InventoryCloseEvent event) {
-        stopShimmering(event.getPlayer().getUniqueId());
+    public void onInventoryClick(InventoryClickEvent event) {
+        if (!(event.getWhoClicked() instanceof Player player)) return;
+        if (!event.getView().getTitle().contains("Quests")) return;
+
+        event.setCancelled(true);
+
+        int slot = event.getRawSlot();
+        Map<Integer, Quest> questMap = slotQuestMap.getOrDefault(player.getUniqueId(), Collections.emptyMap());
+        if (questMap.containsKey(slot)) {
+            Quest quest = questMap.get(slot);
+            plugin.debug("[GUI] Player clicked quest: " + quest.getId() + " | canClaim=" + quest.canClaim());
+
+            if (quest.canClaim()) {
+                rewardHandler.giveReward(player, quest);
+                notifier.notifyCompletion(player, quest);
+                plugin.getQuestStorage().savePlayerQuests(
+                    player.getUniqueId(),
+                    plugin.getQuestManager().getPlayerDailyQuests(player.getUniqueId()),
+                    plugin.getQuestManager().getPlayerWeeklyQuests(player.getUniqueId())
+                );
+                open(player, pageMap.getOrDefault(player.getUniqueId(), 0), tierMap.get(player.getUniqueId()), filterMap.get(player.getUniqueId()));
+            } else {
+                player.sendMessage(ChatColor.RED + "❌ You can't claim this yet.");
+            }
+        } else {
+            switch (slot) {
+                case 27 -> open(player, pageMap.getOrDefault(player.getUniqueId(), 0) - 1, tierMap.get(player.getUniqueId()), filterMap.get(player.getUniqueId()));
+                case 28 -> {
+                    player.closeInventory();
+                    player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1f, 1f);
+                }
+                case 35 -> open(player, pageMap.getOrDefault(player.getUniqueId(), 0) + 1, tierMap.get(player.getUniqueId()), filterMap.get(player.getUniqueId()));
+                case 31 -> open(player, 0, tierMap.get(player.getUniqueId()), filterMap.get(player.getUniqueId()).next());
+                case 29 -> open(player, 0, QuestTier.DAILY, QuestFilter.ALL);
+                case 30 -> open(player, 0, QuestTier.WEEKLY, QuestFilter.ALL);
+                case 32 -> open(player, 0, QuestTier.GLOBAL, QuestFilter.ALL);
+                case 33 -> open(player, 0, QuestTier.ALL, QuestFilter.ALL);
+            }
+        }
     }
 
-    private ItemStack glowing(ItemStack item) {
-        item.addUnsafeEnchantment(org.bukkit.enchantments.Enchantment.LURE, 1);
-        ItemMeta meta = item.getItemMeta();
-        meta.addItemFlags(org.bukkit.inventory.ItemFlag.HIDE_ENCHANTS);
-        item.setItemMeta(meta);
-        return item;
+    private String getGuiTitle(QuestTier tier, int page) {
+        return switch (tier) {
+            case DAILY -> "§a§lDaily Quests §7(Page " + (page + 1) + ")";
+            case WEEKLY -> "§9§lWeekly Quests §7(Page " + (page + 1) + ")";
+            case GLOBAL -> "§d§lGlobal Quests §7(Page " + (page + 1) + ")";
+            case ALL -> "§e§lAll Quests §7(Page " + (page + 1) + ")";
+        };
     }
 
     private ItemStack createNavItem(Material mat, String name) {
         ItemStack item = new ItemStack(mat);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName("§e" + name);
-        item.setItemMeta(meta);
+        if (meta != null) {
+            meta.setDisplayName("§e" + name);
+            item.setItemMeta(meta);
+        }
         return item;
     }
 
-    private String getTierDisplayName(QuestTier tier) {
-        return switch (tier) {
-            case DAILY -> "Daily";
-            case WEEKLY -> "Weekly";
-            case GLOBAL -> "Global";
-            case ALL -> "ALL";
-        };
-    }
-
-    private String getGuiTitle(QuestTier tier, int page) {
-        String pageInfo = " §7(Page " + (page + 1) + ")";
-        return switch (tier) {
-            case DAILY -> "§a§lDaily Quests" + pageInfo;
-            case WEEKLY -> "§9§lWeekly Quests" + pageInfo;
-            case GLOBAL -> "§d§lGlobal Quests" + pageInfo;
-            case ALL -> "§e§lAll Quests" + pageInfo;
-        };
+    private ItemStack glowing(ItemStack item) {
+        item.addUnsafeEnchantment(org.bukkit.enchantments.Enchantment.LURE, 1);
+        ItemMeta meta = item.getItemMeta();
+        if (meta != null) {
+            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            item.setItemMeta(meta);
+        }
+        return item;
     }
 
     private ItemStack createQuestItem(Quest quest) {
@@ -245,7 +212,6 @@ public class QuestGUI implements Listener{
         if (meta == null) return item;
 
         meta.setDisplayName(quest.getRarity().getColor() + quest.getDescription());
-
         List<String> lore = new ArrayList<>();
         lore.add("§8Rarity: " + quest.getRarity().getDisplayName());
         lore.add("§7Progress: §f" + quest.getCurrentProgress() + " / " + quest.getTargetAmount());
@@ -259,11 +225,38 @@ public class QuestGUI implements Listener{
             lore.add("§cNot completed yet.");
         }
         lore.add("§b+ " + quest.getCurrencyReward() + " coins");
-        lore.add("§d+ " + quest.getSkillPointReward() + " skill points");
+        lore.add("§d+ " + quest.getSkillType().toUpperCase() + ": " + quest.getSkillXp() + "xp");
 
         meta.setLore(lore);
         item.setItemMeta(meta);
         return item;
+    }
+
+    private void startShimmeringBorder(Player player, Inventory gui) {
+        UUID uuid = player.getUniqueId();
+        stopShimmering(uuid);
+        int[] shimmerSlots = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26 };
+        int taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+            int frame = 0;
+            public void run() {
+                Material mat = shimmerColors[frame % shimmerColors.length];
+                ItemStack pane = new ItemStack(mat);
+                ItemMeta meta = pane.getItemMeta();
+                meta.setDisplayName("§r");
+                pane.setItemMeta(meta);
+                for (int slot : shimmerSlots) {
+                    if (slot < gui.getSize()) gui.setItem(slot, pane);
+                }
+                frame++;
+            }
+        }, 0L, 30L);
+        shimmerTaskIds.put(uuid, taskId);
+    }
+
+    private void stopShimmering(UUID uuid) {
+        if (shimmerTaskIds.containsKey(uuid)) {
+            Bukkit.getScheduler().cancelTask(shimmerTaskIds.remove(uuid));
+        }
     }
 
     private void loadClaims() {
@@ -285,63 +278,8 @@ public class QuestGUI implements Listener{
         }
     }
 
-    private ItemStack navItem(Material mat, String name, ChatColor color) {
-        ItemStack item = new ItemStack(mat);
-        ItemMeta meta = item.getItemMeta();
-        if (meta != null) {
-            meta.setDisplayName(color + name);
-            item.setItemMeta(meta);
-        }
-        return item;
-    }
-
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent event) {
-        if (!(event.getWhoClicked() instanceof Player player)) return;
-        if (!event.getView().getTitle().contains("Quests")) return;
-
-        event.setCancelled(true);
-        handleClick(event);
+    public void onInventoryClose(InventoryCloseEvent event) {
+        stopShimmering(event.getPlayer().getUniqueId());
     }
-
-    public void handleClick(InventoryClickEvent event) {
-        Player player = (Player) event.getWhoClicked();
-        UUID id = player.getUniqueId();
-        event.setCancelled(true);
-
-        if (!(event.getView().getTitle().contains("Quests"))) return;
-
-        int slot = event.getRawSlot();
-        int page = pageMap.getOrDefault(id, 0);
-        QuestFilter filter = filterMap.getOrDefault(id, QuestFilter.ALL);
-        QuestTier tier = tierMap.getOrDefault(id, QuestTier.DAILY);
-
-        List<Quest> quests = plugin.getQuestManager().getQuestsForTier(id, tier);
-        List<Quest> filtered = filter.apply(quests);
-        int start = page * QUESTS_PER_PAGE;
-        int index = slot + start;
-
-        if (slot >= 0 && slot < QUESTS_PER_PAGE && index < filtered.size()) {
-            Quest quest = filtered.get(index);
-            plugin.debug("[GUI] Player clicked quest: " + quest.getId() + " | canClaim=" + quest.canClaim());
-            if (quest.canClaim()) {
-                rewardHandler.giveReward(player, quest);
-                notifier.notifyCompletion(player, quest);
-                open(player, page, tier, filter);
-            } else {
-                player.sendMessage(ChatColor.RED + "❌ You can't claim this yet.");
-            }
-            return;
-        }
-
-        switch (slot) {
-            case 27 -> open(player, page - 1, tier, filter);
-            case 35 -> open(player, page + 1, tier, filter);
-            case 31 -> open(player, 0, tier, filter.next());
-            case 29 -> open(player, 0, QuestTier.DAILY, QuestFilter.ALL);
-            case 30 -> open(player, 0, QuestTier.WEEKLY, QuestFilter.ALL);
-            case 32 -> open(player, 0, QuestTier.GLOBAL, QuestFilter.ALL);
-            case 33 -> open(player, 0, QuestTier.ALL, QuestFilter.ALL);
-        }
-    }
-};
+}

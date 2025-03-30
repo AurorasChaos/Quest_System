@@ -2,12 +2,15 @@ package com.example.questplugin;
 
 import java.util.Locale;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import dev.aurelium.auraskills.api.user.SkillsUser;
+import dev.aurelium.auraskills.bukkit.AuraSkills;
 import dev.aurelium.auraskills.api.AuraSkillsApi;
 import dev.aurelium.auraskills.api.registry.NamespacedId;
 import dev.aurelium.auraskills.api.skill.Skill;
+import dev.aurelium.auraskills.api.skill.Skills;
 
 public class RewardHandler {
     private final QuestPlugin plugin;
@@ -24,25 +27,26 @@ public class RewardHandler {
         plugin.debug("[Reward] Claiming reward for quest: " + quest.getId());
 
         if (plugin.getEconomy() != null) {
-            plugin.debug("[AuraSkills] Gave " +quest.getCurrencyReward() + " to " + player.getName());
+            plugin.debug("[QuestPlugin] Gave " +quest.getCurrencyReward() + " to " + player.getName());
             plugin.getEconomy().depositPlayer(player, quest.getCurrencyReward() * multiplier);
         }
 
-        if (quest.getSkillType() != null && quest.getSkillXp() > 0) {
-            AuraSkillsApi api = plugin.getAuraSkillsApi();
-            SkillsUser user = api.getUser(player.getUniqueId());
-
+        try {
+            SkillsUser user = plugin.getAuraSkillsApi().getUser(player.getUniqueId());
+        
             if (user != null) {
-                Skill skill = api.getGlobalRegistry().getSkill(NamespacedId.fromString(quest.getSkillType().toLowerCase()));
-                if (skill != null) {
-                    user.addSkillXp(skill, quest.getSkillXp());
-                    Locale locale = Locale.forLanguageTag(player.getLocale());
-                    plugin.debug("[AuraSkills] Gave " + quest.getSkillXp() + " XP to " + skill.getDisplayName(locale) + " for " + player.getName());
-                } else {
-                    plugin.getLogger().warning("[AuraSkills] Unknown skill type: " + quest.getSkillType());
-                }
+                Skills skill = Skills.valueOf(quest.getSkillType().toUpperCase());
+                user.addSkillXp(skill, quest.getSkillXp());
+        
+                player.sendMessage(ChatColor.AQUA + "You gained " + quest.getSkillXp() + " XP in " + skill.name().toLowerCase());
             }
+        } catch (IllegalArgumentException e) {
+            plugin.getLogger().warning("[QuestPlugin] Unknown skill enum: " + quest.getSkillType());
+        } catch (Exception e) {
+            plugin.getLogger().severe("[QuestPlugin] Failed to apply skill XP: " + e.getMessage());
+            e.printStackTrace();
         }
+
         quest.claimReward();
         plugin.getLeaderboardManager().recordCompletion(player.getUniqueId(), quest);
         return true;
