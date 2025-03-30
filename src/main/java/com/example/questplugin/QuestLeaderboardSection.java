@@ -44,7 +44,7 @@ public class QuestLeaderboardSection implements SidebarSection {
             int personalScore = leaderboard.getScore(playerId);
 
             lines.add("§8────────────");
-            lines.add("§7Your Rank: §b" + (personalRank == -1 ? "N/A" : "#" + personalRank));
+            lines.add("§7Your Rank: §b" + (personalRank == -1 ? "Get Questing" : "#" + personalRank));
             lines.add("§7Your Score: §a" + personalScore);
 
             return lines;

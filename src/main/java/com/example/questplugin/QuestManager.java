@@ -94,7 +94,7 @@ public class QuestManager {
     }
 
     public void ensureInitialAssignments() {
-        int dailyQuestCount = plugin.getConfig().getInt("QuestLimits.DAILY", 5);
+        int dailyQuestCount = plugin.getConfig().getInt("QuestLimits.DAILY", 7);
         int weeklyQuestCount = plugin.getConfig().getInt("QuestLimits.WEEKLY", 7);
     
         for (UUID uuid : getAllPlayers()) {
@@ -228,7 +228,7 @@ public class QuestManager {
         newGlobals.removeIf(Quest::isCompleted);
     
         // Fill back up to the limit
-        
+
         List<QuestTemplate> available = new ArrayList<>(
             allGlobalTemplates.stream()
                 .filter(template -> !usedIds.contains(template.getId()))

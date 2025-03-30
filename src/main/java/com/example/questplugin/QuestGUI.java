@@ -121,11 +121,6 @@ public class QuestGUI implements Listener {
         player.openInventory(gui);
         slotQuestMap.put(uuid, slotMap);
         startShimmeringBorder(player, gui);
-
-        //optional to prevent client-side weirdness
-        Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            open(player, 0, tier, filter);
-        }, 1L);
     }
 
     @EventHandler
@@ -151,7 +146,11 @@ public class QuestGUI implements Listener {
                 );
                 open(player, pageMap.getOrDefault(player.getUniqueId(), 0), tierMap.get(player.getUniqueId()), filterMap.get(player.getUniqueId()));
             } else {
-                player.sendMessage(ChatColor.RED + "❌ You can't claim this yet.");
+                if (quest.isCompleted()){
+                    player.sendMessage(ChatColor.RED + "❌ You've already claimed this.");
+                } else {
+                    player.sendMessage(ChatColor.RED + "❌ You can't claim this yet.");
+                }
             }
         } else {
             switch (slot) {
