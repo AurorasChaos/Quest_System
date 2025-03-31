@@ -1,5 +1,5 @@
 // QuestManager with global quest persistence and saving support
-package com.example.questplugin;
+package com.example.questplugin.managers;
 
 import java.io.File;
 import java.io.IOException;
@@ -258,5 +258,29 @@ public class QuestManager {
         } else {
             plugin.debug("[Dev] Player already has quest '" + quest.getId() + "'");
         }
+    }
+
+    private final Cache<UUID, PlayerQuestData> questCache = Caffeine.newBuilder()
+        .expireAfterAccess(30, TimeUnit.MINUTES)
+        .build();
+
+    public PlayerQuestData getPlayerData(UUID uuid) {
+        return questCache.get(uuid, 
+            k -> storageService.loadPlayerData(uuid).join());
+    }
+
+
+    //DEV-ADMIN TOOLS BELOW
+
+    public void simulateDailyReset() {
+        Bukkit.getOnlinePlayers().forEach(p -> {
+            assignNewDailyQuests(p.getUniqueId(), 
+                getQuestAssigner().getRandomQuestsWeighted(
+                    p.getUniqueId(), 
+                    QuestTier.DAILY, 
+                    getConfigManager().getDailyQuestLimit()
+                )
+            );
+        });
     }
 }

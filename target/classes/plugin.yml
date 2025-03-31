@@ -11,21 +11,24 @@ softdepend:
   - AuraSkills
 commands:
   questdev:
-    description: Developer tools for testing quests
+    description: Development tools for testing
     permission: questplugin.dev
-    usage: /<command>
-  questreload:
-    description: Reloads the config and quest templates
+    usage: /<command> [reloadtemplates|forcecomplete|simreset|dumpcache]
+  
+  questadmin:
+    description: Administrative quest controls
     permission: questplugin.admin
-    usage: /<command>
+    usage: /<command> [resetglobal|playerstats|reloadconfig|migrate]
+
   quest:
     description: Opens your quest menu
     usage: /quest
     permission: questplugin.use
+    
 permissions:
   questplugin.dev:
-    description: Allows access to developer commands
+    description: Access to development tools
     default: op
   questplugin.admin:
-    description: Allows reloading and admin-level commands
+    description: Administrative quest controls
     default: op
