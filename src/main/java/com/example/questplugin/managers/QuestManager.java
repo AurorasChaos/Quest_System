@@ -259,4 +259,13 @@ public class QuestManager {
             plugin.debug("[Dev] Player already has quest '" + quest.getId() + "'");
         }
     }
+
+    private final Cache<UUID, PlayerQuestData> questCache = Caffeine.newBuilder()
+        .expireAfterAccess(30, TimeUnit.MINUTES)
+        .build();
+
+    public PlayerQuestData getPlayerData(UUID uuid) {
+        return questCache.get(uuid, 
+            k -> storageService.loadPlayerData(uuid).join());
+    }
 }

@@ -129,4 +129,32 @@ public class QuestStorageService {
         if (rs.getBoolean("claimed")) quest.claimReward();
         return quest;
     }
+
+    //tmp for migration
+    public CompletableFuture<Void> migrateFromYaml() {
+        return CompletableFuture.runAsync(() -> {
+            File yamlFile = new File(plugin.getDataFolder(), "player_quests.yml");
+            if (yamlFile.exists()) {
+                // Convert YAML data to SQLite
+                YamlConfiguration yaml = YamlConfiguration.loadConfiguration(yamlFile);
+                // ... migration logic ...
+                yamlFile.renameTo(new File(plugin.getDataFolder(), "player_quests.backup.yml"));
+            }
+        }
+    );
+
+    public CompletableFuture<Void> saveWithRetry(UUID uuid, PlayerQuestData data, int maxRetries) {
+        return CompletableFuture.runAsync(() -> {
+            int attempts = 0;
+            while (attempts < maxRetries) {
+                try {
+                    savePlayerData(uuid, data).join();
+                    break;
+                } catch (Exception e) {
+                    attempts++;
+                    Thread.sleep(1000 * attempts); // Exponential backoff
+                }
+            }
+        });
+    }
 }
