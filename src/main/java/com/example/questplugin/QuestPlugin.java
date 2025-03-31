@@ -1,134 +1,133 @@
-// This file will serve as the main patch hub for the fixed QuestPlugin system.
-// We'll start with logging and config enhancements, then correct data syncing, resets, and missing event handling.
-
 package com.example.questplugin;
 
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
+import com.example.questplugin.core.*;
+import com.example.questplugin.listeners.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import net.milkbowl.vault.economy.Economy;
 import dev.aurelium.auraskills.api.AuraSkillsApi;
 
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.RegisteredServiceProvider;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
-import com.auradev.universalscoreboard.UniversalScoreboard;
-import com.auradev.universalscoreboard.SidebarManager;
+public final class QuestPlugin extends JavaPlugin {
 
-public class QuestPlugin extends JavaPlugin {
-
+    // Core Services
+    private QuestHandler questHandler;
+    private ConfigManager configManager;
+    private GlobalQuestService globalQuestService;
+    private QuestStorageService storageService;
     private QuestManager questManager;
-    private QuestLoader questLoader;
-    private QuestStorageManager questStorage;
     private LeaderboardManager leaderboardManager;
-    private RarityRoller rarityRoller;
-    private Economy economy;
-    private boolean debugMode;
-    private BukkitAudiences adventure;
-    private QuestAssigner questAssigner;
-    private static QuestPlugin instance;
 
+    // Integrations
+    private Economy economy;
+    private AuraSkillsApi auraSkillsApi;
+    
+    private static QuestPlugin instance;
 
     @Override
     public void onEnable() {
-        log("[Init] Loading configuration...");
-        saveDefaultConfig();
-        FileConfiguration config = getConfig();
-        this.debugMode = config.getBoolean("Debug", false);
-
         instance = this;
+        
+        // 1. Initialize configuration
+        saveDefaultConfig();
+        this.configManager = new ConfigManager(this);
 
-        if (!setupEconomy()) {
-            log("[Vault] Economy provider not found. Coin rewards will be disabled.");
-        }
+        // 2. Setup integrations
+        setupEconomy();
+        this.auraSkillsApi = AuraSkillsApi.get();
 
-        log("[Init] Loading managers...");
-        this.questLoader = new QuestLoader(this);
-        this.questStorage = new QuestStorageManager(this);
-        this.questManager = new QuestManager(this);
+        // 3. Initialize core systems
+        this.storageService = new QuestStorageService(this);
+        this.globalQuestService = new GlobalQuestService(this);
+        this.questHandler = new QuestHandler(this);
         this.leaderboardManager = new LeaderboardManager(this);
-        this.rarityRoller = new RarityRoller(this);
-        this.adventure = BukkitAudiences.create(this);
-        this.questAssigner = new QuestAssigner(this);
+        this.questManager = new QuestManager(this);
 
-        SidebarManager manager = UniversalScoreboard.get().getSidebarManager();
-        manager.registerSection(new QuestLeaderboardSection());
+        // 4. Register listeners
+        registerListeners();
 
-        Bukkit.getScheduler().runTaskTimer(this, () -> {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                manager.update(player);
-            }
-        }, 0L, 40L);
+        // 5. Load data
+        loadInitialData();
 
-
-        log("[Init] Registering event listeners...");
-        getServer().getPluginManager().registerEvents(new QuestGUI(this), this);
-        getServer().getPluginManager().registerEvents(new MobKillListener(this), this);
-        getServer().getPluginManager().registerEvents(new BlockEventsListener(this), this);
-        getServer().getPluginManager().registerEvents(new LifeEventsListener(this), this);
-        getServer().getPluginManager().registerEvents(new AuraSkillsListener(this), this);
-        getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
-
-        log("[Init] Registering commands...");
-        getCommand("questdev").setExecutor(new DevCommands(this));
-        getCommand("quest").setExecutor(new QuestCommand(this));
-
-        log("[Init] Loading saved quest data...");
-        questStorage.loadIntoManager(questManager);
-
-        questManager.checkResetOnStartup();
-
-        questManager.ensureInitialAssignments();
-
-        log("QuestPlugin enabled.");
+        getLogger().info("QuestPlugin v" + getDescription().getVersion() + " enabled!");
     }
 
     @Override
     public void onDisable() {
-        log("[Shutdown] Saving player and global quest data...");
-        if (questManager != null) {
-            questStorage.saveFromManager(questManager);
-            questManager.saveGlobalQuests();
-        }
-        if (this.adventure != null) {
-            this.adventure.close();
-        }
-        log("QuestPlugin disabled.");
+        // Save all pending data
+        questManager.saveAllPlayerData();
+        globalQuestService.saveGlobalQuests();
+        
+        getLogger().info("QuestPlugin disabled gracefully");
     }
 
-    public void log(String message) {
-        getLogger().info(message);
+    // === Initialization Methods ===
+    private void registerListeners() {
+        new AuraSkillsListener(this);
+        new BlockEventsListener(this);
+        new LifeEventsListener(this);
+        new MobKillListener(this);
+        new PlayerJoinListener(this);
+        
+        getServer().getPluginManager().registerEvents(new QuestGUI(this), this);
     }
 
-    public void debug(String message) {
-        if (debugMode) log("[DEBUG] " + message);
+    private void loadInitialData() {
+        // Load global quests first
+        globalQuestService.initializeQuests();
+
+        // Then player data
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            storageService.loadPlayerData(player.getUniqueId())
+                .thenAccept(data -> questManager.initializePlayer(
+                    player.getUniqueId(), 
+                    data
+                ));
+        });
     }
 
     private boolean setupEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;
         }
-        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        var rsp = getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) return false;
         economy = rsp.getProvider();
         return economy != null;
     }
 
-    public BukkitAudiences adventure() {
-        return adventure;
-    }
-
-    public QuestManager getQuestManager() { return questManager; }
-    public QuestLoader getQuestLoader() { return questLoader; }
-    public QuestStorageManager getQuestStorage() { return questStorage; }
-    public LeaderboardManager getLeaderboardManager() { return leaderboardManager; }
-    public RarityRoller getRarityRoller() { return rarityRoller; }
-    public Economy getEconomy() { return economy; }
-    public AuraSkillsApi getAuraSkillsApi() { return AuraSkillsApi.get(); }
-    public boolean isDebugMode() { return debugMode; }
-    public QuestAssigner getQuestAssigner() { return questAssigner;}
-
+    // === Accessors ===
     public static QuestPlugin getInstance() {
         return instance;
+    }
+
+    public QuestHandler getQuestHandler() {
+        return questHandler;
+    }
+
+    public ConfigManager getConfigManager() {
+        return configManager;
+    }
+
+    public GlobalQuestService getGlobalQuestService() {
+        return globalQuestService;
+    }
+
+    public QuestStorageService getQuestStorageService() {
+        return storageService;
+    }
+
+    public QuestManager getQuestManager() {
+        return questManager;
+    }
+
+    public LeaderboardManager getLeaderboardManager() {
+        return leaderboardManager;
+    }
+
+    public Economy getEconomy() {
+        return economy;
+    }
+
+    public AuraSkillsApi getAuraSkillsApi() {
+        return auraSkillsApi;
     }
 }
