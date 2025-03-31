@@ -47,6 +47,10 @@ public final class QuestPlugin extends JavaPlugin {
         // 5. Load data
         loadInitialData();
 
+        // 6. Register commands
+        getCommand("questdev").setExecutor(new DevCommands(this));
+        getCommand("questadmin").setExecutor(new AdminCommands(this));
+
         getLogger().info("QuestPlugin v" + getDescription().getVersion() + " enabled!");
     }
 

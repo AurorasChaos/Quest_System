@@ -50,4 +50,16 @@ public class QuestHandler {
     public void handleSkillEvent(Player player, QuestType type, Skill skill) {
         checkAndProgressQuest(player, type, skill.name().toUpperCase(), 1);
     }
+
+    //DEV-ADMIN TOOLS BELOW
+
+    public void forceComplete(Player player, String questId) {
+        getPlayerQuests(player.getUniqueId()).stream()
+            .filter(q -> q.getId().equalsIgnoreCase(questId))
+            .findFirst()
+            .ifPresent(quest -> {
+                quest.setCurrentProgress(quest.getTargetAmount());
+                new QuestNotifier(plugin).notifyProgress(player, quest);
+            });
+    }
 }
