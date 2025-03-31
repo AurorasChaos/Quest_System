@@ -1,5 +1,7 @@
 // ConfigManager.java
-package com.example.questplugin;
+package com.example.questplugin.core;
+
+import com.example.questplugin.QuestPlugin;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -16,11 +18,11 @@ public class ConfigManager {
     }
 
     public int getWeeklyQuestLimit(){
-        return config.GetInt("QuestLimits.WEEKLY");
+        return config.getInt("QuestLimits.WEEKLY");
     }
 
     public int getGlobalQuestLimit(){
-        return config.GetInt("QuestLimits.GLOBAL");
+        return config.getInt("QuestLimits.GLOBAL");
     }
 
     // Leaderboard Settings

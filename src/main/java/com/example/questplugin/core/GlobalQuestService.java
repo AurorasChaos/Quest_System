@@ -1,4 +1,6 @@
-package com.example.questplugin;
+package com.example.questplugin.core;
+
+import com.example.questplugin.QuestPlugin;
 
 import org.bukkit.Bukkit;
 import java.util.*;

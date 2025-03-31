@@ -1,4 +1,6 @@
-package com.example.questplugin;
+package com.example.questplugin.models;
+
+import com.example.questplugin.enums.*;
 
 public class Quest {
 

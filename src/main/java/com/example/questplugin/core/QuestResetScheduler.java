@@ -1,5 +1,10 @@
+package com.example.questplugin.core;
+
+import org.bukkit.scheduler.BukkitScheduler;
+import com.example.questplugin.QuestPlugin;
+
 public class QuestResetScheduler {
-    private final BukkitScheduler scheduler;
+    private final BukkitScheduler scheduler = null;
     
     public void startDailyReset() {
         scheduler.runTaskTimer(plugin, () -> {

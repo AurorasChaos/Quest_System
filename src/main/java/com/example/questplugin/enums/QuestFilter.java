@@ -1,4 +1,6 @@
-package com.example.questplugin;
+package com.example.questplugin.enums;
+
+import com.example.questplugin.models.*;
 
 import java.util.List;
 

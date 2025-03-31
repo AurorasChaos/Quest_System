@@ -1,4 +1,4 @@
-package com.example.questplugin;
+package com.example.questplugin.listeners;
 
 import com.google.common.eventbus.Subscribe;
 import dev.aurelium.auraskills.api.event.skill.SkillLevelUpEvent;

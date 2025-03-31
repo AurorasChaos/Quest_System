@@ -1,5 +1,7 @@
 // QuestHandler.java
-package com.example.questplugin;
+package com.example.questplugin.core;
+
+import com.example.questplugin.QuestPlugin;
 
 import org.bukkit.entity.Player;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.questplugin;
+package com.example.questplugin.enums;
 
 public enum QuestRarity {
     COMMON("§7", "Common", 1.0),

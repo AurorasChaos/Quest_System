@@ -1,4 +1,4 @@
-package com.example.questplugin;
+package com.example.questplugin.listeners;
 
 import java.util.List;
 import java.util.UUID;
