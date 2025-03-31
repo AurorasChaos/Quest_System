@@ -1,11 +1,14 @@
-# QuestPlugin Refactor (1.21.4+)
+# 🎯 QuestPlugin Refactor (1.21.4+)
 
-![Minecraft Version](https://img.shields.io/badge/Minecraft-1.21.4+-brightgreen) 
+![Minecraft Version](https://img.shields.io/badge/Minecraft-1.21.4+-brightgreen)  
 ![License](https://img.shields.io/badge/License-MIT-blue)
+
+---
 
 ## 🚀 Key Refactor Changes
 
 ### 🔧 Core Architecture
+
 ```mermaid
 flowchart TD
     A[Events] --> B[QuestHandler]
@@ -14,31 +17,38 @@ flowchart TD
     C --> E[(Database)]
     D --> F[PlayerDataCache]
 ```
-📦 New Components
-Component	Purpose
-QuestHandler	Central progression logic
-GlobalQuestService	Server-wide quest management
-QuestStorageService	Async SQLite storage
-ConfigManager	Type-safe configuration
 
-💡 Developer API
-🎯 Creating Custom Quests
-Add QuestType:
+---
 
+### 📦 New Components
+
+| Component             | Purpose                                 |
+|-----------------------|-----------------------------------------|
+| `QuestHandler`        | Central quest progression logic         |
+| `GlobalQuestService`  | Server-wide quest management            |
+| `QuestStorageService` | Async SQLite storage                    |
+| `ConfigManager`       | Type-safe configuration manager         |
+
+---
+
+### 💡 Developer API
+
+#### 🎯 Creating Custom Quests
+
+**Add QuestType:**
 ```java
-Copy
 public enum QuestType {
     // Existing types...
     CUSTOM_EVENT
 }
-Implement Listener:
+```
 
-java
-Copy
+**Implement Listener:**
+```java
 public class CustomListener extends BaseListener {
     @EventHandler
     public void onCustomEvent(CustomEvent e) {
-        processEvent(e, () -> 
+        processEvent(e, () ->
             new QuestEventData(
                 QuestType.CUSTOM_EVENT,
                 e.getKey(),
@@ -48,9 +58,12 @@ public class CustomListener extends BaseListener {
     }
 }
 ```
-📊 Leaderboard Integration
+
+---
+
+### 📊 Leaderboard Integration
+
 ```java
-Copy
 // Custom scoreboard section
 public class CustomLeaderboard implements SidebarSection {
     @Override
@@ -63,17 +76,29 @@ public class CustomLeaderboard implements SidebarSection {
     }
 }
 ```
-🛠️ Admin Commands
+
+---
+
+### 🛠️ Admin Commands
+
 ```bash
 /questadmin migrate      # Convert YAML to SQLite
 /questadmin resetglobal  # Refresh global quests
 ```
-🧰 Developer Commands
+
+---
+
+### 🧰 Developer Commands
+
 ```bash
 /questdev simreset       # Test daily reset logic
 /questdev dumpcache      # Debug memory cache
 ```
-📂 Project Structure
+
+---
+
+### 📂 Project Structure
+
 ```
 src/
 ├── main/
@@ -85,9 +110,12 @@ src/
 │   │       └── listeners/    # Event handlers
 │   └── resources/            # Config files
 ```
-🚀 Quick Start
-Add Dependency:
 
+---
+
+### 🚀 Quick Start
+
+**Add Dependency:**
 ```xml
 <dependency>
     <groupId>com.example</groupId>
@@ -96,9 +124,9 @@ Add Dependency:
     <scope>provided</scope>
 </dependency>
 ```
-Register Events:
+
+**Register Events:**
 ```java
-Copy
 public class MyPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
@@ -106,5 +134,10 @@ public class MyPlugin extends JavaPlugin {
     }
 }
 ```
-📜 License
-MIT License - See LICENSE
+
+---
+
+### 📜 License
+
+This project is licensed under the **MIT License**.  
+See the [LICENSE](./LICENSE) file for details.
