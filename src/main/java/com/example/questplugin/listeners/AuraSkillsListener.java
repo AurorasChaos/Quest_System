@@ -1,5 +1,7 @@
 package com.example.questplugin.listeners;
 
+import com.example.questplugin.QuestPlugin;
+import com.example.questplugin.enums.QuestType;
 import com.google.common.eventbus.Subscribe;
 import dev.aurelium.auraskills.api.event.skill.SkillLevelUpEvent;
 import dev.aurelium.auraskills.api.event.skill.XpGainEvent;
@@ -10,7 +12,7 @@ import org.bukkit.event.Listener;
 public class AuraSkillsListener extends BaseListener { // Extends BaseListener for shared logic
 
     public AuraSkillsListener(QuestPlugin plugin) {
-        super(plugin);
+        super();
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 

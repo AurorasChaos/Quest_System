@@ -1,4 +1,8 @@
-package com.example.questplugin;
+package com.example.questplugin.models;
+
+import com.example.questplugin.enums.QuestRarity;
+import com.example.questplugin.enums.QuestTier;
+import com.example.questplugin.enums.QuestType;
 
 public class QuestTemplate {
 

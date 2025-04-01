@@ -1,15 +1,12 @@
-package com.example.questplugin;
-
-import java.util.Locale;
+package com.example.questplugin.managers;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import com.example.questplugin.QuestPlugin;
+import com.example.questplugin.models.Quest;
+
 import dev.aurelium.auraskills.api.user.SkillsUser;
-import dev.aurelium.auraskills.bukkit.AuraSkills;
-import dev.aurelium.auraskills.api.AuraSkillsApi;
-import dev.aurelium.auraskills.api.registry.NamespacedId;
-import dev.aurelium.auraskills.api.skill.Skill;
 import dev.aurelium.auraskills.api.skill.Skills;
 
 public class RewardHandler {

@@ -1,8 +1,11 @@
-package com.example.questplugin;
+package com.example.questplugin.listeners;
 
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+
+import com.example.questplugin.enums.QuestType;
 
 public class BlockEventsListener extends BaseListener {
 
@@ -38,7 +41,7 @@ public class BlockEventsListener extends BaseListener {
     private boolean shouldCountAsGather(Material material) {
         // Example logic - expand with your game-specific rules
         return material == Material.STONE || 
-               material == Material.DEEPSLATE ||
+               material == Material.COBBLESTONE ||
                material.toString().endsWith("_ORE");
     }
 }

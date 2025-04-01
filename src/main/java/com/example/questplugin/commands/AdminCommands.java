@@ -44,7 +44,7 @@ public class AdminCommands implements CommandExecutor {
                 break;
 
             case "migrate":
-                plugin.getQuestStorageService().migrateFromYamlAsync()
+                plugin.getQuestStorageService().migrateFromYaml()
                     .thenRun(() -> sender.sendMessage("§aMigration completed."));
                 break;
 

@@ -1,6 +1,8 @@
-package com.questsystem.model;
+package com.example.questplugin.models;
 
 import java.util.List;
+
+import com.example.questplugin.enums.QuestType;
 
 public class QuestStage {
     private QuestType type;

@@ -1,14 +1,23 @@
 // BaseListener.java
-package com.example.questplugin;
+package com.example.questplugin.listeners;
+
+import java.util.function.Supplier;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.Cancellable;
+import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+
+import com.example.questplugin.QuestPlugin;
+import com.example.questplugin.enums.QuestType;
 
 public abstract class BaseListener implements Listener {
     protected final QuestPlugin plugin = QuestPlugin.getInstance();
     
     protected void processEvent(Event event, QuestType type, Supplier<String> targetSupplier) {
-        Player player = // ... extract player from event ...;
+        Player player = extractPlayer(event);
         plugin.getQuestHandler().checkAndProgressQuest(
             player, type, targetSupplier.get(), 1
         );

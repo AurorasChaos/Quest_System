@@ -1,6 +1,9 @@
 package com.example.questplugin.core;
 
 import com.example.questplugin.QuestPlugin;
+import com.example.questplugin.enums.QuestTier;
+import com.example.questplugin.models.Quest;
+import com.example.questplugin.models.QuestTemplate;
 
 import org.bukkit.Bukkit;
 import java.util.*;

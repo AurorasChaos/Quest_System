@@ -1,9 +1,15 @@
-package com.example.questplugin;
+package com.example.questplugin.listeners;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.*;
+import org.bukkit.event.inventory.BrewEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.MerchantRecipe;
+
+import com.example.questplugin.enums.QuestType;
+
 import java.util.function.Supplier;
 
 public class LifeEventsListener extends BaseListener {

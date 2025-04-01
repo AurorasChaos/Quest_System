@@ -1,17 +1,22 @@
 package com.example.questplugin;
 
+import com.example.questplugin.commands.AdminCommands;
+import com.example.questplugin.commands.DevCommands;
 import com.example.questplugin.core.*;
 import com.example.questplugin.listeners.*;
 import com.example.questplugin.managers.*;
-import com.example.questplugin.core.*;
 import com.example.questplugin.enums.*;
-import com.example.questplugin.listeners.*;
 import com.example.questplugin.models.*;
+import com.example.questplugin.ui.QuestGUI;
 import com.example.questplugin.utils.*;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import net.milkbowl.vault.economy.Economy;
 import dev.aurelium.auraskills.api.AuraSkillsApi;
+
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.java.JavaPlugin;
+
 
 public final class QuestPlugin extends JavaPlugin {
 
@@ -22,6 +27,7 @@ public final class QuestPlugin extends JavaPlugin {
     private QuestStorageService storageService;
     private QuestManager questManager;
     private LeaderboardManager leaderboardManager;
+    private QuestAssigner questAssigner;
 
     // Integrations
     private Economy economy;
@@ -73,8 +79,8 @@ public final class QuestPlugin extends JavaPlugin {
     // === Initialization Methods ===
     private void registerListeners() {
         new AuraSkillsListener(this);
-        new BlockEventsListener(this);
-        new LifeEventsListener(this);
+        new BlockEventsListener();
+        new LifeEventsListener();
         new MobKillListener(this);
         new PlayerJoinListener(this);
         
@@ -103,6 +109,10 @@ public final class QuestPlugin extends JavaPlugin {
         if (rsp == null) return false;
         economy = rsp.getProvider();
         return economy != null;
+    }
+
+    public void debug(String message) {
+        Bukkit.getLogger().info("[DEBUG] " + message);
     }
 
     // === Accessors ===
@@ -140,5 +150,9 @@ public final class QuestPlugin extends JavaPlugin {
 
     public AuraSkillsApi getAuraSkillsApi() {
         return auraSkillsApi;
+    }
+
+    public QuestAssigner getQuestAssigner() {
+        return this.questAssigner;
     }
 }

@@ -1,6 +1,12 @@
-package com.example.questplugin;
+package com.example.questplugin.managers;
 
 import java.util.*; import java.util.stream.Collectors;
+
+import com.example.questplugin.QuestPlugin;
+import com.example.questplugin.enums.QuestRarity;
+import com.example.questplugin.enums.QuestTier;
+import com.example.questplugin.models.Quest;
+import com.example.questplugin.models.QuestTemplate;
 
 public class QuestAssigner {
 

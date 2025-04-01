@@ -9,6 +9,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import com.example.questplugin.QuestPlugin;
+import com.example.questplugin.enums.QuestTier;
+import com.example.questplugin.models.Quest;
+
 public class PlayerJoinListener implements Listener {
 
     private final QuestPlugin plugin;

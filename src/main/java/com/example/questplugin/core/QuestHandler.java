@@ -1,7 +1,14 @@
 // QuestHandler.java
 package com.example.questplugin.core;
 
+import com.example.questplugin.QuestNotifier;
 import com.example.questplugin.QuestPlugin;
+import com.example.questplugin.enums.QuestTier;
+import com.example.questplugin.enums.QuestType;
+import com.example.questplugin.managers.QuestManager;
+import com.example.questplugin.models.Quest;
+
+import dev.aurelium.auraskills.api.skill.Skill;
 
 import org.bukkit.entity.Player;
 import java.util.List;

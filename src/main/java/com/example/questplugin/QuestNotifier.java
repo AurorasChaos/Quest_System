@@ -6,6 +6,8 @@ import net.kyori.adventure.title.Title;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
+import com.example.questplugin.models.Quest;
+
 import java.time.Duration;
 
 public class QuestNotifier {
