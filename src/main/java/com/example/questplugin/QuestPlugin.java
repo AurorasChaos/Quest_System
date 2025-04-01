@@ -155,4 +155,9 @@ public final class QuestPlugin extends JavaPlugin {
     public QuestAssigner getQuestAssigner() {
         return this.questAssigner;
     }
+
+    public void log(String string) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'log'");
+    }
 }

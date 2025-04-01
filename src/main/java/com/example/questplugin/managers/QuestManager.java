@@ -6,11 +6,21 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+
+import com.example.questplugin.QuestPlugin;
+import com.example.questplugin.core.PlayerQuestData;
+import com.example.questplugin.enums.QuestRarity;
+import com.example.questplugin.enums.QuestTier;
+import com.example.questplugin.enums.QuestType;
+import com.example.questplugin.models.Quest;
+import com.example.questplugin.models.QuestTemplate;
+import com.google.common.cache.Cache;
 
 public class QuestManager {
 
@@ -22,7 +32,7 @@ public class QuestManager {
     private final File globalFile;
     private final FileConfiguration globalConfig;
 
-            private final Map<UUID, List<Quest>> playerGlobalQuests = new HashMap<>();
+    private final Map<UUID, List<Quest>> playerGlobalQuests = new HashMap<>();
 
     public QuestManager(QuestPlugin plugin) {
         this.plugin = plugin;
@@ -142,6 +152,40 @@ public class QuestManager {
         return globalQuests;
     }
 
+    public void loadTemplates() {
+        File file = new File(plugin.getDataFolder(), "quests.yml");
+        if (!file.exists()) plugin.saveResource("quests.yml", false);
+        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        for (String id : config.getConfigurationSection("quests").getKeys(false)) {
+            String path = "quests." + id;
+            String description = config.getString(path + ".description");
+            QuestType type = QuestType.valueOf(config.getString(path + ".type", "CUSTOM"));
+            String targetKey = config.getString(path + ".target_key", null);
+            int target_amount = config.getInt(path + ".target_amount", 1);
+            double currency = config.getDouble(path + ".currency", 0);
+            int skill = config.getInt(path + ".skill_points", 0);
+            String skillType = config.getString(path + ".skill_type", null);
+            int skillXp = config.getInt(path + ".skill_xp", 0);
+            QuestTier tier = QuestTier.valueOf(config.getString(path + ".tier", "DAILY"));
+            QuestRarity rarity = QuestRarity.fromString(config.getString(path + ".rarity", "COMMON"));
+
+            QuestTemplate template = new QuestTemplate(
+                id, description, type, targetKey, target_amount,
+                currency, skill, skillType, skillXp, tier, rarity
+            );
+            questTemplates.put(id, template);
+        }
+    }
+
+    public List<QuestTemplate> getTemplatesByTier(QuestTier tier) {
+        return questTemplates.values().stream()
+                .filter(q -> q.getTier() == tier)
+                .toList();
+    }
+
+    
+
     private LocalDate lastResetDate;
 
     private File resetFile;
@@ -191,10 +235,10 @@ public class QuestManager {
             List<Quest> daily = plugin.getQuestAssigner().assignDailyQuests(uuid);
             List<Quest> weekly = plugin.getQuestManager().getPlayerWeeklyQuests(uuid);
             plugin.getQuestManager().assignNewDailyQuests(uuid, daily);
-            plugin.getQuestStorage().savePlayerQuests(uuid, daily, weekly);
+            plugin.getQuestStorageService().savePlayerQuests(uuid, daily, weekly);
         }
     
-        plugin.getQuestStorage().save();
+        plugin.getQuestStorageService().save();
     }
 
     public void performWeeklyReset() {
@@ -205,10 +249,10 @@ public class QuestManager {
             List<Quest> weekly = plugin.getQuestAssigner().assignWeeklyQuests(uuid);
             List<Quest> daily = plugin.getQuestManager().getPlayerDailyQuests(uuid);
             plugin.getQuestManager().assignNewWeeklyQuests(uuid, weekly);
-            plugin.getQuestStorage().savePlayerQuests(uuid, daily, weekly);
+            plugin.getQuestStorageService().savePlayerQuests(uuid, daily, weekly);
         }
     
-        plugin.getQuestStorage().save();
+        plugin.getQuestStorageService().save();
         Bukkit.getLogger().info("[QuestPlugin] Weekly reset complete.");
     }
 
@@ -218,7 +262,7 @@ public class QuestManager {
         int globalLimit = plugin.getConfig().getInt("QuestLimits.GLOBAL", 10);
         List<Quest> newGlobals = new ArrayList<>(currentGlobal);
     
-        List<QuestTemplate> allGlobalTemplates = plugin.getQuestLoader().getTemplatesByTier(QuestTier.GLOBAL);
+        List<QuestTemplate> allGlobalTemplates = plugin.getQuestManager().getTemplatesByTier(QuestTier.GLOBAL);
         Set<String> usedIds = currentGlobal.stream()
             .filter(q -> !q.isCompleted()) // preserve incomplete ones
             .map(Quest::getId)
@@ -253,7 +297,7 @@ public class QuestManager {
         boolean alreadyHas = existing.stream().anyMatch(q -> q.getId().equalsIgnoreCase(quest.getId()));
         if (!alreadyHas) {
             existing.add(quest);
-            plugin.getQuestStorage().savePlayerQuests(uuid, existing, plugin.getQuestManager().getPlayerWeeklyQuests(uuid));
+            plugin.getQuestStorageService().savePlayerQuests(uuid, existing, plugin.getQuestManager().getPlayerWeeklyQuests(uuid));
             plugin.debug("[Dev] Added quest '" + quest.getId() + "' to player " + uuid);
         } else {
             plugin.debug("[Dev] Player already has quest '" + quest.getId() + "'");
@@ -275,12 +319,17 @@ public class QuestManager {
     public void simulateDailyReset() {
         Bukkit.getOnlinePlayers().forEach(p -> {
             assignNewDailyQuests(p.getUniqueId(), 
-                getQuestAssigner().getRandomQuestsWeighted(
+                plugin.getQuestAssigner().getRandomQuestsWeighted(
                     p.getUniqueId(), 
                     QuestTier.DAILY, 
-                    getConfigManager().getDailyQuestLimit()
+                    plugin.getConfigManager().getDailyQuestLimit()
                 )
             );
         });
+    }
+
+    public void dumpCacheToConsole() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'dumpCacheToConsole'");
     }
 }

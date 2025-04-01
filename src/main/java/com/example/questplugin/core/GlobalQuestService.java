@@ -27,8 +27,7 @@ public class GlobalQuestService {
 
     public void refreshGlobalQuests() {
         List<Quest> newQuests = new ArrayList<>();
-        List<QuestTemplate> allTemplates = plugin.getQuestLoader()
-            .getTemplatesByTier(QuestTier.GLOBAL);
+        List<QuestTemplate> allTemplates = plugin.getQuestManager().getTemplatesByTier(QuestTier.GLOBAL);
 
         // Keep incomplete quests
         activeQuests.removeIf(Quest::isCompleted);
