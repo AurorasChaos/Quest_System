@@ -14,7 +14,8 @@ import java.util.*;
 public class QuestLoader {
 
     private final QuestPlugin plugin;
-    private final Map<String, QuestTemplate> questTemplates = new HashMap<>();
+    private final List<QuestTemplate> templates = new ArrayList<>();
+    private FileConfiguration config;
 
     public QuestLoader(QuestPlugin plugin) {
         this.plugin = plugin;
@@ -22,38 +23,28 @@ public class QuestLoader {
     }
 
     public void loadTemplates() {
-        File file = new File(plugin.getDataFolder(), "quests.yml");
-        if (!file.exists()) plugin.saveResource("quests.yml", false);
-        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+        // Load quest templates from a YAML file
+        File templateFile = new File(plugin.getDataFolder(), "quests.yml");
+        if (!templateFile.exists()) {
+            plugin.saveResource("quests.yml", false);
+            plugin.debug("[TemplateLoader] Created new quests.yml");
+        }
+        config = YamlConfiguration.loadConfiguration(templateFile);
 
-        for (String id : config.getConfigurationSection("quests").getKeys(false)) {
-            String path = "quests." + id;
-            String description = config.getString(path + ".description");
-            QuestType type = QuestType.valueOf(config.getString(path + ".type", "CUSTOM"));
-            String targetKey = config.getString(path + ".target_key", null);
-            int target_amount = config.getInt(path + ".target_amount", 1);
-            double currency = config.getDouble(path + ".currency", 0);
-            int skill = config.getInt(path + ".skill_points", 0);
-            String skillType = config.getString(path + ".skill_type", null);
-            int skillXp = config.getInt(path + ".skill_xp", 0);
-            QuestTier tier = QuestTier.valueOf(config.getString(path + ".tier", "DAILY"));
-            QuestRarity rarity = QuestRarity.fromString(config.getString(path + ".rarity", "COMMON"));
-
-            QuestTemplate template = new QuestTemplate(
-                id, description, type, targetKey, target_amount,
-                currency, skill, skillType, skillXp, tier, rarity
-            );
-            questTemplates.put(id, template);
+        for (String key : config.getKeys(false)) {
+            QuestTemplate template = new QuestTemplate(config.getConfigurationSection(key));
+            templates.add(template);
+            plugin.debug("[TemplateLoader] Loaded quest template: " + template.getId());
         }
     }
 
     public List<QuestTemplate> getAllTemplates() {
-        return new ArrayList<>(questTemplates.values());
+        return templates;
     }
 
     public List<QuestTemplate> getTemplatesByTier(QuestTier tier) {
-        return questTemplates.values().stream()
-                .filter(q -> q.getTier() == tier)
+        return templates.stream()
+                .filter(q -> q.getQuestTier() == tier)
                 .toList();
     }
 }

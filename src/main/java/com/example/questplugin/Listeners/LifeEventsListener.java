@@ -141,21 +141,25 @@ public class LifeEventsListener extends BaseListener implements Listener {
 
         walkProgress.put(uuid, total % 1.0);
 
-        for (QuestTier tier : QuestTier.values()) {
-            for (Quest quest : plugin.getQuestManager().getQuestsForTier(uuid, tier)) {
-                if (quest.getType() == QuestType.WALK_DISTANCE && !quest.isCompleted()) {
-                    plugin.debug("[WalkDistance] Progress +" + stepsToApply + " for " + player.getName() + " on quest " + quest.getId());
-                    quest.incrementProgress(stepsToApply);
-                    new QuestNotifier(plugin).notifyProgress(player, quest);
-                }
+        for (Quest quest : questManager.getPlayerDailyQuests(player.getUniqueId())){
+            if (!quest.isCompleted()){
+                quest.getQuestObjectives().forEach(obj -> {
+                    if (obj.getObjectiveType() == QuestType.WALK_DISTANCE){
+                        incrementProgressAndNotify(player, obj, quest);
+                        plugin.debug("[WALK_DISTANCE] Updated progress for daily quest " + quest.getId() + ": " + obj.getProgress());
+                    }
+                });
             }
         }
-
-        for (Quest quest : plugin.getQuestManager().getGlobalQuests()) {
-            if (quest.getType() == QuestType.WALK_DISTANCE && !quest.isCompleted()) {
-                plugin.debug("[WalkDistance] Progress +" + stepsToApply + " GLOBAL for " + player.getName() + " on quest " + quest.getId());
-                quest.incrementProgress(stepsToApply);
-                new QuestNotifier(plugin).notifyProgress(player, quest);
+        // Handle global quests
+        for (Quest quest : questManager.getGlobalQuests()){
+            if (!quest.isCompleted()){
+                quest.getQuestObjectives().forEach(obj -> {
+                    if (obj.getObjectiveType() == QuestType.WALK_DISTANCE){
+                        incrementProgressAndNotify(player, obj, quest);
+                        plugin.debug("WALK_DISTANCE] Updated progress for global quest " + quest.getId() + ": " + obj.getProgress());
+                    }
+                });
             }
         }
     }

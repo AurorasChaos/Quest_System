@@ -2,6 +2,10 @@ package com.example.questplugin.model;
 
 import com.example.questplugin.util.EntityCategoryMatcher;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 public class Quest {
 
     private final String id;
@@ -10,30 +14,33 @@ public class Quest {
     private final String targetKey;
     private final int targetAmount;
     private final double currencyReward;
-    private final int skillPointReward;
     private final QuestTier tier;
     private final QuestRarity rarity;
+
+    private final UUID playerUUID;
+    private final List<QuestTemplate.Objective> objectives = new ArrayList<>();
 
     private int progress = 0;
     private boolean rewardClaimed = false;
 
-    private String skillType;
-    private int skillXp;
+    private final String skillType;
+    private final int skillXp;
 
-    public Quest(String id, String description, QuestType type, String targetKey, int targetAmount,
-    double currencyReward, int skillPointReward, String skillType, int skillXp,
-    QuestTier tier, QuestRarity rarity) {
-        this.id = id;
-        this.description = description;
-        this.type = type;
-        this.targetKey = targetKey;
-        this.targetAmount = targetAmount;
-        this.currencyReward = currencyReward;
-        this.skillPointReward = skillPointReward;
-        this.skillType = skillType;
-        this.skillXp = skillXp;
-        this.tier = tier;
-        this.rarity = rarity;
+    public Quest(QuestTemplate template, UUID playerUUID) {
+        this.playerUUID = playerUUID;
+        for (QuestTemplate.Objective obj : template.getObjectives()){
+            objectives.add(new QuestTemplate.Objective(obj.getObjectiveType(), obj.getObjectiveTargetKey(), obj.getObjectiveTargetAmount()));
+        }
+        this.id = template.getId();
+        this.description = template.getDescription();
+        this.type = template.getType();
+        this.targetKey = template.getTargetKey();
+        this.targetAmount = template.getTargetAmount();
+        this.currencyReward = template.getCurrenyReward();
+        this.skillType = template.getSkillType();
+        this.skillXp = template.getSkillXp();
+        this.tier = template.getQuestTier();
+        this.rarity = template.getQuestRarity();
     }
     
     public String getId() { return id; }
@@ -45,14 +52,11 @@ public class Quest {
     public boolean isCompleted() { return progress >= targetAmount; }
     public boolean isRewardClaimed() { return rewardClaimed; }
     public double getCurrencyReward() { return currencyReward; }
-    public int getSkillPointReward() { return skillPointReward; }
     public QuestTier getTier() { return tier; }
     public QuestRarity getRarity() { return rarity; }
     public String getSkillType() { return skillType; }
-    public void setSkillType(String skillType) { this.skillType = skillType; }
-
+    public List<QuestTemplate.Objective> getQuestObjectives() {return objectives;}
     public int getSkillXp() { return skillXp; }
-    public void setSkillXp(int skillXp) { this.skillXp = skillXp; }
 
     public void incrementProgress(int amount) {
         if (!isCompleted()) {

@@ -2,6 +2,7 @@ package com.example.questplugin.util;
 
 import com.example.questplugin.QuestPlugin;
 import com.example.questplugin.model.Quest;
+import com.example.questplugin.model.QuestTemplate;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Sound;
@@ -20,13 +21,13 @@ public class QuestNotifier {
      * Notifies the player about quest progress using the action bar.
      * This triggers every 10% milestone (excluding 0% and 100%).
      */
-    public void notifyProgress(Player player, Quest quest) {
-        double percent = (double) quest.getCurrentProgress() / quest.getTargetAmount();
+    public void notifyProgress(Player player, QuestTemplate.Objective obj, Quest quest) {
+        double percent = (double) obj.getProgress() / obj.getObjectiveTargetAmount();
         int percentage = (int) (percent * 100);
 
         if (percentage % 10 == 0 && percentage != 0 && !quest.isCompleted()) {
             Component actionBar = Component.text()
-                    .append(Component.text("Quest: ", NamedTextColor.YELLOW))
+                    .append(Component.text("Objective: ", NamedTextColor.YELLOW))
                     .append(Component.text(quest.getDescription(), NamedTextColor.GOLD))
                     .append(Component.text(" [" + percentage + "%]", NamedTextColor.YELLOW))
                     .build();

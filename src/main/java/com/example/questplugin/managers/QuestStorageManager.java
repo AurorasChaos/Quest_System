@@ -73,14 +73,22 @@ public class QuestStorageManager {
             if (config.contains(uuidStr + ".daily")) {
                 for (String key : config.getConfigurationSection(uuidStr + ".daily").getKeys(false)) {
                     QuestTemplate template = plugin.getQuestLoader().getAllTemplates().stream()
-                            .filter(q -> q.toQuest().getId().equals(key)).findFirst().orElse(null);
+                            .filter(q -> q.getId().equals(key)).findFirst().orElse(null);
                     if (template == null) {
                         plugin.debug("[Storage] Skipped unknown daily quest ID: " + key);
                         continue;
                     }
-                    Quest quest = template.toQuest();
-                    quest.setCurrentProgress(config.getInt(uuidStr + ".daily." + key + ".progress"));
-                    if (config.getBoolean(uuidStr + ".daily." + key + ".claimed")) quest.claimReward();
+                    Quest quest = new Quest(template, uuid);
+                    for (QuestTemplate.Objective obj : template.getObjectives()) {
+                        String path = uuidStr + ".daily." + key + ".objectives." + obj.getObjectiveTargetKey();
+                        quest.getQuestObjectives().stream()
+                                .filter(qObj -> qObj.getObjectiveTargetKey().equals(obj.getObjectiveTargetKey()))
+                                .findFirst()
+                                .ifPresent(qObj -> {
+                                    qObj.setProgress(config.getInt(path + ".progress"));
+                                    if (config.getBoolean(path + ".claimed")) quest.claimReward();
+                                });
+                    }
                     daily.add(quest);
                 }
             }
@@ -88,14 +96,22 @@ public class QuestStorageManager {
             if (config.contains(uuidStr + ".weekly")) {
                 for (String key : config.getConfigurationSection(uuidStr + ".weekly").getKeys(false)) {
                     QuestTemplate template = plugin.getQuestLoader().getAllTemplates().stream()
-                            .filter(q -> q.toQuest().getId().equals(key)).findFirst().orElse(null);
+                            .filter(q -> q.getId().equals(key)).findFirst().orElse(null);
                     if (template == null) {
                         plugin.debug("[Storage] Skipped unknown weekly quest ID: " + key);
                         continue;
                     }
-                    Quest quest = template.toQuest();
-                    quest.setCurrentProgress(config.getInt(uuidStr + ".weekly." + key + ".progress"));
-                    if (config.getBoolean(uuidStr + ".weekly." + key + ".claimed")) quest.claimReward();
+                    Quest quest = new Quest(template, uuid);
+                    for (QuestTemplate.Objective obj : template.getObjectives()) {
+                        String path = uuidStr + ".weekly." + key + ".objectives." + obj.getObjectiveTargetKey();
+                        quest.getQuestObjectives().stream()
+                                .filter(qObj -> qObj.getObjectiveTargetKey().equals(obj.getObjectiveTargetKey()))
+                                .findFirst()
+                                .ifPresent(qObj -> {
+                                    qObj.setProgress(config.getInt(path + ".progress"));
+                                    if (config.getBoolean(path + ".claimed")) quest.claimReward();
+                                });
+                    }
                     weekly.add(quest);
                 }
             }

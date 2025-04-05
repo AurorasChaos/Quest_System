@@ -49,7 +49,7 @@ public List<Quest> getRandomQuestsWeighted(UUID playerId, QuestTier tier, int co
     List<QuestTemplate> weightedList = new ArrayList<>();
     for (QuestTemplate template : templates) {
         if (assignedIds.contains(template.getId())) continue;
-        int weight = getWeight(template.getRarity());
+        int weight = getWeight(template.getQuestRarity());
         for (int i = 0; i < weight; i++) {
             weightedList.add(template);
         }
