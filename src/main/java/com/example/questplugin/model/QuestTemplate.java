@@ -1,4 +1,4 @@
-package com.example.questplugin;
+package com.example.questplugin.model;
 
 public class QuestTemplate {
 

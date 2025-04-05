@@ -1,4 +1,6 @@
-package com.example.questplugin;
+package com.example.questplugin.model;
+
+import com.example.questplugin.util.EntityCategoryMatcher;
 
 public class Quest {
 

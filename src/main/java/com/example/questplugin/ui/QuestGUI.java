@@ -1,6 +1,12 @@
 // QuestGUI.java with safe Map<Slot, Quest> click handling, pagination, and ALL tab support
-package com.example.questplugin;
+package com.example.questplugin.ui;
 
+import com.example.questplugin.util.QuestNotifier;
+import com.example.questplugin.QuestPlugin;
+import com.example.questplugin.model.QuestTier;
+import com.example.questplugin.managers.RewardHandler;
+import com.example.questplugin.model.Quest;
+import com.example.questplugin.util.QuestFilter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

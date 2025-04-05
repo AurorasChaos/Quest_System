@@ -1,4 +1,4 @@
-package com.example.questplugin;
+package com.example.questplugin.model;
 
 public enum QuestTier {
     DAILY,

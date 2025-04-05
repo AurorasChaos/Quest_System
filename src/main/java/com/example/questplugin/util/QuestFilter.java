@@ -1,4 +1,6 @@
-package com.example.questplugin;
+package com.example.questplugin.util;
+
+import com.example.questplugin.model.Quest;
 
 import java.util.List;
 

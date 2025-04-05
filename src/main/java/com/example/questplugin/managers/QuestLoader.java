@@ -1,5 +1,10 @@
-package com.example.questplugin;
+package com.example.questplugin.managers;
 
+import com.example.questplugin.*;
+import com.example.questplugin.model.QuestRarity;
+import com.example.questplugin.model.QuestTemplate;
+import com.example.questplugin.model.QuestTier;
+import com.example.questplugin.model.QuestType;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 

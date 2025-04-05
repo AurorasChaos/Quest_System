@@ -3,6 +3,14 @@
 
 package com.example.questplugin;
 
+import com.example.questplugin.Listeners.*;
+import com.example.questplugin.commands.DevCommands;
+import com.example.questplugin.commands.QuestCommand;
+import com.example.questplugin.managers.*;
+import com.example.questplugin.model.QuestLeaderboardSection;
+import com.example.questplugin.ui.QuestGUI;
+import com.example.questplugin.util.QuestNotifier;
+import com.example.questplugin.util.RarityRoller;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,21 +35,34 @@ public class QuestPlugin extends JavaPlugin {
     private BukkitAudiences adventure;
     private QuestAssigner questAssigner;
     private static QuestPlugin instance;
+    private QuestNotifier questNotifier;
+    private RewardHandler rewardHandler;
 
 
     @Override
     public void onEnable() {
-        log("[Init] Loading configuration...");
-        saveDefaultConfig();
-        FileConfiguration config = getConfig();
-        this.debugMode = config.getBoolean("Debug", false);
-
-        instance = this;
+        loadConfig();
+        setupAssignments();
+        registerListeners();
+        registerCommands();
 
         if (!setupEconomy()) {
             log("[Vault] Economy provider not found. Coin rewards will be disabled.");
         }
 
+        loadQuestData();
+
+        log("QuestPlugin enabled.");
+    }
+
+    public void loadConfig(){
+        log("[Init] Loading configuration...");
+        saveDefaultConfig();
+        FileConfiguration config = getConfig();
+        this.debugMode = config.getBoolean("Debug", false);
+    }
+
+    public void setupAssignments() {
         log("[Init] Loading managers...");
         this.questLoader = new QuestLoader(this);
         this.questStorage = new QuestStorageManager(this);
@@ -50,17 +71,16 @@ public class QuestPlugin extends JavaPlugin {
         this.rarityRoller = new RarityRoller(this);
         this.adventure = BukkitAudiences.create(this);
         this.questAssigner = new QuestAssigner(this);
+        this.questNotifier = new QuestNotifier(this);
+        this.rewardHandler = new RewardHandler(this);
+        instance = this;
+
 
         SidebarManager manager = UniversalScoreboard.get().getSidebarManager();
         manager.registerSection(new QuestLeaderboardSection());
+    }
 
-        Bukkit.getScheduler().runTaskTimer(this, () -> {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                manager.update(player);
-            }
-        }, 0L, 40L);
-
-
+    public void registerListeners() {
         log("[Init] Registering event listeners...");
         getServer().getPluginManager().registerEvents(new QuestGUI(this), this);
         getServer().getPluginManager().registerEvents(new MobKillListener(this), this);
@@ -68,19 +88,21 @@ public class QuestPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new LifeEventsListener(this), this);
         getServer().getPluginManager().registerEvents(new AuraSkillsListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
+    }
 
+    public void registerCommands(){
         log("[Init] Registering commands...");
         getCommand("questdev").setExecutor(new DevCommands(this));
         getCommand("quest").setExecutor(new QuestCommand(this));
+    }
 
+    public void loadQuestData(){
         log("[Init] Loading saved quest data...");
         questStorage.loadIntoManager(questManager);
 
         questManager.checkResetOnStartup();
 
         questManager.ensureInitialAssignments();
-
-        log("QuestPlugin enabled.");
     }
 
     @Override
@@ -127,6 +149,8 @@ public class QuestPlugin extends JavaPlugin {
     public AuraSkillsApi getAuraSkillsApi() { return AuraSkillsApi.get(); }
     public boolean isDebugMode() { return debugMode; }
     public QuestAssigner getQuestAssigner() { return questAssigner;}
+    public QuestNotifier getQuestNotifier() { return questNotifier;}
+    public RewardHandler getRewardHandler() { return rewardHandler; }
 
     public static QuestPlugin getInstance() {
         return instance;

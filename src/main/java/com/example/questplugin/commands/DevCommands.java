@@ -1,6 +1,8 @@
-package com.example.questplugin;
+package com.example.questplugin.commands;
 
-import org.bukkit.Bukkit;
+import com.example.questplugin.model.Quest;
+import com.example.questplugin.QuestPlugin;
+import com.example.questplugin.model.QuestTemplate;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,10 +14,24 @@ public class DevCommands implements CommandExecutor {
 
     private final QuestPlugin plugin;
 
+    /**
+     * Constructor to initialize the command executor.
+     *
+     * @param plugin The main plugin instance.
+     */
     public DevCommands(QuestPlugin plugin) {
         this.plugin = plugin;
     }
 
+    /**
+     * Handles the execution of commands by players.
+     *
+     * @param sender  The source of the command, either a player or console.
+     * @param command The command which was executed.
+     * @param label   The alias of the command which was used.
+     * @param args    All arguments that were passed to the command.
+     * @return true if the command was handled successfully, false otherwise.
+     */
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player player)) {

@@ -1,7 +1,9 @@
-package com.example.questplugin;
+package com.example.questplugin.model;
 
 import com.auradev.universalscoreboard.SidebarFrame;
 import com.auradev.universalscoreboard.SidebarSection;
+import com.example.questplugin.QuestPlugin;
+import com.example.questplugin.managers.LeaderboardManager;
 import org.bukkit.entity.Player;
 
 import java.util.*;

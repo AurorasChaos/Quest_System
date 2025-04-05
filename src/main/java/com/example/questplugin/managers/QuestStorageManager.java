@@ -1,5 +1,8 @@
-package com.example.questplugin;
+package com.example.questplugin.managers;
 
+import com.example.questplugin.QuestPlugin;
+import com.example.questplugin.model.Quest;
+import com.example.questplugin.model.QuestTemplate;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;

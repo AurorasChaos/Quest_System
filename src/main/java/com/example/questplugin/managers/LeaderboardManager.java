@@ -1,5 +1,7 @@
-package com.example.questplugin;
+package com.example.questplugin.managers;
 
+import com.example.questplugin.QuestPlugin;
+import com.example.questplugin.model.Quest;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;

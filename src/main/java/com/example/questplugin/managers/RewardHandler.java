@@ -1,22 +1,21 @@
-package com.example.questplugin;
+package com.example.questplugin.managers;
 
-import java.util.Locale;
-
+import com.example.questplugin.QuestPlugin;
+import com.example.questplugin.model.Quest;
+import com.example.questplugin.util.QuestNotifier;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import dev.aurelium.auraskills.api.user.SkillsUser;
-import dev.aurelium.auraskills.bukkit.AuraSkills;
-import dev.aurelium.auraskills.api.AuraSkillsApi;
-import dev.aurelium.auraskills.api.registry.NamespacedId;
-import dev.aurelium.auraskills.api.skill.Skill;
 import dev.aurelium.auraskills.api.skill.Skills;
 
 public class RewardHandler {
     private final QuestPlugin plugin;
+    private final QuestNotifier questNotifier;
 
     public RewardHandler(QuestPlugin plugin) {
         this.plugin = plugin;
+        this.questNotifier = plugin.getQuestNotifier();
     }
 
     public boolean giveReward(Player player, Quest quest) {
@@ -47,6 +46,7 @@ public class RewardHandler {
             e.printStackTrace();
         }
 
+        questNotifier.notifyCompletion(player, quest);
         quest.claimReward();
         plugin.getLeaderboardManager().recordCompletion(player.getUniqueId(), quest);
         return true;

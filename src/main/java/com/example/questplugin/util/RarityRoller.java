@@ -1,5 +1,7 @@
-package com.example.questplugin;
+package com.example.questplugin.util;
 
+import com.example.questplugin.QuestPlugin;
+import com.example.questplugin.model.QuestRarity;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.Random;

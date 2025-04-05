@@ -1,4 +1,10 @@
-package com.example.questplugin;
+package com.example.questplugin.managers;
+
+import com.example.questplugin.QuestPlugin;
+import com.example.questplugin.model.QuestRarity;
+import com.example.questplugin.model.QuestTemplate;
+import com.example.questplugin.model.QuestTier;
+import com.example.questplugin.model.Quest;
 
 import java.util.*; import java.util.stream.Collectors;
 

@@ -1,5 +1,5 @@
 // QuestManager with global quest persistence and saving support
-package com.example.questplugin;
+package com.example.questplugin.managers;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +8,10 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+import com.example.questplugin.QuestPlugin;
+import com.example.questplugin.model.QuestTemplate;
+import com.example.questplugin.model.QuestTier;
+import com.example.questplugin.model.Quest;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;

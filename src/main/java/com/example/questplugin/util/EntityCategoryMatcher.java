@@ -1,4 +1,4 @@
-package com.example.questplugin;
+package com.example.questplugin.util;
 
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Monster;

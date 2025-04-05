@@ -1,8 +1,11 @@
-package com.example.questplugin;
+package com.example.questplugin.Listeners;
 
 import java.util.List;
 import java.util.UUID;
 
+import com.example.questplugin.model.Quest;
+import com.example.questplugin.QuestPlugin;
+import com.example.questplugin.model.QuestTier;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
